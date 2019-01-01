@@ -123,20 +123,25 @@ public class ShopUserController {
 		headNameMap.put("phone", "手机号");
 		headNameMap.put("refPhone", "推荐人手机号");
 		headNameMap.put("vipLevel", "会员等级");
-		headNameMap.put("status", "是否有效");
-		headNameMap.put("balance", "账户余额");
-		headNameMap.put("activeBill", "健康值激活个数");
-		headNameMap.put("tradeBill", "转让获得的健康值");
-		headNameMap.put("credits", "账户积分");
+		headNameMap.put("status", "账号状态");
+		headNameMap.put("vipStatus", "会员状态");
+		headNameMap.put("balance", "消费积分");
+		headNameMap.put("tuiguang", "广告积分");
+		headNameMap.put("activeBill", "共享积分");
+		headNameMap.put("credits", "购物积分");
 		headNameMap.put("createDate", "创建时间");
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if (userList != null && userList.size() > 0) {
 			for (ShopUser user : userList) {
 				String statusName = "有效";
+				String vstatusName = "参与分红";
 				String createDate = "";
 				if (user.getStatus() == 2) {
 					statusName = "无效";
+				}
+				if (user.getVipStatus() == 2) {
+					vstatusName = "不参与";
 				}
 
 				if (user.getCreateDate() != null) {
@@ -149,10 +154,11 @@ public class ShopUserController {
 				map.put("refPhone", user.getRefPhone());
 				map.put("vipLevel", com.jeff.everyboo.common.util.VipLevelEnum.getDescByCode(user.getVipLevel()));
 				map.put("status", statusName);
-				map.put("credits", user.getShopUserExts().getCredits());
-				map.put("activeBill", user.getShopUserExts().getActiveBill());
-				map.put("tradeBill", user.getShopUserExts().getTradeBill());
+				map.put("vipStatus", vstatusName);
 				map.put("balance", user.getShopUserExts().getBalance());
+				map.put("tuiguang", user.getShopUserExts().getTuiguang());
+				map.put("activeBill", user.getShopUserExts().getActiveBill());
+				map.put("credits", user.getShopUserExts().getCredits());
 				map.put("createDate", createDate);
 				list.add(map);
 			}
@@ -245,20 +251,23 @@ public class ShopUserController {
 				user.setShopUserExts(null);
 				user = userService.save(user);
 				uExt.setShopUser(user);
-				if (StringUtils.isEmpty(uExt.getActiveBill())) {
-					uExt.setActiveBill("0");
+				if (uExt.getActiveBill()==null) {
+					uExt.setActiveBill(new BigDecimal(0));
 				}
 				if (uExt.getBalance()==null) {
 					uExt.setBalance(new BigDecimal(0));
 				}
-				if (StringUtils.isEmpty(uExt.getBill())) {
-					uExt.setBill("0");
+				if (uExt.getBill()==null) {
+					uExt.setBill(new BigDecimal(0));
 				}
-				if (StringUtils.isEmpty(uExt.getCredits())) {
-					uExt.setCredits("0");
+				if (uExt.getCredits()==null) {
+					uExt.setCredits(new BigDecimal(0));
 				}
-				if (StringUtils.isEmpty(uExt.getTradeBill())) {
-					uExt.setTradeBill("0");
+				if (uExt.getTradeBill()==null) {
+					uExt.setTradeBill(new BigDecimal(0));
+				}
+				if (uExt.getTuiguang()==null) {
+					uExt.setTuiguang(new BigDecimal(0));
 				}
 				userExtService.save(uExt);
 			}

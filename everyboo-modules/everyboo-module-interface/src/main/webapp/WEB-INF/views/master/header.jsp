@@ -57,11 +57,11 @@
                                     <li>
                                         <a href="<%=path%>/shop">商城 </a>
                                     </li>
-                                    <li><a href="<%=path%>/shop-proj">项目合作</a>
+                                    <%-- <li><a href="<%=path%>/shop-proj">项目合作</a> --%>
                                     <li><a href="<%=path%>/blog">资讯</a></li>
-                                    <li><a href="<%=path%>/health">健康管理 </a>
+                                    <%-- <li><a href="<%=path%>/health">健康管理 </a>
                                     </li>
-                                    <li><a href="<%=path%>/heart">爱心公益</a>
+                                    <li><a href="<%=path%>/heart">爱心公益</a> --%>
                                     </li>
                                     <li><a href="<%=path%>/contact">联系我们</a></li>
                                 </ul>
@@ -88,11 +88,11 @@
                             <li>
                                 <a href="<%=path%>/shop">商城 </a>
                             </li>
-                            <li><a href="<%=path%>/shop-proj">项目合作</a>
+                            <%-- <li><a href="<%=path%>/shop-proj">项目合作</a> --%>
                             <li><a href="<%=path%>/blog">资讯</a></li>
-                            <li><a href="<%=path%>/health">健康管理 </a>
+                            <%-- <li><a href="<%=path%>/health">健康管理 </a>
                             </li>
-                            <li><a href="<%=path%>/heart">爱心公益</a>
+                            <li><a href="<%=path%>/heart">爱心公益</a> --%>
                             </li>
                             <li><a href="<%=path%>/contact">联系我们</a></li>
                         </ul>

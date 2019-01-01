@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.jpa.criteria.predicate.NegatedPredicateWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -188,7 +190,7 @@ public class ShopTradeController {
 			}
 
 			// 账户积分-订单积分+购买商品赠送积分
-			BigDecimal credits = new BigDecimal(user.getShopUserExts().getCredits());
+			BigDecimal credits = user.getShopUserExts().getCredits();
 			BigDecimal credits2 = new BigDecimal(bean.getCredits());
 			if (credits.compareTo(credits2) < 0) {
 				ajaxResult.setSuccess(false);
@@ -243,7 +245,7 @@ public class ShopTradeController {
 				productService.save(product);
 			}
 			// 账户积分-订单积分+购买商品赠送积分
-			user.getShopUserExts().setCredits(credits.subtract(credits2).toString());
+			user.getShopUserExts().setCredits(credits.subtract(credits2));
 			userService.update(user);
 			ajaxResult.setSuccess(true);
 		} else {
@@ -313,8 +315,8 @@ public class ShopTradeController {
 
 			// 升级会员信息
 			user.setVipLevel(rule.getVipLevel());
-			user.getShopUserExts().setBill(rule.getBill());// 总健康链
-			user.getShopUserExts().setCredits(product.getIncomeCredits());// 购买商品赠送积分
+			user.getShopUserExts().setBill(new BigDecimal( rule.getBill()));// 总健康链
+			user.getShopUserExts().setCredits(new BigDecimal(product.getIncomeCredits()));// 购买商品赠送积分
 			// 更改会员账户信息
 			userService.update(user);
 			// 如果介绍人电话不为空，介绍人获得直推收益
@@ -326,18 +328,17 @@ public class ShopTradeController {
 				if (ztUser != null) {
 					// 直推用户等级对应的奖励规则
 					ShopRegisterRule rule2 = ruleService.findByVip(ztUser.getVipLevel());
-					BigDecimal b1 = new BigDecimal(ztUser.getShopUserExts().getActiveBill());
+					BigDecimal b1 = ztUser.getShopUserExts().getActiveBill();
 					BigDecimal b2 = new BigDecimal(rule.getZtjkljhs());
 					// 健康链激活数（直推） 本身有的+邀请人增加的
 					// 普通会员不激活健康链
 					if (!ztUser.getVipLevel().equals("v1")) {
-						ztUser.getShopUserExts().setActiveBill(b1.add(b2).toString());
+						ztUser.getShopUserExts().setActiveBill(b1.add(b2));
 					}
 
 					// 如果激活健康链总数+历史健康值>等级对应数量，则等级提升,并减去提升等级的健康值,同时改变未激活健康值总值
 					int historyBill = tradeService.queryLisiJkz(ztUser.getId());
-					if ((Integer.parseInt(ztUser.getShopUserExts().getActiveBill()) + historyBill) > Integer
-							.parseInt(rule2.getBill()) && !ztUser.getVipLevel().equals("v7")) {
+					if ((ztUser.getShopUserExts().getActiveBill().add(new BigDecimal(historyBill))).compareTo(new BigDecimal(rule2.getBill())) > 0 && !ztUser.getVipLevel().equals("v7")) {
 						BigDecimal creidts1 = productService.FindProductCreditsByVip(ztUser.getVipLevel());
 						ztUser.setVipLevel(VipLevelEnum.valueOf(ztUser.getVipLevel()).next().toString());
 						BigDecimal creidts2 = productService.FindProductCreditsByVip(ztUser.getVipLevel());
@@ -347,11 +348,11 @@ public class ShopTradeController {
 
 						// 获取两个会议大礼包，计算出积分差距，给升级用户补上
 						BigDecimal creidts3 = creidts2.subtract(creidts1);
-						BigDecimal creidts4 = new BigDecimal(ztUser.getShopUserExts().getCredits());
-						ztUser.getShopUserExts().setCredits(creidts3.add(creidts4).toString());
+						BigDecimal creidts4 = ztUser.getShopUserExts().getCredits();
+						ztUser.getShopUserExts().setCredits(creidts3.add(creidts4));
 //						改变未激活健康值总值
 						ShopRegisterRule rule21 = ruleService.findByVip(ztUser.getVipLevel());
-						ztUser.getShopUserExts().setBill(rule21.getBill());
+						ztUser.getShopUserExts().setBill(new BigDecimal(rule21.getBill()) );
 					}
 
 					// 直推奖 订单金额绝对值*直接奖励百分比
@@ -375,17 +376,16 @@ public class ShopTradeController {
 							// 获取间推用户等级对应奖励规则
 							ShopRegisterRule rule3 = ruleService.findByVip(jtUser.getVipLevel());
 
-							BigDecimal c1 = new BigDecimal(jtUser.getShopUserExts().getActiveBill());
+							BigDecimal c1 = jtUser.getShopUserExts().getActiveBill();
 							BigDecimal c2 = new BigDecimal(rule.getJtjkljhs());
 							// 健康链激活数（直推） 本身有的+邀请人增加的
 							// 普通会员不激活健康链
 							if (!jtUser.getVipLevel().equals("v1")) {
-								jtUser.getShopUserExts().setActiveBill(c1.add(c2).toString());
+								jtUser.getShopUserExts().setActiveBill(c1.add(c2));
 							}
 							// 如果激活健康链总数+历史健康值>等级对应数量，则等级提升,并减去提升等级的健康值
 							int historyBill2 = tradeService.queryLisiJkz(ztUser.getId());
-							if ((Integer.parseInt(jtUser.getShopUserExts().getActiveBill()) + historyBill2) > Integer
-									.parseInt(rule3.getBill()) && !jtUser.getVipLevel().equals("v7")) {
+							if (jtUser.getShopUserExts().getActiveBill().add(new BigDecimal(historyBill2) ).compareTo(new BigDecimal(rule3.getBill()))  > 0 && !jtUser.getVipLevel().equals("v7")) {
 								BigDecimal creidts1 = productService.FindProductCreditsByVip(ztUser.getVipLevel());
 
 								jtUser.setVipLevel(VipLevelEnum.valueOf(jtUser.getVipLevel()).next().toString());
@@ -396,12 +396,12 @@ public class ShopTradeController {
 
 								// 获取两个会议大礼包，计算出积分差距，给升级用户补上
 								BigDecimal creidts3 = creidts2.subtract(creidts1);
-								BigDecimal creidts4 = new BigDecimal(ztUser.getShopUserExts().getCredits());
-								ztUser.getShopUserExts().setCredits(creidts3.add(creidts4).toString());
+								BigDecimal creidts4 = ztUser.getShopUserExts().getCredits();
+								ztUser.getShopUserExts().setCredits(creidts3.add(creidts4));
 								
 //								改变未激活健康值总值
 								ShopRegisterRule rule21 = ruleService.findByVip(ztUser.getVipLevel());
-								ztUser.getShopUserExts().setBill(rule21.getBill());
+								ztUser.getShopUserExts().setBill(new BigDecimal(rule21.getBill()) );
 							}
 							// 间推奖 订单金额*间推奖励百分比
 							BigDecimal d1 = new BigDecimal(rule3.getJtj()).multiply(shopTrade.getPrice().abs());

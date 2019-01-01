@@ -49,6 +49,7 @@ $(function(){
 		<form action="${ctx }/shoptrade/save" id="editForm" method="post">
 		<input type="hidden" name="id" value="${bean.id }"/>
 		<input type="hidden" name="userId" value="${bean.userId }"/>
+		<input type="hidden" name="updateDate" value="${bean.updateDate }"/>
 		<div class="">
 			<div class="J_formTable l_form_table">
 				<table class="not_hightlight">

@@ -34,7 +34,7 @@
 							<option value=2 <c:if test="${2 eq userQueryDTO.status }">selected</c:if> >无效</option>
 						</select>
 					</div>
-					<div class="t_label">会员等级</div>
+					<%-- <div class="t_label">会员等级</div>
 					<div class="t_text ml10">
 						<select name="vipLevel" 
 							value="${userQueryDTO.vipLevel }">
@@ -48,7 +48,7 @@
 							<option value="v6" <c:if test="${'v6' eq userQueryDTO.vipLevel }">selected</c:if> >运营中心</option>
 							<option value="v7" <c:if test="${'v7' eq userQueryDTO.vipLevel }">selected</c:if> >公司合伙人</option>
 						</select>
-					</div>
+					</div> --%>
 
 					<div class="t_button mgl30">
 						<a class="abtn red" href="javascript:myQuery();"> <i
@@ -78,12 +78,13 @@
 									<td><span>账户名</span></td>
 									<td><span>手机号</span></td>
 									<td><span>推荐人手机号</span></td>
-									<td><span>会员等级</span></td>
-									<td><span>是否有效</span></td>
-									<td><span>账户余额</span></td>
-									<td><span>健康值激活个数</span></td>
-									<!-- <td><span>转让获得的健康值</span></td> -->
-									<td><span>账户积分</span></td>
+									<!-- <td><span>会员等级</span></td> -->
+									<td><span>账号状态</span></td>
+									<td><span>会员状态</span></td>
+									<td><span>消费积分</span></td>
+									<td><span>广告积分</span></td>
+									<td><span>共享积分</span></td>
+									<td><span>购物积分</span></td>
 									<td><span>创建时间</span></td>
 									<td><span>操作</span></td>
 								</tr>
@@ -102,7 +103,7 @@
 												<td>
 													<div class="t_text tc">${u.refPhone }</div>
 												</td>
-												<td>
+												<%-- <td>
 													<div class="t_text tc">
 														<c:choose>
 															<c:when test="${'v0' eq u.vipLevel}">
@@ -134,7 +135,7 @@
 		                                     		</c:otherwise>
 														</c:choose>
 													</div>
-												</td>
+												</td> --%>
 												<td>
 													<div class="t_text tc">
 														<c:choose>
@@ -148,15 +149,28 @@
 													</div>
 												</td>
 												<td>
+													<div class="t_text tc">
+														<c:choose>
+															<c:when test="${'1' eq u.status}">
+		                                     			参与分红
+		                                     		</c:when>
+															<c:otherwise>
+		                                     			不参与
+		                                     		</c:otherwise>
+														</c:choose>
+													</div>
+												</td>
+												<td>
 													<div class="t_text tc">${u.shopUserExts.balance }</div>
+												</td>
+												<td>
+													<div class="t_text tc">${u.shopUserExts.tuiguang }
+													</div>
 												</td>
 												<td>
 													<div class="t_text tc">${u.shopUserExts.activeBill }
 													</div>
 												</td>
-												<%-- <td>
-													<div class="t_text tc">${u.shopUserExts.tradeBill }</div>
-												</td> --%>
 												<td>
 													<div class="t_text tc">${u.shopUserExts.credits }</div>
 												</td>

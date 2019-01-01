@@ -146,7 +146,7 @@ public class ShopBillTradeController {
 			}
 			System.out.println("转让用户信息：" + user.getId());
 
-			BigDecimal activeBill = new BigDecimal(user.getShopUserExts().getActiveBill())
+			BigDecimal activeBill = user.getShopUserExts().getActiveBill()
 					.subtract(new BigDecimal(bean.getCount()).abs());
 			if (activeBill.compareTo(BigDecimal.ZERO) < 0) {
 				ajaxResult.setMsg("超出激活的健康值");
@@ -197,7 +197,7 @@ public class ShopBillTradeController {
 
 			// 发起用户减少健康链
 			// 减去激活的健康链
-			user.getShopUserExts().setActiveBill(activeBill.toString());
+			user.getShopUserExts().setActiveBill(activeBill);
 			userService.update(user);
 
 			tradeService.save(bean);

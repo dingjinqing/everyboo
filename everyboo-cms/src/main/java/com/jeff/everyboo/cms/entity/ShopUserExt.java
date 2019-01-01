@@ -29,14 +29,15 @@ public class ShopUserExt implements java.io.Serializable {
 	private Integer id;
 	@JsonIgnore
 	private ShopUser shopUser;
-	private String credits;
-	private String bill;
-	private String activeBill;
-	private String tradeBill;
+	private BigDecimal credits;  //购物积分
+	private BigDecimal bill;	//共享上限（通过购买商品提高）
+	private BigDecimal activeBill;	//共享积分(平台分红)
+	private BigDecimal tradeBill;	//广告上限（直推奖+间推奖+管理奖最高值  购买商品提高上限）
+	private BigDecimal balance;	//消费积分(充值)
+	private BigDecimal tuiguang;	//广告积分（直推奖+间推奖+管理奖）
 	private String bankOwer;
 	private String bankCard;
 	private String bankDeposit;
-	private BigDecimal balance;
 	private Date createDate;
 	private String createBy;
 	private Date updateDate;
@@ -52,14 +53,14 @@ public class ShopUserExt implements java.io.Serializable {
 	public ShopUserExt() {
 	}
 
-	public ShopUserExt(ShopUser shopUser, String credits, String bill, String activeBill) {
+	public ShopUserExt(ShopUser shopUser, BigDecimal credits, BigDecimal bill, BigDecimal activeBill) {
 		this.shopUser = shopUser;
 		this.credits = credits;
 		this.bill = bill;
 		this.activeBill = activeBill;
 	}
 
-	public ShopUserExt(Integer id, String credits, String bill, String activeBill, String tradeBill, BigDecimal balance,
+	public ShopUserExt(Integer id, BigDecimal credits, BigDecimal bill, BigDecimal activeBill, BigDecimal tradeBill, BigDecimal balance,
 			Date createDate, String createBy, Date updateDate, String updateBy) {
 		super();
 		this.id = id;
@@ -74,7 +75,7 @@ public class ShopUserExt implements java.io.Serializable {
 		this.updateBy = updateBy;
 	}
 
-	public ShopUserExt(ShopUser shopUser, String credits, String bill, String activeBill, String tradeBill,
+	public ShopUserExt(ShopUser shopUser, BigDecimal credits, BigDecimal bill, BigDecimal activeBill, BigDecimal tradeBill,
 			BigDecimal balance, Date createDate, String createBy, Date updateDate, String updateBy) {
 		this.shopUser = shopUser;
 		this.credits = credits;
@@ -112,39 +113,39 @@ public class ShopUserExt implements java.io.Serializable {
 		this.shopUser = shopUser;
 	}
 
-	@Column(name = "credits", length = 20)
-	public String getCredits() {
+	@Column(name = "credits", length = 12)
+	public BigDecimal getCredits() {
 		return this.credits;
 	}
 
-	public void setCredits(String credits) {
+	public void setCredits(BigDecimal credits) {
 		this.credits = credits;
 	}
 
-	@Column(name = "bill",  length = 8)
-	public String getBill() {
+	@Column(name = "bill",  length = 12)
+	public BigDecimal getBill() {
 		return this.bill;
 	}
 
-	public void setBill(String bill) {
+	public void setBill(BigDecimal bill) {
 		this.bill = bill;
 	}
 
-	@Column(name = "active_bill", length = 8)
-	public String getActiveBill() {
+	@Column(name = "active_bill", length = 12)
+	public BigDecimal getActiveBill() {
 		return this.activeBill;
 	}
 
-	public void setActiveBill(String activeBill) {
+	public void setActiveBill(BigDecimal activeBill) {
 		this.activeBill = activeBill;
 	}
 
-	@Column(name = "trade_bill", length = 8)
-	public String getTradeBill() {
+	@Column(name = "trade_bill", length = 12)
+	public BigDecimal getTradeBill() {
 		return this.tradeBill;
 	}
 
-	public void setTradeBill(String tradeBill) {
+	public void setTradeBill(BigDecimal tradeBill) {
 		this.tradeBill = tradeBill;
 	}
 
@@ -218,6 +219,15 @@ public class ShopUserExt implements java.io.Serializable {
 
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
+	}
+	
+	@Column(name = "tuiguang", length = 12)
+	public BigDecimal getTuiguang() {
+		return tuiguang;
+	}
+
+	public void setTuiguang(BigDecimal tuiguang) {
+		this.tuiguang = tuiguang;
 	}
 
 

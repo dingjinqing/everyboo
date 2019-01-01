@@ -484,11 +484,12 @@ public class ShopUserController {
 			user = userService.save(user);
 			
 			ShopUserExt shopUserExt  = new ShopUserExt();
-			shopUserExt.setActiveBill("0");
-			shopUserExt.setBalance(new BigDecimal(0));
-			shopUserExt.setBill("0");
-			shopUserExt.setCredits("0");
-			shopUserExt.setTradeBill("0");
+			shopUserExt.setActiveBill(BigDecimal.ZERO);
+			shopUserExt.setBalance(BigDecimal.ZERO);
+			shopUserExt.setBill(BigDecimal.ZERO);
+			shopUserExt.setCredits(BigDecimal.ZERO);
+			shopUserExt.setTradeBill(BigDecimal.ZERO);
+			shopUserExt.setTuiguang(BigDecimal.ZERO);
 			shopUserExt.setShopUser(user);
 			shopUserExt.setCreateDate(new Date());
 			userExtService.save(shopUserExt);

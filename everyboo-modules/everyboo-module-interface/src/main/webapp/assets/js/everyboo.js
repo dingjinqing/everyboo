@@ -1,7 +1,7 @@
 //var BASE_URL = 'http://47.106.142.171:8080';
 //var BASE_URL = 'https://www.yctrad.com';
 var BASE_URL = 'http://127.0.0.1:8080';
-var MODULE_WEB = '';
+var MODULE_WEB = '/everyboo-module-interface';
 var MODULE_ADMIN = '/everyboo-module-admin';
 
 var USER_INFO = 'everyboo_user_info';

@@ -232,8 +232,8 @@ public class ShopBillTradeController {
         		shopUserQueryDTO.setPhone(bean.getTradePhone());
         		ShopUser tradeUser = userService.queryShopUserList(shopUserQueryDTO).get(0);
         		if (tradeUser!=null) {
-        			BigDecimal transBill = new BigDecimal(tradeUser.getShopUserExts().getTradeBill()).add(new BigDecimal(bean.getCount()));
-	    	        tradeUser.getShopUserExts().setTradeBill(transBill.toString());
+        			BigDecimal transBill = tradeUser.getShopUserExts().getTradeBill().add(new BigDecimal(bean.getCount()));
+	    	        tradeUser.getShopUserExts().setTradeBill(transBill);
 	    	        userService.update(tradeUser);
 	    	        
 				}else {
@@ -260,9 +260,9 @@ public class ShopBillTradeController {
         	}*/
         	
         	//发起用户减少健康值
-			BigDecimal activeBill = new BigDecimal(user.getShopUserExts().getActiveBill()).subtract(new BigDecimal(bean.getCount()));
+			BigDecimal activeBill = user.getShopUserExts().getActiveBill().subtract(new BigDecimal(bean.getCount()));
 	        //减去激活的健康值
-	        user.getShopUserExts().setActiveBill( activeBill.toString());
+	        user.getShopUserExts().setActiveBill( activeBill);
 	        userService.update(user);
 	        
 			

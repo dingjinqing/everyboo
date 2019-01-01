@@ -37,14 +37,15 @@ public class ShopUser implements java.io.Serializable {
 	private String updateBy;
 	private String nickName;	
 	private String jiaoyimima;
-	private int status;
+	private int status;//账号状态
+	private int vipStatus;//会员状态
 	private ShopUserExt shopUserExts;
 
 
 
 	public ShopUser(Integer id, String account, String phone, String password, String refPhone, String vipLevel,
 			String address, Date createDate, String createBy, Date updateDate, String updateBy, String nickName,
-			String jiaoyimima, int status) {
+			String jiaoyimima, int status,int vipStatus) {
 		super();
 		this.id = id;
 		this.account = account;
@@ -60,6 +61,8 @@ public class ShopUser implements java.io.Serializable {
 		this.nickName = nickName;
 		this.jiaoyimima = jiaoyimima;
 		this.status = status;
+		this.vipStatus = vipStatus;
+
 	}
 
 	public ShopUser() {
@@ -71,9 +74,11 @@ public class ShopUser implements java.io.Serializable {
 	}
 
 
+
+
 	public ShopUser(Integer id, String account, String phone, String password, String refPhone, String vipLevel,
 			String address, Date createDate, String createBy, Date updateDate, String updateBy, String nickName,
-			String jiaoyimima, int status, ShopUserExt shopUserExts) {
+			String jiaoyimima, int status, int vipStatus, ShopUserExt shopUserExts) {
 		super();
 		this.id = id;
 		this.account = account;
@@ -89,6 +94,7 @@ public class ShopUser implements java.io.Serializable {
 		this.nickName = nickName;
 		this.jiaoyimima = jiaoyimima;
 		this.status = status;
+		this.vipStatus = vipStatus;
 		this.shopUserExts = shopUserExts;
 	}
 
@@ -230,6 +236,15 @@ public class ShopUser implements java.io.Serializable {
 
 	public void setJiaoyimima(String jiaoyimima) {
 		this.jiaoyimima = jiaoyimima;
+	}
+	
+	@Column(name = "vip_status")
+	public int getVipStatus() {
+		return vipStatus;
+	}
+
+	public void setVipStatus(int vipStatus) {
+		this.vipStatus = vipStatus;
 	}
 
 }
