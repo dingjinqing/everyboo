@@ -14,7 +14,7 @@
 		<div class="mt20 plr20">
 		  <form action="${ctx }/traderule/list" id="queryForm" method="post">
 	        <div class="J_toolsBar clearfix">
-				<div class="t_label">会员等级</div>
+				<div class="t_label">加盟店等级</div>
 					<div class="t_text ml10">
 						<select name="vipLevel" 
 							value="${queryDTO.vipLevel }">
@@ -66,7 +66,7 @@
                          <thead>
                              <tr>
                                  <td>
-                                     <span>会员等级</span>
+                                     <span>加盟店等级</span>
                                  </td>
                                  <td>
                                      <span>商品名称</span>

@@ -864,7 +864,7 @@
                         view.userOpt = false
                         var errMsg = ''
                         if (isNaN(view.donateCount) || view.donateCount <= 0 || view.donateCount > view.user.shopUserExts.balance) {
-                            errMsg += '请输入不大于账户余额的数值<br/>'
+                            errMsg += '请输入不大于健康余额的数值<br/>'
                         }
                         if (view.donatePayPwd.trim() === '') {
                             errMsg += '请输入交易密码，若未设置请先设置交易密码<br/>'
@@ -913,7 +913,7 @@
                             errMsg += '请在个人信息操作中修改银行账户资料<br/>'
                         }
                         if (isNaN(view.withdrawCount) || view.withdrawCount < 500 || view.withdrawCount > view.user.shopUserExts.balance) {
-                            errMsg += '请输入不大于账户余额的数值，且最小提现额为500<br/>'
+                            errMsg += '请输入不大于健康余额的数值，且最小提现额为500<br/>'
                         }
                         if (view.withdrawPayPwd.trim() === '') {
                             errMsg += '请输入交易密码，若未设置请先设置交易密码<br/>'
@@ -1008,7 +1008,7 @@
                             errMsg += '请输入正确的手机号<br/>'
                         }
                         if (isNaN(view.transferCount) || view.transferCount <= 0 || view.transferCount > view.user.shopUserExts.balance) {
-                            errMsg += '请输入不大于账户余额的数值<br/>'
+                            errMsg += '请输入不大于健康余额的数值<br/>'
                         }
                         if (view.transferPayPwd.trim() === '') {
                             errMsg += '请输入交易密码，若未设置请先设置交易密码<br/>'

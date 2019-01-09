@@ -247,6 +247,9 @@ public class ShopTradeController {
 			// 账户积分-订单积分+购买商品赠送积分
 			user.getShopUserExts().setCredits(credits.subtract(credits2));
 			userService.update(user);
+//			下单直接调用返利逻辑
+			fangli(user,trade);
+			
 			ajaxResult.setSuccess(true);
 		} else {
 			ajaxResult.setSuccess(false);
@@ -255,19 +258,6 @@ public class ShopTradeController {
 
 		return ajaxResult;
 	}
-
-	/*
-	 * @RequestMapping("/insert")
-	 * 
-	 * @ResponseBody public void ajaxInsertStatus(HttpServletRequest request) throws
-	 * Exception{ ShopTrade ztTrade = new ShopTrade(); ztTrade.setPrice(new
-	 * BigDecimal("123")); ztTrade.setUserId(1);
-	 * ztTrade.setTradeNo(WebHelper.getDayNo());
-	 * ztTrade.setJtype(1);//1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.
-	 * 捐赠9购买返点10直推购买返点11间推购买返点 ztTrade.setStatus(3); ztTrade.setCredits(0);
-	 * ztTrade.setCreateDate(new Date()); ztTrade.setShopTradeDetails(null);
-	 * tradeService.save(ztTrade); throw new RuntimeException(); }
-	 */
 
 	@RequestMapping("/upd/status")
 	@ResponseBody
@@ -278,7 +268,7 @@ public class ShopTradeController {
 		String id = request.getParameter("id");
 		// String status = request.getParameter("status");
 
-		ShopTrade shopTrade = tradeService.updateStatus(id, 3);
+		
 		// 用户升级vip逻辑
 		ShopUser user = WebHelper.getUser(request);
 		user = userService.find(user.getId());
@@ -298,92 +288,82 @@ public class ShopTradeController {
 			ajaxResult.setMsg("请先设置交易密码");
 			return ajaxResult;
 		}
+//		确认收货状态修改
+		ShopTrade shopTrade = tradeService.updateStatus(id, 3);
 		System.out.println("确认收货会员用户信息：" + user.getId());
-		// 直推间推返利开始
-		// Jtype 1.购买会员大礼包2.复购产品
-			// 复购返点不是看购买用户的那三个配置，是和自己对应等级的规则的对应的返点
-			// 奖励规则，根据购买用户的等级来
-
-			/*Set<ShopTradeDetail> shopTradeDetails = shopTrade.getShopTradeDetails();
-			Iterator<ShopTradeDetail> it = shopTradeDetails.iterator();
-			int proId = 0;
-			while (it.hasNext()) {
-				ShopTradeDetail detail = it.next();
-				proId = detail.getProId();
-			}*/
-			// ShopProduct product = productService.find(proId);
-//			ShopTradeRule rule = tradeRuleService.queryShopTradeRule(proId, user.getVipLevel());
-			// 购买返点 给用户本身账户余额增加
-//			BigDecimal a1 = new BigDecimal(rule.getFugoufd()).multiply(shopTrade.getPrice().abs());
-//			this.saveTradeInfo(a1, user, 9);
-
-		
-			// 如果介绍人电话不为空，介绍人获得直推收益
-			if (StringUtils.isNotEmpty(user.getRefPhone())) {
-				ShopUserQueryDTO shopUserQueryDTO = new ShopUserQueryDTO();
-				shopUserQueryDTO.setPhone(user.getRefPhone());
-				ShopUser ztUser = userService.queryShopUserList(shopUserQueryDTO).get(0);
-
-				// 如果根据介绍人电话查找的用户不存在，则不赠送
-				if (ztUser != null) {
-//					rule = tradeRuleService.queryShopTradeRule(proId, ztUser.getVipLevel());
-					// 邀请用户复购的直推返点 给用户本身账户余额增加
-//					如果第一次购买
-					if (user.getVipLevel().equals("v0")) {
-						BigDecimal a1 = ztUser.getShopUserExts().getCredits().add(shopTrade.getPrice().abs());
-						ztUser.getShopUserExts().setCredits(a1);
-						this.saveTrade(shopTrade.getPrice(), ztUser, 3);
-						userService.update(ztUser);
-					}else {
-						BigDecimal a2 = new BigDecimal(0.2).multiply(shopTrade.getPrice().abs());
-						this.saveTradeInfo(a2, ztUser, 10);
-					}
-
-					// 如果介绍人电话不为空，介绍人获得间推收益
-					if (StringUtils.isNotEmpty(ztUser.getRefPhone())) {
-						ShopUserQueryDTO shopQueryDTO = new ShopUserQueryDTO();
-						shopQueryDTO.setPhone(ztUser.getRefPhone());
-						ShopUser jtUser = userService.queryShopUserList(shopQueryDTO).get(0);
-						// 如果根据介绍人电话查找的用户不存在，则不赠送
-						if (jtUser != null) {
-							// 邀请用户复购的直推返点 给用户本身账户余额增加
-//							rule = tradeRuleService.queryShopTradeRule(proId, jtUser.getVipLevel());
-							BigDecimal a3 = new BigDecimal(0.1).multiply(shopTrade.getPrice().abs());
-							this.saveTradeInfo(a3, jtUser, 11);
-						}
-					}
-				}
-			}
-			
-//			如果第一次购买,本人增加购买金额对应的消费积分
-			if (user.getVipLevel().equals("v0")) {
-//				赠送积分：第一次购买就赠送等值积分，假如我是你上家，那丁清第一次购买时，你获得300分我获得300，丁清第二次~N次购买我不获得任何积分。
-				user.setVipLevel("v1");
-				BigDecimal a1 = user.getShopUserExts().getCredits().add(shopTrade.getPrice().abs());
-				user.getShopUserExts().setCredits(a1);
-				this.saveTrade(shopTrade.getPrice(), user, 3);
-				userService.update(user);
-			}
-			
-		// 返利结束
 
 		ajaxResult.setSuccess(true);
 
 		return ajaxResult;
 	}
 
+	public void fangli(ShopUser user,ShopTrade shopTrade) {
+		// 直推间推返利开始
+
+		// 如果介绍人电话不为空，介绍人获得直推收益
+		if (StringUtils.isNotEmpty(user.getRefPhone())) {
+			ShopUserQueryDTO shopUserQueryDTO = new ShopUserQueryDTO();
+			shopUserQueryDTO.setPhone(user.getRefPhone());
+			ShopUser ztUser = userService.queryShopUserList(shopUserQueryDTO).get(0);
+
+			// 如果根据介绍人电话查找的用户不存在，则不赠送
+			if (ztUser != null) {
+				// rule = tradeRuleService.queryShopTradeRule(proId, ztUser.getVipLevel());
+				// 邀请用户复购的直推返点 给用户本身账户余额增加
+				// 如果第一次购买
+				if (user.getVipLevel().equals("v0")) {
+					BigDecimal a1 = ztUser.getShopUserExts().getDuihuan().add(shopTrade.getPrice().abs());
+					ztUser.getShopUserExts().setDuihuan(a1);
+					this.saveTrade(shopTrade.getPrice(), ztUser, 3);
+					userService.update(ztUser);
+				} else {
+					BigDecimal a2 = new BigDecimal(0.2).multiply(shopTrade.getPrice().abs());
+					this.saveTradeInfo(a2, ztUser, 10);
+				}
+
+				// 如果介绍人电话不为空，介绍人获得间推收益
+				if (StringUtils.isNotEmpty(ztUser.getRefPhone())) {
+					ShopUserQueryDTO shopQueryDTO = new ShopUserQueryDTO();
+					shopQueryDTO.setPhone(ztUser.getRefPhone());
+					ShopUser jtUser = userService.queryShopUserList(shopQueryDTO).get(0);
+					// 如果根据介绍人电话查找的用户不存在，则不赠送
+					if (jtUser != null) {
+						// 邀请用户复购的直推返点 给用户本身账户余额增加
+						// rule = tradeRuleService.queryShopTradeRule(proId, jtUser.getVipLevel());
+						BigDecimal a3 = new BigDecimal(0.1).multiply(shopTrade.getPrice().abs());
+						this.saveTradeInfo(a3, jtUser, 11);
+					}
+				}
+			}
+		}
+
+		// 如果第一次购买,本人增加购买金额对应的兑换积分
+		if (user.getVipLevel().equals("v0")) {
+			// 赠送积分：第一次购买就赠送等值积分，假如我是你上家，那丁清第一次购买时，你获得300分我获得300，丁清第二次~N次购买我不获得任何积分。
+			user.setVipLevel("v1");
+			BigDecimal a1 = user.getShopUserExts().getDuihuan().add(shopTrade.getPrice().abs());
+			user.getShopUserExts().setDuihuan(a1);
+			this.saveTrade(shopTrade.getPrice(), user, 1);
+			userService.update(user);
+		}
+
+		// 返利结束
+	}
+
 	public void saveTradeInfo(BigDecimal ba, ShopUser user, int type) {
 		// 邀请用户复购的直推返点 给用户本身账户余额增加
 		if (ba.compareTo(BigDecimal.ZERO) > 0) {
 			this.saveTrade(ba, user, type);
-//			80%到销售积分里，20%到消费积分
-			user.getShopUserExts().setXiaoshou(user.getShopUserExts().getXiaoshou().add(ba.multiply(new BigDecimal(0.8))));
-			user.getShopUserExts().setCredits(user.getShopUserExts().getCredits().add(ba.multiply(new BigDecimal(0.2))));
+			// 80%到销售积分里，20%到消费积分
+			user.getShopUserExts()
+					.setXiaoshou(user.getShopUserExts().getXiaoshou().add(ba.multiply(new BigDecimal(0.8))));
+			user.getShopUserExts()
+					.setCredits(user.getShopUserExts().getCredits().add(ba.multiply(new BigDecimal(0.2))));
 			userService.update(user);
 		}
 
 	}
-	
+
 	public void saveTrade(BigDecimal ba, ShopUser user, int type) {
 		ShopTrade ztTrade = new ShopTrade();
 		ztTrade.setPrice(ba);

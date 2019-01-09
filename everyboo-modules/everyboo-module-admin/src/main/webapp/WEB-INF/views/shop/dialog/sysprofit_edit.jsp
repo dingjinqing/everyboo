@@ -65,7 +65,7 @@ $(function(){
                                      			</select>
                                      		</c:when>
                                      		<c:otherwise>
-                                     			<select name="type" data-rule="会员等级:required;" >
+                                     			<select name="type" data-rule="加盟店等级:required;" >
                                      				<option value="1">日利润</option>
                                      				<option value="2">月利润</option>
                                      			</select>

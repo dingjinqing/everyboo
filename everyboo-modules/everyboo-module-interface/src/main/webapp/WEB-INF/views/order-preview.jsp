@@ -91,11 +91,12 @@
                                         姓名：<span v-text="user.account"></span><br/>
                                         收货地址：<span v-text="user.address"></span><br/>
                                         <a href="<%=path%>/user?operation=1">去设置姓名和收货地址</a><br/>
-                                        账户余额：<span v-text="user.shopUserExts.balance"></span><br/>
-                                        账户总积分：<span v-text="user.shopUserExts.credits"></span><br/>
-                                        订单最高可抵扣积分：<span v-text="totalCredits"></span><br/>
+                                        账户健康余额：<span v-text="user.shopUserExts.balance"></span><br/>
+                                        账户消费积分：<span v-text="user.shopUserExts.credits"></span><br/>
+                                        账户兑换积分：<span v-text="user.shopUserExts.duihuan"></span><br/>
+                                        最高可抵扣消费积分：<span v-text="totalCredits"></span><br/>
                                         <form>
-                                            使用积分抵扣：<input v-model="useCredits" placeholder="请输入需要抵扣的积分数" type="number" style="width: 100px;">
+                                            抵扣消费积分：<input v-model="useCredits" placeholder="请输入需要抵扣的积分数" type="number" style="width: 100px;">
                                             <br/>
                                             备注：<input v-model="remark" placeholder="请输入订单备注" type="text" style="width: 200px;">
                                             <br/>

@@ -74,7 +74,7 @@
 							</tr>
 
 							<tr>
-								<td class="l_title w150">赠送积分</td>
+								<td class="l_title w150">赠送消费积分</td>
 								<td>
 									<div class="J_toolsBar fl">
 										<div class="t_text w200 ml10">
@@ -93,19 +93,19 @@
 										</div>
 									</div>
 								</td>
-								<td class="l_title w150">消费积分</td>
+								<td class="l_title w150">可抵扣消费积分</td>
 								<td>
 									<div class="J_toolsBar fl">
 										<div class="t_text w200 ml10">
 											<label> <c:choose>
 													<c:when test="${not empty bean }">
 														<input type="text" name="consumeCredits"
-															placeholder="购买商品最高消费积分，没有为0"
+															placeholder="购买商品最高可用消费积分，没有为0"
 															value="${bean.consumeCredits }" />
 													</c:when>
 													<c:otherwise>
 														<input type="text" name="consumeCredits"
-															placeholder="购买商品最高消费积分，没有为0" value="" />
+															placeholder="购买商品最高可用消费积分，没有为0" value="" />
 													</c:otherwise>
 												</c:choose>
 											</label>
@@ -208,7 +208,25 @@
 										</div>
 									</td>
 								</tr>
-
+							<tr>
+								<td class="l_title w150">可抵扣兑换积分</td>
+								<td colspan="3">
+									<div class="J_toolsBar fl">
+										<label> <c:choose>
+													<c:when test="${not empty bean }">
+														<input type="text" name="price3"
+															data-rule="可用兑换积分:required;" placeholder="购买商品最高可用兑换积分，没有为0"
+															value="${bean.price3 }" />
+													</c:when>
+													<c:otherwise>
+														<input type="text" name="price3"
+															data-rule="可用兑换积分:required;" placeholder="购买商品最高可用兑换积分，没有为0" />
+													</c:otherwise>
+												</c:choose>
+										</label>
+									</div>
+								</td>
+							</tr>
 							<tr>
 								<td class="l_title w150">商品简介</td>
 								<td colspan="3">

@@ -34,7 +34,7 @@
 							<option value=2 <c:if test="${2 eq userQueryDTO.status }">selected</c:if> >无效</option>
 						</select>
 					</div>
-					<%-- <div class="t_label">会员等级</div>
+					<%-- <div class="t_label">加盟店等级</div>
 					<div class="t_text ml10">
 						<select name="vipLevel" 
 							value="${userQueryDTO.vipLevel }">
@@ -79,7 +79,7 @@
 									<td><span>账户名</span></td>
 									<td><span>手机号</span></td>
 									<td><span>推荐人手机号</span></td>
-									<!-- <td><span>会员等级</span></td> -->
+									<!-- <td><span>加盟店等级</span></td> -->
 									<td><span>账号状态</span></td>
 									<!-- <td><span>会员状态</span></td> -->
 									<td><span>健康余额</span></td>

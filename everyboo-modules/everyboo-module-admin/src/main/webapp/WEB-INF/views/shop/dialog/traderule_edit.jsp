@@ -67,14 +67,14 @@ $(function(){
 			<div class="J_formTable l_form_table">
 				<table class="not_hightlight">
 					<tr>
-						<td class="l_title w150"><b class="cRed">*</b> 会员等级</td>
+						<td class="l_title w150"><b class="cRed">*</b> 加盟店等级</td>
                          <td>
                              <div class="J_toolsBar fl">
                                  <div class="t_text w300 ml10">
                                      <label>
                                      	<c:choose>
                                      		<c:when test="${not empty bean }">
-                                     			<select name="vipLevel" data-rule="会员等级:required;" value="${bean.vipLevel }">
+                                     			<select name="vipLevel" data-rule="加盟店等级:required;" value="${bean.vipLevel }">
                                      				<option value="v0" <c:if test="${'v0' eq bean.vipLevel }">selected</c:if> >普通会员</option>
                                      				<option value="v1" <c:if test="${'v1' eq bean.vipLevel }">selected</c:if> >个人vip</option>
                                      				<option value="v2" <c:if test="${'v2' eq bean.vipLevel }">selected</c:if> >一级加盟店</option>
@@ -87,7 +87,7 @@ $(function(){
                                      			</select>
                                      		</c:when>
                                      		<c:otherwise>
-                                     			<select name="vipLevel" data-rule="会员等级:required;" >
+                                     			<select name="vipLevel" data-rule="加盟店等级:required;" >
                                      				<option value="v0">普通会员</option>
                                      				<option value="v1" selected>个人vip</option>
                                      				<option value="v2">一级加盟店</option>

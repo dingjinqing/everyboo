@@ -216,7 +216,7 @@ $(function(){
                                  </div>
                              </div>
                          </td>
-                         <td class="l_title w150">会员等级</td>
+                         <td class="l_title w150">加盟店等级</td>
                          <td>
                              <div class="J_toolsBar fl">
                                  <div class="t_text w200 ml10">

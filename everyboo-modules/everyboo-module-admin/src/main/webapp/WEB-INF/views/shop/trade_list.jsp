@@ -41,9 +41,9 @@
 							<option value=4
 								<c:if test="${4 eq queryDTO.jtype }">selected</c:if>>间推奖励</option>
 							<option value=5
-								<c:if test="${5 eq queryDTO.jtype }">selected</c:if>>管理奖</option>
+								<c:if test="${5 eq queryDTO.jtype }">selected</c:if>>业绩奖</option>
 							<option value=6
-								<c:if test="${6 eq queryDTO.jtype }">selected</c:if>>股份收益</option>
+								<c:if test="${6 eq queryDTO.jtype }">selected</c:if>>股权收益</option>
 							<option value=7
 								<c:if test="${7 eq queryDTO.jtype }">selected</c:if>>平台分红</option>
 							<option value=8
@@ -129,10 +129,10 @@
 		                                     			间推奖励
 		                                     		</c:when>
 															<c:when test="${5 eq u.jtype}">
-		                                     			管理奖
+		                                     			业绩奖
 		                                     		</c:when>
 															<c:when test="${6 eq u.jtype}">
-		                                     			股份收益
+		                                     			股权收益
 		                                     		</c:when>
 															<c:when test="${7 eq u.jtype}">
 		                                     			平台分红

@@ -14,9 +14,9 @@
 		<div class="mt20 plr20">
 		  <form action="${ctx }/user/list" id="queryForm" method="post">
 	        <div class="J_toolsBar clearfix">
-				<%-- <div class="t_label">会员等级</div>
+				<%-- <div class="t_label">加盟店等级</div>
 				<div class="t_text ml10">
-                	<input placeholder="请输入会员等级" type="text" name="userName" id="userName" value="${userQueryDTO.userName }"/>
+                	<input placeholder="请输入加盟店等级" type="text" name="userName" id="userName" value="${userQueryDTO.userName }"/>
                 </div>
                 <div class="t_button mgl30">
                		<a class="abtn red" href="javascript:myQuery();">
@@ -39,14 +39,14 @@
                          <thead>
                              <tr>
                                  <td>
-                                     <span>会员等级</span>
+                                     <span>加盟店等级</span>
                                  </td>
-                                 <td>
+                                 <!-- <td>
                                      <span>健康值激活数（直推）</span>
                                  </td>
                                  <td>
                                      <span>健康值激活数（间推）</span>
-                                 </td>
+                                 </td> -->
                                  <td>
                                      <span>直推奖</span>
                                  </td>
@@ -54,10 +54,10 @@
                                      <span>间推奖</span>
                                  </td>
                                  <td>
-                                     <span>管理奖</span>
+                                     <span>业绩奖</span>
                                  </td>
                                  <td>
-                                     <span>未激活总值健康值</span>
+                                     <span>获得健康值数量</span>
                                  </td>
                                  <td>
                                  	 <span>创建时间</span>
@@ -105,7 +105,7 @@
 														</c:choose>
 		                                     </div>
 		                                 </td>
-		                                 <td>
+		                                 <%-- <td>
 		                                     <div class="t_text tc">
 		                                        ${u.ztjkljhs }
 		                                     </div>
@@ -114,7 +114,7 @@
 		                                     <div class="t_text tc">
 		                                        ${u.jtjkljhs }
 		                                     </div>
-		                                 </td>
+		                                 </td> --%>
 		                                 <td>
 		                                     <div class="t_text tc">
 		                                         ${u.ztj }

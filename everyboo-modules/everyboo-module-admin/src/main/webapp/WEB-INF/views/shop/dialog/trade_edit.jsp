@@ -111,8 +111,8 @@ $(function(){
                                      				<option value=2 <c:if test="${2 eq bean.jtype }">selected</c:if> >复购产品</option>
                                      				<%-- <option value=3 <c:if test="${3 eq bean.jtype }">selected</c:if> >直推</option>
                                      				<option value=4 <c:if test="${4 eq bean.jtype }">selected</c:if> >间推</option>
-                                     				<option value=5 <c:if test="${5 eq bean.jtype }">selected</c:if> >管理奖</option>
-                                     				<option value=6 <c:if test="${6 eq bean.jtype }">selected</c:if> >股份收益</option>
+                                     				<option value=5 <c:if test="${5 eq bean.jtype }">selected</c:if> >业绩奖</option>
+                                     				<option value=6 <c:if test="${6 eq bean.jtype }">selected</c:if> >股权收益</option>
                                      				<option value=7 <c:if test="${7 eq bean.jtype }">selected</c:if> >平台分红</option>
                                      				<option value=8 <c:if test="${8 eq bean.jtype }">selected</c:if> >捐赠</option>
                                      				<option value=9 <c:if test="${9 eq bean.jtype }">selected</c:if> >购买返点</option>
@@ -128,8 +128,8 @@ $(function(){
 													<option value=2  >复购产品</option>
 													<!-- <option value=3  >直推</option>
 													<option value=4  >间推</option>
-													<option value=5  >管理奖</option>
-													<option value=6  >股份收益</option>
+													<option value=5  >业绩奖</option>
+													<option value=6  >股权收益</option>
 													<option value=7  >平台分红</option>
 													<option value=8  >捐赠</option>
 													<option value=9  >购买返点</option>
@@ -239,7 +239,7 @@ $(function(){
                                  </div>
                              </div>
                          </td>
-                         <td class="l_title w150">会员等级</td>
+                         <td class="l_title w150">加盟店等级</td>
                          <td>
                              <div class="J_toolsBar fl">
                                  <div class="t_text w200 ml10">
