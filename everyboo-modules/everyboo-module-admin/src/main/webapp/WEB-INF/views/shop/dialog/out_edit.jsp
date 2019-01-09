@@ -248,24 +248,26 @@ $(function(){
                                      			<select  value="${user.vipLevel }" readonly="readonly" >
                                      				<option value="v0" <c:if test="${'v0' eq user.vipLevel }">selected</c:if>  >普通会员</option>
                                      				<option value="v1" <c:if test="${'v1' eq user.vipLevel }">selected</c:if> >个人vip</option>
-                                     				<option value="v2" <c:if test="${'v2' eq user.vipLevel }">selected</c:if> >初级代理</option>
-                                     				<option value="v3" <c:if test="${'v3' eq user.vipLevel }">selected</c:if> >中级代理</option>
-                                     				<option value="v4" <c:if test="${'v4' eq user.vipLevel }">selected</c:if> >高级代理</option>
-                                     				<option value="v5" <c:if test="${'v5' eq user.vipLevel }">selected</c:if> >核心代理</option>
-                                     				<option value="v6" <c:if test="${'v6' eq user.vipLevel }">selected</c:if> >运营中心</option>
-                                     				<option value="v7" <c:if test="${'v7' eq user.vipLevel }">selected</c:if> >公司合伙人</option>
+                                     				<option value="v2" <c:if test="${'v2' eq user.vipLevel }">selected</c:if> >一级加盟店</option>
+                                     				<option value="v3" <c:if test="${'v3' eq user.vipLevel }">selected</c:if> >二级加盟店</option>
+                                     				<option value="v4" <c:if test="${'v4' eq user.vipLevel }">selected</c:if> >三级加盟店</option>
+                                     				<option value="v5" <c:if test="${'v5' eq user.vipLevel }">selected</c:if> >四级加盟店</option>
+                                     				<option value="v6" <c:if test="${'v6' eq user.vipLevel }">selected</c:if> >五级加盟店</option>
+                                     				<option value="v7" <c:if test="${'v7' eq user.vipLevel }">selected</c:if> >六级加盟店</option>
+                                     				<option value="v8" <c:if test="${'v8' eq user.vipLevel }">selected</c:if> >七级加盟店</option>
                                      			</select>
                                      		</c:when>
                                      		<c:otherwise>
                                      			<select  >
                                      				<option value="v0">普通会员</option>
                                      				<option value="v1" selected>个人vip</option>
-                                     				<option value="v2">初级代理</option>
-                                     				<option value="v3">中级代理</option>
-                                     				<option value="v4">高级代理</option>
-                                     				<option value="v5">核心代理</option>
-                                     				<option value="v6">运营中心</option>
-                                     				<option value="v7">公司合伙人</option>
+                                     				<option value="v2">一级加盟店</option>
+                                     				<option value="v3">二级加盟店</option>
+                                     				<option value="v4">三级加盟店</option>
+                                     				<option value="v5">四级加盟店</option>
+                                     				<option value="v6">五级加盟店</option>
+                                     				<option value="v7">六级加盟店</option>
+                                     				<option value="v8">七级加盟店</option>
                                      			</select>
                                      		</c:otherwise>
                                      	</c:choose>

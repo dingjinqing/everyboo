@@ -1,6 +1,6 @@
 //var BASE_URL = 'http://47.106.142.171:8080';
-//var BASE_URL = 'https://www.yctrad.com';
-var BASE_URL = 'http://127.0.0.1:8080';
+//var BASE_URL = 'https://www.everyboo.cn';
+var BASE_URL = 'http://localhost:8080';
 var MODULE_WEB = '/everyboo-module-interface';
 var MODULE_ADMIN = '/everyboo-module-admin';
 
@@ -81,14 +81,15 @@ var HEART_ROOT_COLUMN_ID = '2c92d3966726e03001672eafcb4f0000'
 var HEALTH_ROOT_COLUMN_ID = '8a2a08425b7a0b7b015b7a2a82ab0005'
 
 var USER_LEVELS = {
-    "v0": "普通会员",
+    "v0": "个人VIP",
     "v1": "个人VIP",
-    "v2": "初级代理",
-    "v3": "中级代理",
-    "v4": "高级代理",
-    "v5": "核心代理",
-    "v6": "运营中心",
-    "v7": "公司合伙人"
+    "v2": "个人VIP(一级加盟店)",
+    "v3": "个人VIP(二级加盟店)",
+    "v4": "个人VIP(三级加盟店)",
+    "v5": "个人VIP(四级加盟店)",
+    "v6": "个人VIP(五级加盟店)",
+    "v7": "个人VIP(六级加盟店)",
+    "v8": "个人VIP(七级加盟店)"
 }
 
 var USER_PRICE = {
@@ -96,10 +97,10 @@ var USER_PRICE = {
     'v1': 'price1',
     'v2': 'price1',
     'v3': 'price1',
-    'v4': 'price2',
-    'v5': 'price2',
-    'v6': 'price3',
-    'v7': 'price3'
+    'v4': 'price1',
+    'v5': 'price1',
+    'v6': 'price1',
+    'v7': 'price1'
 }
 
 var INCOME = {

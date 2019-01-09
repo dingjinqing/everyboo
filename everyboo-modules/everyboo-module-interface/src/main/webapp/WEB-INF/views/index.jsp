@@ -65,14 +65,14 @@
                 <div class="portfolio-area pt-100 pb-70">
                     <div class="container">
                         <div class="section-title text-center mb-50">
-                            <h2>会员大礼包<i class="fa fa-shopping-cart"></i></h2>
+                            <h2>商城产品<i class="fa fa-shopping-cart"></i></h2>
                         </div>		
                         <div class="row portfolio-style-2">
                             <div class="grid">
                                 <div v-for="item in giftProducts" class="col-md-3 col-sm-6 col-xs-12 mb-30">
                                     <div class="single-shop">
                                         <div class="shop-img">
-                                            <a :href="'<%=path%>/product?id=' + item.id"><img :src="item.proLogoImgFull" alt="" /></a>
+                                            <a :href="'<%=path%>/product?id=' + item.id"><img :src="item.proLogoImgFull" class="img-responsive" alt="" /></a>
                                             <div class="shop-quick-view">
                                                 <a :href="'<%=path%>/product?id=' + item.id">
                                                     <i class="pe-7s-look"></i>
@@ -112,7 +112,7 @@
                             <div v-for="item in latestArticles" class="col-md-4 col-sm-6">
                                 <div class="blog-details mb-30">
                                     <div class="blog-img">
-                                        <a :href="'<%=path%>/blog-detail?id=' + item.id"><img :src="item.coverImageUrl" alt=""></a>
+                                        <a :href="'<%=path%>/blog-detail?id=' + item.id"><img :src="item.coverImageUrl" class="img-responsive" alt=""></a>
                                         <div class="blog-quick-view">
                                             <a :href="'<%=path%>/blog-detail?id=' + item.id">
                                                 <i class="pe-7s-link"></i>
@@ -247,7 +247,7 @@
                     $.post(
                         PRODUCT_URL,
                         {
-                            pageSize: 50,
+                            pageSize: 8,
                             currentPage: 1,
                             type: 1
                         },

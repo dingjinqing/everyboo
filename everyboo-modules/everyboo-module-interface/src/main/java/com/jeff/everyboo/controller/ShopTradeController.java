@@ -301,139 +301,23 @@ public class ShopTradeController {
 		System.out.println("确认收货会员用户信息：" + user.getId());
 		// 直推间推返利开始
 		// Jtype 1.购买会员大礼包2.复购产品
-		if (shopTrade.getJtype() == 1) {
-			// 获取商品id，拿到商品信息，商品信息中包含商品对于vip等级
-			Set<ShopTradeDetail> shopTradeDetails = shopTrade.getShopTradeDetails();
-			Iterator<ShopTradeDetail> it = shopTradeDetails.iterator();
-			int proId = 0;
-			while (it.hasNext()) {
-				ShopTradeDetail detail = it.next();
-				proId = detail.getProId();
-			}
-			ShopProduct product = productService.find(proId);
-			ShopRegisterRule rule = ruleService.findByVip(product.getVipLevel());
-
-			// 升级会员信息
-			user.setVipLevel(rule.getVipLevel());
-			user.getShopUserExts().setBill(new BigDecimal( rule.getBill()));// 总健康链
-			user.getShopUserExts().setCredits(new BigDecimal(product.getIncomeCredits()));// 购买商品赠送积分
-			// 更改会员账户信息
-			userService.update(user);
-			// 如果介绍人电话不为空，介绍人获得直推收益
-			if (StringUtils.isNotEmpty(user.getRefPhone())) {
-				ShopUserQueryDTO shopUserQueryDTO = new ShopUserQueryDTO();
-				shopUserQueryDTO.setPhone(user.getRefPhone());
-				ShopUser ztUser = userService.queryShopUserList(shopUserQueryDTO).get(0);
-				// 如果根据介绍人电话查找的用户不存在，则不赠送
-				if (ztUser != null) {
-					// 直推用户等级对应的奖励规则
-					ShopRegisterRule rule2 = ruleService.findByVip(ztUser.getVipLevel());
-					BigDecimal b1 = ztUser.getShopUserExts().getActiveBill();
-					BigDecimal b2 = new BigDecimal(rule.getZtjkljhs());
-					// 健康链激活数（直推） 本身有的+邀请人增加的
-					// 普通会员不激活健康链
-					if (!ztUser.getVipLevel().equals("v1")) {
-						ztUser.getShopUserExts().setActiveBill(b1.add(b2));
-					}
-
-					// 如果激活健康链总数+历史健康值>等级对应数量，则等级提升,并减去提升等级的健康值,同时改变未激活健康值总值
-					int historyBill = tradeService.queryLisiJkz(ztUser.getId());
-					if ((ztUser.getShopUserExts().getActiveBill().add(new BigDecimal(historyBill))).compareTo(new BigDecimal(rule2.getBill())) > 0 && !ztUser.getVipLevel().equals("v7")) {
-						BigDecimal creidts1 = productService.FindProductCreditsByVip(ztUser.getVipLevel());
-						ztUser.setVipLevel(VipLevelEnum.valueOf(ztUser.getVipLevel()).next().toString());
-						BigDecimal creidts2 = productService.FindProductCreditsByVip(ztUser.getVipLevel());
-
-						// ztUser.getShopUserExts().setActiveBill(String.valueOf(Integer.parseInt(ztUser.getShopUserExts().getActiveBill())
-						// - Integer.parseInt(rule2.getBill())) );
-
-						// 获取两个会议大礼包，计算出积分差距，给升级用户补上
-						BigDecimal creidts3 = creidts2.subtract(creidts1);
-						BigDecimal creidts4 = ztUser.getShopUserExts().getCredits();
-						ztUser.getShopUserExts().setCredits(creidts3.add(creidts4));
-//						改变未激活健康值总值
-						ShopRegisterRule rule21 = ruleService.findByVip(ztUser.getVipLevel());
-						ztUser.getShopUserExts().setBill(new BigDecimal(rule21.getBill()) );
-					}
-
-					// 直推奖 订单金额绝对值*直接奖励百分比
-					BigDecimal a1 = new BigDecimal(rule2.getZtj()).multiply(shopTrade.getPrice().abs());
-					this.saveTradeInfo(a1, ztUser, 3);
-					// 管理奖
-					BigDecimal a2 = new BigDecimal(rule2.getGlj()).multiply(shopTrade.getPrice().abs());
-					this.saveTradeInfo(a2, ztUser, 5);
-					// 直推用户账户余额+直推奖+管理奖
-					// ztUser.getShopUserExts().setBalance(a1.add(a2).add(ztUser.getShopUserExts().getBalance()));
-					// //更新直推用户
-					// userService.update(ztUser);
-					System.out.println("直推收益计算完成，直推用户id：" + ztUser.getId());
-
-					// 如果直推介绍人电话不为空，间推介绍人获得间推收益
-					if (StringUtils.isNotEmpty(ztUser.getRefPhone())) {
-						ShopUserQueryDTO userQueryDTO = new ShopUserQueryDTO();
-						userQueryDTO.setPhone(ztUser.getRefPhone());
-						ShopUser jtUser = userService.queryShopUserList(userQueryDTO).get(0);
-						if (jtUser != null) {
-							// 获取间推用户等级对应奖励规则
-							ShopRegisterRule rule3 = ruleService.findByVip(jtUser.getVipLevel());
-
-							BigDecimal c1 = jtUser.getShopUserExts().getActiveBill();
-							BigDecimal c2 = new BigDecimal(rule.getJtjkljhs());
-							// 健康链激活数（直推） 本身有的+邀请人增加的
-							// 普通会员不激活健康链
-							if (!jtUser.getVipLevel().equals("v1")) {
-								jtUser.getShopUserExts().setActiveBill(c1.add(c2));
-							}
-							// 如果激活健康链总数+历史健康值>等级对应数量，则等级提升,并减去提升等级的健康值
-							int historyBill2 = tradeService.queryLisiJkz(ztUser.getId());
-							if (jtUser.getShopUserExts().getActiveBill().add(new BigDecimal(historyBill2) ).compareTo(new BigDecimal(rule3.getBill()))  > 0 && !jtUser.getVipLevel().equals("v7")) {
-								BigDecimal creidts1 = productService.FindProductCreditsByVip(ztUser.getVipLevel());
-
-								jtUser.setVipLevel(VipLevelEnum.valueOf(jtUser.getVipLevel()).next().toString());
-								// jtUser.getShopUserExts().setActiveBill(String.valueOf(Integer.parseInt(jtUser.getShopUserExts().getActiveBill())
-								// - Integer.parseInt(rule3.getBill())) );
-
-								BigDecimal creidts2 = productService.FindProductCreditsByVip(ztUser.getVipLevel());
-
-								// 获取两个会议大礼包，计算出积分差距，给升级用户补上
-								BigDecimal creidts3 = creidts2.subtract(creidts1);
-								BigDecimal creidts4 = ztUser.getShopUserExts().getCredits();
-								ztUser.getShopUserExts().setCredits(creidts3.add(creidts4));
-								
-//								改变未激活健康值总值
-								ShopRegisterRule rule21 = ruleService.findByVip(ztUser.getVipLevel());
-								ztUser.getShopUserExts().setBill(new BigDecimal(rule21.getBill()) );
-							}
-							// 间推奖 订单金额*间推奖励百分比
-							BigDecimal d1 = new BigDecimal(rule3.getJtj()).multiply(shopTrade.getPrice().abs());
-							this.saveTradeInfo(d1, jtUser, 4);
-							// 管理奖
-							BigDecimal d2 = new BigDecimal(rule3.getGlj()).multiply(shopTrade.getPrice().abs());
-							this.saveTradeInfo(d2, jtUser, 5);
-							System.out.println("间推收益计算完成，间推用户id：" + jtUser.getId());
-						}
-
-					}
-				}
-
-			}
-
-			// 复购返利逻辑
-		} else if (shopTrade.getJtype() == 2) {
 			// 复购返点不是看购买用户的那三个配置，是和自己对应等级的规则的对应的返点
 			// 奖励规则，根据购买用户的等级来
 
-			Set<ShopTradeDetail> shopTradeDetails = shopTrade.getShopTradeDetails();
+			/*Set<ShopTradeDetail> shopTradeDetails = shopTrade.getShopTradeDetails();
 			Iterator<ShopTradeDetail> it = shopTradeDetails.iterator();
 			int proId = 0;
 			while (it.hasNext()) {
 				ShopTradeDetail detail = it.next();
 				proId = detail.getProId();
-			}
+			}*/
 			// ShopProduct product = productService.find(proId);
-			ShopTradeRule rule = tradeRuleService.queryShopTradeRule(proId, user.getVipLevel());
+//			ShopTradeRule rule = tradeRuleService.queryShopTradeRule(proId, user.getVipLevel());
 			// 购买返点 给用户本身账户余额增加
-			BigDecimal a1 = new BigDecimal(rule.getFugoufd()).multiply(shopTrade.getPrice().abs());
-			this.saveTradeInfo(a1, user, 9);
+//			BigDecimal a1 = new BigDecimal(rule.getFugoufd()).multiply(shopTrade.getPrice().abs());
+//			this.saveTradeInfo(a1, user, 9);
+
+		
 			// 如果介绍人电话不为空，介绍人获得直推收益
 			if (StringUtils.isNotEmpty(user.getRefPhone())) {
 				ShopUserQueryDTO shopUserQueryDTO = new ShopUserQueryDTO();
@@ -442,10 +326,18 @@ public class ShopTradeController {
 
 				// 如果根据介绍人电话查找的用户不存在，则不赠送
 				if (ztUser != null) {
-					rule = tradeRuleService.queryShopTradeRule(proId, ztUser.getVipLevel());
+//					rule = tradeRuleService.queryShopTradeRule(proId, ztUser.getVipLevel());
 					// 邀请用户复购的直推返点 给用户本身账户余额增加
-					BigDecimal a2 = new BigDecimal(rule.getFugouztfd()).multiply(shopTrade.getPrice().abs());
-					this.saveTradeInfo(a2, ztUser, 10);
+//					如果第一次购买
+					if (user.getVipLevel().equals("v0")) {
+						BigDecimal a1 = ztUser.getShopUserExts().getCredits().add(shopTrade.getPrice().abs());
+						ztUser.getShopUserExts().setCredits(a1);
+						this.saveTrade(shopTrade.getPrice(), ztUser, 3);
+						userService.update(ztUser);
+					}else {
+						BigDecimal a2 = new BigDecimal(0.2).multiply(shopTrade.getPrice().abs());
+						this.saveTradeInfo(a2, ztUser, 10);
+					}
 
 					// 如果介绍人电话不为空，介绍人获得间推收益
 					if (StringUtils.isNotEmpty(ztUser.getRefPhone())) {
@@ -455,15 +347,24 @@ public class ShopTradeController {
 						// 如果根据介绍人电话查找的用户不存在，则不赠送
 						if (jtUser != null) {
 							// 邀请用户复购的直推返点 给用户本身账户余额增加
-							rule = tradeRuleService.queryShopTradeRule(proId, jtUser.getVipLevel());
-							BigDecimal a3 = new BigDecimal(rule.getFugoujtfd()).multiply(shopTrade.getPrice().abs());
+//							rule = tradeRuleService.queryShopTradeRule(proId, jtUser.getVipLevel());
+							BigDecimal a3 = new BigDecimal(0.1).multiply(shopTrade.getPrice().abs());
 							this.saveTradeInfo(a3, jtUser, 11);
 						}
 					}
 				}
 			}
-		}
-
+			
+//			如果第一次购买,本人增加购买金额对应的消费积分
+			if (user.getVipLevel().equals("v0")) {
+//				赠送积分：第一次购买就赠送等值积分，假如我是你上家，那丁清第一次购买时，你获得300分我获得300，丁清第二次~N次购买我不获得任何积分。
+				user.setVipLevel("v1");
+				BigDecimal a1 = user.getShopUserExts().getCredits().add(shopTrade.getPrice().abs());
+				user.getShopUserExts().setCredits(a1);
+				this.saveTrade(shopTrade.getPrice(), user, 3);
+				userService.update(user);
+			}
+			
 		// 返利结束
 
 		ajaxResult.setSuccess(true);
@@ -474,20 +375,26 @@ public class ShopTradeController {
 	public void saveTradeInfo(BigDecimal ba, ShopUser user, int type) {
 		// 邀请用户复购的直推返点 给用户本身账户余额增加
 		if (ba.compareTo(BigDecimal.ZERO) > 0) {
-			ShopTrade ztTrade = new ShopTrade();
-			ztTrade.setPrice(ba);
-			ztTrade.setUserId(user.getId());
-			ztTrade.setTradeNo(WebHelper.getDayNo());
-			ztTrade.setJtype(type);// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点
-			ztTrade.setStatus(3);
-			ztTrade.setCredits(0);
-			ztTrade.setCreateDate(new Date());
-			ztTrade.setShopTradeDetails(null);
-			tradeService.save(ztTrade);
-			user.getShopUserExts().setBalance(user.getShopUserExts().getBalance().add(ba));
+			this.saveTrade(ba, user, type);
+//			80%到销售积分里，20%到消费积分
+			user.getShopUserExts().setXiaoshou(user.getShopUserExts().getXiaoshou().add(ba.multiply(new BigDecimal(0.8))));
+			user.getShopUserExts().setCredits(user.getShopUserExts().getCredits().add(ba.multiply(new BigDecimal(0.2))));
 			userService.update(user);
 		}
 
+	}
+	
+	public void saveTrade(BigDecimal ba, ShopUser user, int type) {
+		ShopTrade ztTrade = new ShopTrade();
+		ztTrade.setPrice(ba);
+		ztTrade.setUserId(user.getId());
+		ztTrade.setTradeNo(WebHelper.getDayNo());
+		ztTrade.setJtype(type);// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点
+		ztTrade.setStatus(3);
+		ztTrade.setCredits(0);
+		ztTrade.setCreateDate(new Date());
+		ztTrade.setShopTradeDetails(null);
+		tradeService.save(ztTrade);
 	}
 
 	/**

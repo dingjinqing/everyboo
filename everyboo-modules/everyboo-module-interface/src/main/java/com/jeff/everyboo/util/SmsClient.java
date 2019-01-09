@@ -34,12 +34,12 @@ public class SmsClient {
     static final String domain = "dysmsapi.aliyuncs.com";
 
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
-    //毅城贸易
-//    static final String accessKeyId = "LTAIIcJPB6s6A6yd";
-//    static final String accessKeySecret ="EWlIgpcPfstmjTfarZ1o4HA3lDnhAK";
+    //艾瑞宝
+    static final String accessKeyId = "LTAIFOM2wUz1pwSD";
+    static final String accessKeySecret ="Am9qK65SpJ5tdzAPTsXmVrL3zUbgeb";
     //康生缘
-    static final String accessKeyId = "LTAIpPxhH3c16hvX";
-    static final String accessKeySecret ="uGz3oklBZijXOQHqOIBdJgl6Lz980A";
+//    static final String accessKeyId = "LTAIpPxhH3c16hvX";
+//    static final String accessKeySecret ="uGz3oklBZijXOQHqOIBdJgl6Lz980A";
    //个人
 //    static final String accessKeyId = "LTAIbv778qFplEJ0";
 //    static final String accessKeySecret = "2z6XJ84npKFjmbRf7wboX17o9SN4fK";
@@ -60,8 +60,8 @@ public class SmsClient {
         //必填:待发送手机号
         request.setPhoneNumbers(phone);
         //必填:短信签名-可在短信控制台中找到
-//        request.setSignName("毅城贸易");
-        request.setSignName("康生缘");
+        request.setSignName("艾瑞堡");
+//        request.setSignName("康生缘");
 //        request.setSignName("技术学习");
         //必填:短信模板-可在短信控制台中找到
         request.setTemplateCode(smsName);
@@ -123,11 +123,11 @@ public class SmsClient {
 		JSONObject json3 = new JSONObject();
 		json3.put("password", 672356);
         //发短信
-//        SendSmsResponse response = sendSms("13798369750",json.toJSONString(),"SMS_148866416");
+        SendSmsResponse response = sendSms("13798369750",json.toJSONString(),"SMS_154415357");
 		
-//        SendSmsResponse response = sendSms("13798369750",json2.toJSONString(),"SMS_151840381");
+//        SendSmsResponse response = sendSms("13798369750",json2.toJSONString(),"SMS_154415356");
         
-        SendSmsResponse response = sendSms("13798369750",json3.toJSONString(),"SMS_151990333");
+//        SendSmsResponse response = sendSms("13798369750",json3.toJSONString(),"SMS_154589811");
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());

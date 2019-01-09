@@ -30,11 +30,13 @@ public class ShopUserExt implements java.io.Serializable {
 	@JsonIgnore
 	private ShopUser shopUser;
 	private BigDecimal credits;  //购物积分
-	private BigDecimal bill;	//共享上限（通过购买商品提高）
-	private BigDecimal activeBill;	//共享积分(平台分红)
-	private BigDecimal tradeBill;	//广告上限（直推奖+间推奖+管理奖最高值  购买商品提高上限）
-	private BigDecimal balance;	//消费积分(充值)
-	private BigDecimal tuiguang;	//广告积分（直推奖+间推奖+管理奖）
+	private BigDecimal bill;	
+	private BigDecimal activeBill;	
+	private BigDecimal tradeBill;	
+	private BigDecimal balance;	
+	private BigDecimal tuiguang;	//共享积分（直推奖+间推奖）
+	private BigDecimal duihuan;	//3、共享积分=平台分红*X%
+	private BigDecimal xiaoshou;	//3、销售积分
 	private String bankOwer;
 	private String bankCard;
 	private String bankDeposit;
@@ -43,25 +45,12 @@ public class ShopUserExt implements java.io.Serializable {
 	private Date updateDate;
 	private String updateBy;
 
-	@Override
-	public String toString() {
-		return "ShopUserExt [id=" + id + ", credits=" + credits + ", bill=" + bill + ", activeBill=" + activeBill
-				+ ", tradeBill=" + tradeBill + ", balance=" + balance + ", createDate=" + createDate + ", createBy="
-				+ createBy + ", updateDate=" + updateDate + ", updateBy=" + updateBy + "]";
-	}
-
 	public ShopUserExt() {
 	}
 
-	public ShopUserExt(ShopUser shopUser, BigDecimal credits, BigDecimal bill, BigDecimal activeBill) {
-		this.shopUser = shopUser;
-		this.credits = credits;
-		this.bill = bill;
-		this.activeBill = activeBill;
-	}
-
-	public ShopUserExt(Integer id, BigDecimal credits, BigDecimal bill, BigDecimal activeBill, BigDecimal tradeBill, BigDecimal balance,
-			Date createDate, String createBy, Date updateDate, String updateBy) {
+	public ShopUserExt(Integer id, BigDecimal credits, BigDecimal bill, BigDecimal activeBill, BigDecimal tradeBill,
+			BigDecimal balance, BigDecimal tuiguang, BigDecimal duihuan, String bankOwer, String bankCard,
+			String bankDeposit, Date createDate, String createBy, Date updateDate, String updateBy) {
 		super();
 		this.id = id;
 		this.credits = credits;
@@ -69,31 +58,41 @@ public class ShopUserExt implements java.io.Serializable {
 		this.activeBill = activeBill;
 		this.tradeBill = tradeBill;
 		this.balance = balance;
+		this.tuiguang = tuiguang;
+		this.duihuan = duihuan;
+		this.bankOwer = bankOwer;
+		this.bankCard = bankCard;
+		this.bankDeposit = bankDeposit;
 		this.createDate = createDate;
 		this.createBy = createBy;
 		this.updateDate = updateDate;
 		this.updateBy = updateBy;
 	}
 
-	public ShopUserExt(ShopUser shopUser, BigDecimal credits, BigDecimal bill, BigDecimal activeBill, BigDecimal tradeBill,
-			BigDecimal balance, Date createDate, String createBy, Date updateDate, String updateBy) {
+	public ShopUserExt(Integer id, ShopUser shopUser, BigDecimal credits, BigDecimal bill, BigDecimal activeBill,
+			BigDecimal tradeBill, BigDecimal balance, BigDecimal tuiguang, BigDecimal duihuan, String bankOwer,
+			String bankCard, String bankDeposit, Date createDate, String createBy, Date updateDate, String updateBy) {
+		super();
+		this.id = id;
 		this.shopUser = shopUser;
 		this.credits = credits;
 		this.bill = bill;
 		this.activeBill = activeBill;
 		this.tradeBill = tradeBill;
 		this.balance = balance;
+		this.tuiguang = tuiguang;
+		this.duihuan = duihuan;
+		this.bankOwer = bankOwer;
+		this.bankCard = bankCard;
+		this.bankDeposit = bankDeposit;
 		this.createDate = createDate;
 		this.createBy = createBy;
 		this.updateDate = updateDate;
 		this.updateBy = updateBy;
 	}
 
-	
-
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -228,6 +227,24 @@ public class ShopUserExt implements java.io.Serializable {
 
 	public void setTuiguang(BigDecimal tuiguang) {
 		this.tuiguang = tuiguang;
+	}
+
+	@Column(name = "duihuan", length = 12)
+	public BigDecimal getDuihuan() {
+		return duihuan;
+	}
+
+	public void setDuihuan(BigDecimal duihuan) {
+		this.duihuan = duihuan;
+	}
+	
+	@Column(name = "xiaoshou", length = 12)
+	public BigDecimal getXiaoshou() {
+		return xiaoshou;
+	}
+
+	public void setXiaoshou(BigDecimal xiaoshou) {
+		this.xiaoshou = xiaoshou;
 	}
 
 

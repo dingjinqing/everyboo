@@ -69,7 +69,7 @@
                                                         <tr v-for="product in products">
                                                             <td>
                                                                 <a href="javascript:;"><img
-                                                                        :src="product.proLogoImgFull"
+                                                                        :src="product.proLogoImgFull" class="img-responsive"
                                                                         alt=""></a>
                                                             </td>
                                                             <td><a

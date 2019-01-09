@@ -397,8 +397,7 @@ public class ShopUserController {
 			try {
 				JSONObject jsons = new JSONObject();
 				jsons.put("code", verifyCode);
-//				response = SmsClient.sendSms(phone, jsons.toJSONString(), "SMS_148866416");
-				response = SmsClient.sendSms(phone, jsons.toJSONString(), "SMS_151840381");
+				response = SmsClient.sendSms(phone, jsons.toJSONString(), "SMS_154415357");
 
 				if (response.getCode() != null && response.getCode().equals("OK")) {
 					// 请求成功
@@ -480,7 +479,7 @@ public class ShopUserController {
 			user.setStatus(1);
 			user.setCreateDate(new Date());
 			
-			user.setVipLevel("v1");
+			user.setVipLevel("v0");
 			user = userService.save(user);
 			
 			ShopUserExt shopUserExt  = new ShopUserExt();
@@ -490,6 +489,7 @@ public class ShopUserController {
 			shopUserExt.setCredits(BigDecimal.ZERO);
 			shopUserExt.setTradeBill(BigDecimal.ZERO);
 			shopUserExt.setTuiguang(BigDecimal.ZERO);
+			shopUserExt.setXiaoshou(BigDecimal.ZERO);
 			shopUserExt.setShopUser(user);
 			shopUserExt.setCreateDate(new Date());
 			userExtService.save(shopUserExt);
@@ -551,7 +551,7 @@ public class ShopUserController {
 				jsonObject.put("password", verifyCode);
 				SendSmsResponse response;
 				try {
-					response = SmsClient.sendSms(phone, jsonObject.toJSONString(), "SMS_151990333");
+					response = SmsClient.sendSms(phone, jsonObject.toJSONString(), "SMS_154589811");
 					if (response.getCode() != null && response.getCode().equals("OK")) {
 						users.get(0).setPassword(Md5Util.generatePassword(verifyCode));
 						userService.update(users.get(0));
@@ -593,7 +593,7 @@ public class ShopUserController {
 				jsonObject.put("password", verifyCode);
 				SendSmsResponse response;
 				try {
-					response = SmsClient.sendSms(phone, jsonObject.toJSONString(), "SMS_151990333");
+					response = SmsClient.sendSms(phone, jsonObject.toJSONString(), "SMS_154589811");
 					if (response.getCode() != null && response.getCode().equals("OK")) {
 						users.get(0).setJiaoyimima(Md5Util.generatePassword(verifyCode));
 						userService.update(users.get(0));

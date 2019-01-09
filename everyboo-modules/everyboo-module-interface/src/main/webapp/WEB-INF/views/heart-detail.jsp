@@ -81,7 +81,7 @@
                                         <div v-if="latestArticles.length === 0">暂无最新资讯</div>
                                         <div v-else v-for="item in latestArticles" class="recent-img-text mb-20">
                                             <div class="recent-img">
-                                                <a :href="'heart-detail.jsp?id=' + item.id"><img :src="item.coverImageUrl" alt=""></a>
+                                                <a :href="'heart-detail.jsp?id=' + item.id"><img :src="item.coverImageUrl" alt="" class="img-responsive"></a>
                                             </div>
                                             <div class="recent-text">
                                                 <h4>

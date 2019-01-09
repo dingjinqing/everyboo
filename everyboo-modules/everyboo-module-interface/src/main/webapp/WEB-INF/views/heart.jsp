@@ -49,7 +49,7 @@
                         <div v-for="item in articles" class="col-md-4 col-sm-6">
                             <div class="blog-details mb-30">
                                 <div class="blog-img">
-                                    <a :href="'<%=path%>/heart-detail?id=' + item.id"><img :src="item.coverImageUrl" alt=""></a>
+                                    <a :href="'<%=path%>/heart-detail?id=' + item.id"><img :src="item.coverImageUrl" alt="" class="img-responsive"></a>
                                     <div class="blog-quick-view">
                                         <a :href="'<%=path%>/heart-detail?id=' + item.id">
                                             <i class="pe-7s-link"></i>

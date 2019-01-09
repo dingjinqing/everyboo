@@ -18,7 +18,8 @@
 	<div class="J_content">
 		<div id="addForm" class="mgt20">
 			<form action="${ctx }/shopproduct/save" id="editForm" method="post">
-				<input type="hidden" name="id" value="${bean.id }" /> <input
+				<input type="hidden" name="id" value="${bean.id }" />
+				<input type="hidden" name="type" value="1" /> <input
 					type="hidden" name="createBy" value="${bean.createBy }" /> <input
 					type="hidden" name="createDate" value="${bean.createDate }" /> <input
 					type="hidden" name="proLogoImg" id="proLogoImg"
@@ -92,19 +93,19 @@
 										</div>
 									</div>
 								</td>
-								<td class="l_title w150">抵扣积分</td>
+								<td class="l_title w150">消费积分</td>
 								<td>
 									<div class="J_toolsBar fl">
 										<div class="t_text w200 ml10">
 											<label> <c:choose>
 													<c:when test="${not empty bean }">
 														<input type="text" name="consumeCredits"
-															placeholder="购买商品最高抵扣积分，没有为0"
+															placeholder="购买商品最高消费积分，没有为0"
 															value="${bean.consumeCredits }" />
 													</c:when>
 													<c:otherwise>
 														<input type="text" name="consumeCredits"
-															placeholder="购买商品最高抵扣积分，没有为0" value="" />
+															placeholder="购买商品最高消费积分，没有为0" value="" />
 													</c:otherwise>
 												</c:choose>
 											</label>
@@ -113,45 +114,43 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="l_title w150"><b class="cRed">*</b>商品价格1</td>
+								<td class="l_title w150"><b class="cRed">*</b>兑换积分</td>
 								<td>
 									<div class="J_toolsBar fl">
 										<div class="t_text w200 ml10">
 											<label> <c:choose>
 													<c:when test="${not empty bean }">
 														<input type="text" name="price1"
-															data-rule="商品价格:required;"
-															placeholder="普通会员、个人vip、初级代理的价格" value="${bean.price1 }" />
+															data-rule="兑换积分:required;" value="${bean.price1 }" />
 													</c:when>
 													<c:otherwise>
 														<input type="text" name="price1"
-															data-rule="商品价格:required;"
-															placeholder="普通会员、个人vip、初级代理的价格" />
+															data-rule="兑换积分:required;" />
 													</c:otherwise>
 												</c:choose>
 											</label>
 										</div>
 									</div>
 								</td>
-								<td class="l_title w150"><b class="cRed">*</b>商品价格2</td>
+								<%-- <td class="l_title w150"><b class="cRed">*</b>商品价格2</td>
 								<td>
 									<div class="J_toolsBar fl">
 										<div class="t_text w200 ml10">
 											<label> <c:choose>
 													<c:when test="${not empty bean }">
 														<input type="text" name="price2"
-															data-rule="商品价格:required;" placeholder="高级代理、核心代理的价格"
+															data-rule="商品价格:required;" placeholder="三级加盟店、四级加盟店的价格"
 															value="${bean.price2 }" />
 													</c:when>
 													<c:otherwise>
 														<input type="text" name="price2"
-															data-rule="商品价格:required;" placeholder="高级代理、核心代理的价格" />
+															data-rule="商品价格:required;" placeholder="三级加盟店、四级加盟店的价格" />
 													</c:otherwise>
 												</c:choose>
 											</label>
 										</div>
 									</div>
-								</td>
+								</td> 
 							</tr>
 							<tr>
 								<td class="l_title w150"><b class="cRed">*</b>商品价格3</td>
@@ -161,18 +160,18 @@
 											<label> <c:choose>
 													<c:when test="${not empty bean }">
 														<input type="text" name="price3"
-															data-rule="商品价格:required;" placeholder="运营中心、公司合伙人的价格"
+															data-rule="商品价格:required;" placeholder="五级加盟店、六级加盟店的价格"
 															value="${bean.price3 }" />
 													</c:when>
 													<c:otherwise>
 														<input type="text" name="price3"
-															data-rule="商品价格:required;" placeholder="运营中心、公司合伙人的价格" />
+															data-rule="商品价格:required;" placeholder="五级加盟店、六级加盟店的价格" />
 													</c:otherwise>
 												</c:choose>
 											</label>
 										</div>
 									</div>
-								</td>
+								</td> --%>
 								<td class="l_title w150"><b class="cRed">*</b>状态</td>
 								<td>
 									<div class="J_toolsBar fl">
@@ -183,8 +182,6 @@
 									</div>
 								</td>
 							</tr>
-							<c:if
-								test="${bean.type == null || bean.type == 3 || bean.type == 2  }">
 								<tr>
 									<td class="l_title w150">原来价格</td>
 									<td>
@@ -211,82 +208,6 @@
 										</div>
 									</td>
 								</tr>
-							</c:if>
-							<tr>
-								<td class="l_title w150"><b class="cRed">*</b>商品类型</td>
-								<td>
-									<div class="J_toolsBar fl">
-										<div class="t_text w200 ml10">
-											<label> <c:choose>
-													<c:when test="${not empty bean }">
-														<select name="type" id="type" data-rule="商品类型:required;"
-															value="${bean.type }" onchange="changeType()">
-															<option value="1"
-																<c:if test="${'1' eq bean.type }">selected</c:if>>会员大礼包</option>
-															<option value="2"
-																<c:if test="${'2' eq bean.type }">selected</c:if>>平台产品</option>
-															<option value="3"
-																<c:if test="${'3' eq bean.type }">selected</c:if>>项目合作</option>
-														</select>
-													</c:when>
-													<c:otherwise>
-														<select name="type" id="type" data-rule="商品类型:required;"
-															onchange="changeType()">
-															<option value="">请选择</option>
-															<option value="1">会员大礼包</option>
-															<option value="2">平台产品</option>
-															<option value="3">项目合作</option>
-														</select>
-													</c:otherwise>
-												</c:choose>
-											</label>
-										</div>
-									</div>
-								</td>
-								<td class="l_title w150" id="level1">会员等级</td>
-								<td id="level2">
-									<div class="J_toolsBar fl">
-										<div class="t_text w200 ml10">
-											<label> <c:choose>
-													<c:when test="${not empty bean }">
-														<select name="vipLevel">
-															<option value="v0"
-																<c:if test="${'v0' eq bean.vipLevel }">selected</c:if>>普通会员</option>
-															<option value="v1"
-																<c:if test="${'v1' eq bean.vipLevel }">selected</c:if>>个人vip</option>
-															<option value="v2"
-																<c:if test="${'v2' eq bean.vipLevel }">selected</c:if>>初级代理</option>
-															<option value="v3"
-																<c:if test="${'v3' eq bean.vipLevel }">selected</c:if>>中级代理</option>
-															<option value="v4"
-																<c:if test="${'v4' eq bean.vipLevel }">selected</c:if>>高级代理</option>
-															<option value="v5"
-																<c:if test="${'v5' eq bean.vipLevel }">selected</c:if>>核心代理</option>
-															<option value="v6"
-																<c:if test="${'v6' eq bean.vipLevel }">selected</c:if>>运营中心</option>
-															<option value="v7"
-																<c:if test="${'v7' eq bean.vipLevel }">selected</c:if>>公司合伙人</option>
-														</select>
-													</c:when>
-													<c:otherwise>
-														<select name="vipLevel">
-															<option value="">请选择</option>
-															<option value="v0">普通会员</option>
-															<option value="v1" selected>个人vip</option>
-															<option value="v2">初级代理</option>
-															<option value="v3">中级代理</option>
-															<option value="v4">高级代理</option>
-															<option value="v5">核心代理</option>
-															<option value="v6">运营中心</option>
-															<option value="v7">公司合伙人</option>
-														</select>
-													</c:otherwise>
-												</c:choose>
-											</label>
-										</div>
-									</div>
-								</td>
-							</tr>
 
 							<tr>
 								<td class="l_title w150">商品简介</td>
@@ -557,20 +478,6 @@
 			});
 
 		});
-
-		function changeType() {
-			var value = $("#type").val();
-			if (value == 1) {
-				$("#level1").css("visibility", "visible");
-				$("#level2").css("visibility", "visible");
-			} else if (value == 2) {
-				$("#level1").css("visibility", "hidden");
-				$("#level2").css("visibility", "hidden");
-			} else if (value == 3) {
-				$("#level1").css("visibility", "hidden");
-				$("#level2").css("visibility", "hidden");
-			}
-		}
 
 		function myBack() {
 			window.location.href = "${ctx}/shopproduct/list";

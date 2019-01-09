@@ -126,7 +126,7 @@ public class ShopUserController {
 		headNameMap.put("status", "账号状态");
 		headNameMap.put("vipStatus", "会员状态");
 		headNameMap.put("balance", "消费积分");
-		headNameMap.put("tuiguang", "广告积分");
+		headNameMap.put("tuiguang", "共享积分");
 		headNameMap.put("activeBill", "共享积分");
 		headNameMap.put("credits", "购物积分");
 		headNameMap.put("createDate", "创建时间");

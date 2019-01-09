@@ -71,7 +71,7 @@
                                                             <td>
                                                                 <a href="javascript:;"><img
                                                                         :src="item.proLogoImgFull"
-                                                                        alt=""></a>
+                                                                        alt="" class="img-responsive"></a>
                                                             </td>
                                                             <td><a
                                                                     href="javascript:;" v-text="item.proName"></a></td>

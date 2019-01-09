@@ -103,31 +103,42 @@
 											<td></td>
 										</tr>
 										<tr class="my-tr">
-											<td>消费积分</td>
+											<td>健康余额</td>
 											<td class="my-td"><span
 												v-text="user.shopUserExts.balance"></span></td>
 											<td style="font-size: 16px;"><a href="javascript:;"
-												@click="toDonate">捐赠</a> <br> <a href="javascript:;"
-												@click="toWithdraw">兑换</a> <br> <a href="javascript:;"
+												@click="toDonate">捐赠</a> <!-- <br> <a href="javascript:;"
+												@click="toWithdraw">兑换</a> --> <br> <a href="javascript:;"
 												@click="toRecharge">充值</a> <br> <a href="javascript:;"
-												@click="toTransfer">转账</a></td>
+												@click="toTransfer">赠送</a></td>
 										</tr>
 
 										<tr>
-											<td>共享积分</td>
-											<td><span v-text="user.shopUserExts.activeBill"></span></td>
+											<td>销售积分</td>
+											<td><span v-text="user.shopUserExts.xiaoshou"></span></td>
 											<td></td>
 											<%-- <td style="font-size: 16px;"><a href="<%=path%>/bill-detail">查看<br/>明细</a></td> --%>
 										</tr>
 										<tr>
-											<td>广告积分</td>
+											<td>共享积分</td>
 											<td class="my-td"><span
 												v-text="user.shopUserExts.tuiguang"></span></td>
 											<td></td>
 										</tr>
 										<tr>
-											<td>购物积分</td>
+											<td>兑换积分</td>
+											<td><span v-text="user.shopUserExts.duihuan"></span></td>
+											<td></td>
+											<%-- <td style="font-size: 16px;"><a href="<%=path%>/bill-detail">查看<br/>明细</a></td> --%>
+										</tr>
+										<tr>
+											<td>消费积分</td>
 											<td><span v-text="user.shopUserExts.credits"></span></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>健康值</td>
+											<td><span v-text="user.shopUserExts.bill"></span></td>
 											<td></td>
 										</tr>
 										<tr>
@@ -433,7 +444,7 @@
                             function (data) {
                                 if (data.success === true) {
                                     view.user = data.data
-                                    view.user.userLevel = view.user.vipLevel + '-' + USER_LEVELS[view.user.vipLevel]
+                                    view.user.userLevel = USER_LEVELS[view.user.vipLevel]
                                     view.account = view.user.account
                                     view.address = view.user.address
                                     view.bankName = view.user.shopUserExts.bankOwer

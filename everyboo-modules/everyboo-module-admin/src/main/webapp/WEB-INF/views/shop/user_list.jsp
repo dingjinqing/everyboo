@@ -41,12 +41,13 @@
 							<option value="">请选择</option>
 							<option value="v0" <c:if test="${'v0' eq userQueryDTO.vipLevel }">selected</c:if> >普通会员</option>
 							<option value="v1" <c:if test="${'v1' eq userQueryDTO.vipLevel }">selected</c:if> >个人vip</option>
-							<option value="v2" <c:if test="${'v2' eq userQueryDTO.vipLevel }">selected</c:if> >初级代理</option>
-							<option value="v3" <c:if test="${'v3' eq userQueryDTO.vipLevel }">selected</c:if> >中级代理</option>
-							<option value="v4" <c:if test="${'v4' eq userQueryDTO.vipLevel }">selected</c:if> >高级代理</option>
-							<option value="v5" <c:if test="${'v5' eq userQueryDTO.vipLevel }">selected</c:if> >核心代理</option>
-							<option value="v6" <c:if test="${'v6' eq userQueryDTO.vipLevel }">selected</c:if> >运营中心</option>
-							<option value="v7" <c:if test="${'v7' eq userQueryDTO.vipLevel }">selected</c:if> >公司合伙人</option>
+							<option value="v2" <c:if test="${'v2' eq userQueryDTO.vipLevel }">selected</c:if> >一级加盟店</option>
+							<option value="v3" <c:if test="${'v3' eq userQueryDTO.vipLevel }">selected</c:if> >二级加盟店</option>
+							<option value="v4" <c:if test="${'v4' eq userQueryDTO.vipLevel }">selected</c:if> >三级加盟店</option>
+							<option value="v5" <c:if test="${'v5' eq userQueryDTO.vipLevel }">selected</c:if> >四级加盟店</option>
+							<option value="v6" <c:if test="${'v6' eq userQueryDTO.vipLevel }">selected</c:if> >五级加盟店</option>
+							<option value="v7" <c:if test="${'v7' eq userQueryDTO.vipLevel }">selected</c:if> >六级加盟店</option>
+							<option value="v8" <c:if test="${'v8' eq userQueryDTO.vipLevel }">selected</c:if> >七级加盟店</option>
 						</select>
 					</div> --%>
 
@@ -80,11 +81,12 @@
 									<td><span>推荐人手机号</span></td>
 									<!-- <td><span>会员等级</span></td> -->
 									<td><span>账号状态</span></td>
-									<td><span>会员状态</span></td>
-									<td><span>消费积分</span></td>
-									<td><span>广告积分</span></td>
+									<!-- <td><span>会员状态</span></td> -->
+									<td><span>健康余额</span></td>
+									<td><span>兑换积分</span></td>
 									<td><span>共享积分</span></td>
-									<td><span>购物积分</span></td>
+									<td><span>消费积分</span></td>
+									<td><span>销售积分</span></td>
 									<td><span>创建时间</span></td>
 									<td><span>操作</span></td>
 								</tr>
@@ -113,22 +115,25 @@
 		                                     			个人vip
 		                                     		</c:when>
 															<c:when test="${'v2' eq u.vipLevel}">
-		                                     			初级代理
+		                                     			一级加盟店
 		                                     		</c:when>
 															<c:when test="${'v3' eq u.vipLevel}">
-		                                     			中级代理
+		                                     			二级加盟店
 		                                     		</c:when>
 															<c:when test="${'v4' eq u.vipLevel}">
-		                                     			高级代理
+		                                     			三级加盟店
 		                                     		</c:when>
 															<c:when test="${'v5' eq u.vipLevel}">
-		                                     			核心代理
+		                                     			四级加盟店
 		                                     		</c:when>
 															<c:when test="${'v6' eq u.vipLevel}">
-		                                     			运营中心
+		                                     			五级加盟店
 		                                     		</c:when>
 															<c:when test="${'v7' eq u.vipLevel}">
-		                                     			公司合伙人
+		                                     			六级加盟店
+		                                     		</c:when>
+															<c:when test="${'v8' eq u.vipLevel}">
+		                                     			七级加盟店
 		                                     		</c:when>
 															<c:otherwise>
 		                                     			普通会员
@@ -148,7 +153,7 @@
 														</c:choose>
 													</div>
 												</td>
-												<td>
+												<%-- <td>
 													<div class="t_text tc">
 														<c:choose>
 															<c:when test="${'1' eq u.status}">
@@ -159,20 +164,23 @@
 		                                     		</c:otherwise>
 														</c:choose>
 													</div>
-												</td>
+												</td> --%>
 												<td>
 													<div class="t_text tc">${u.shopUserExts.balance }</div>
+												</td>
+												<td>
+													<div class="t_text tc">${u.shopUserExts.duihuan }
+													</div>
 												</td>
 												<td>
 													<div class="t_text tc">${u.shopUserExts.tuiguang }
 													</div>
 												</td>
 												<td>
-													<div class="t_text tc">${u.shopUserExts.activeBill }
-													</div>
+													<div class="t_text tc">${u.shopUserExts.credits }</div>
 												</td>
 												<td>
-													<div class="t_text tc">${u.shopUserExts.credits }</div>
+													<div class="t_text tc">${u.shopUserExts.xiaoshou }</div>
 												</td>
 												<td>
 													<div class="t_text tc">

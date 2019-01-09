@@ -66,7 +66,7 @@
                                                 <tr v-for="item in order.shopTradeDetails">
                                                     <td>
                                                         <a :href="'single-product.jsp?id=' + item.id"><img
-                                                                :src="item.proLogoImgFull"
+                                                                :src="item.proLogoImgFull" class="img-responsive"
                                                                 alt=""></a>
                                                     </td>
                                                     <td><a

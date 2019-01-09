@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
 %>
@@ -52,55 +52,55 @@
                                         <div class="tab-content">
                                             <div v-if="product.proLogoImgFull != ''" class="tab-pane active" id="product0">
                                                 <div class="large-img">
-                                                    <img :src="product.proLogoImgFull" alt="" />
+                                                    <img :src="product.proLogoImgFull" class="img-responsive" alt="" />
                                                 </div>
                                             </div>
                                             <div v-if="product.picture1 != ''" class="tab-pane" id="product1">
                                                 <div class="large-img">
-                                                    <img :src="product.picture1" alt="" />
+                                                    <img :src="product.picture1" class="img-responsive" alt="" />
                                                 </div>							
                                             </div>
                                             <div v-if="product.picture2 != ''" class="tab-pane" id="product2">
                                                 <div class="large-img">
-                                                    <img :src="product.picture2" alt="" />
+                                                    <img :src="product.picture2" class="img-responsive" alt="" />
                                                 </div>							
                                             </div>
                                             <div v-if="product.picture3 != ''" class="tab-pane" id="product3">
                                                 <div class="large-img">
-                                                    <img :src="product.picture3" alt="" />
+                                                    <img :src="product.picture3" class="img-responsive" alt="" />
                                                 </div>
                                             </div>
                                             <div v-if="product.picture4 != ''" class="tab-pane" id="product4">
                                                 <div class="large-img">
-                                                    <img :src="product.picture4" alt="" />
+                                                    <img :src="product.picture4" class="img-responsive" alt="" />
                                                 </div>
                                             </div>
                                             <div v-if="product.picture5 != ''" class="tab-pane" id="product5">
                                                 <div class="large-img">
-                                                    <img :src="product.picture5" alt="" />
+                                                    <img :src="product.picture5" class="img-responsive" alt="" />
                                                 </div>
                                             </div>
                                             <div v-if="product.proLogoImgFull != ''" class="tab-pane" id="product6">
                                                 <div class="large-img">
-                                                    <img :src="product.proLogoImgFull" alt="" />
+                                                    <img :src="product.proLogoImgFull" class="img-responsive" alt="" />
                                                 </div>
                                             </div>
                                             <div v-if="product.picture1 != ''" class="tab-pane" id="product7">
                                                 <div class="large-img">
-                                                    <img :src="product.picture1" alt="" />
+                                                    <img :src="product.picture1" class="img-responsive"  alt="" />
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- Nav tabs -->
                                         <div class="details-tab owl-carousel">
-                                            <div class="active"><a href="#product0" data-toggle="tab"><img :src="product.proLogoImgFull" alt="" /></a></div>
-                                            <div v-if="product.picture1 != ''"><a href="#product1" data-toggle="tab"><img :src="product.picture1" alt="" /></a></div>
-                                            <div v-if="product.picture2 != ''"><a href="#product2" data-toggle="tab"><img :src="product.picture2" alt="" /></a></div>
-                                            <div v-if="product.picture3 != ''"><a href="#product3" data-toggle="tab"><img :src="product.picture3" alt="" /></a></div>
-                                            <div v-if="product.picture4 != ''"><a href="#product4" data-toggle="tab"><img :src="product.picture4" alt="" /></a></div>
-                                            <div v-if="product.picture5 != ''"><a href="#product5" data-toggle="tab"><img :src="product.picture5" alt="" /></a></div>
-                                            <div><a href="#product6" data-toggle="tab"><img :src="product.proLogoImgFull" alt="" /></a></div>
-                                            <div v-if="product.picture1 != ''"><a href="#product7" data-toggle="tab"><img :src="product.picture1" alt="" /></a></div>
+                                            <div class="active"><a href="#product0" data-toggle="tab"><img :src="product.proLogoImgFull" class="img-responsive" alt="" /></a></div>
+                                            <div v-if="product.picture1 != ''"><a href="#product1" data-toggle="tab"><img :src="product.picture1" class="img-responsive" alt="" /></a></div>
+                                            <div v-if="product.picture2 != ''"><a href="#product2" data-toggle="tab"><img :src="product.picture2" class="img-responsive" alt="" /></a></div>
+                                            <div v-if="product.picture3 != ''"><a href="#product3" data-toggle="tab"><img :src="product.picture3" class="img-responsive" alt="" /></a></div>
+                                            <div v-if="product.picture4 != ''"><a href="#product4" data-toggle="tab"><img :src="product.picture4" class="img-responsive" alt="" /></a></div>
+                                            <div v-if="product.picture5 != ''"><a href="#product5" data-toggle="tab"><img :src="product.picture5" class="img-responsive" alt="" /></a></div>
+                                            <div><a href="#product6" data-toggle="tab"><img :src="product.proLogoImgFull" class="img-responsive" alt="" /></a></div>
+                                            <div v-if="product.picture1 != ''"><a href="#product7" data-toggle="tab"><img :src="product.picture1" class="img-responsive" alt="" /></a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -139,7 +139,7 @@
                                                 </a>
                                             </div>
                                             <div class="single-pro-cart" style="display: inline;">
-                                                <a v-if="(product.type == '1' && (user.userLevel == 'v1' || user.userLevel == null || user.userLevel == '')) || product.type == '2' || product.type == '3'" href="javascript:;" @click="toBuy(product.id)" title="立即购买">
+                                                <a href="javascript:;" @click="toBuy(product.id)" title="立即购买">
                                                     <i class="pe-7s-shopbag"></i>
                                                     立即购买
                                                 </a>
@@ -355,7 +355,7 @@
                             view.cartMsg = ''
                             window.location.href = '<%=path%>/order-preview?id=' + id + '&quantity=' + view.quantity
                         }
-                    },
+                  },
                     meanMenu: function () {
                         this.$nextTick(function() {
                             $('#my-mobile-menu').meanmenu()

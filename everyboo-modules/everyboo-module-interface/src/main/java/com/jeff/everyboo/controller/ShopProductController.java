@@ -1,5 +1,8 @@
 package com.jeff.everyboo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -53,7 +56,20 @@ public class ShopProductController {
 		}
 		
 		ShopProductQueryDTO queryDTO = new ShopProductQueryDTO();
-		queryDTO.setType(type);
+		if (StringUtils.isNotBlank(type)) {
+			String[] types = type.split(",");
+			if (types.length > 1) {
+				List<Integer> list = new ArrayList<>();
+				for (String strtype : types) {
+					list.add(Integer.parseInt(strtype));
+				}
+				queryDTO.setTypes(list);
+			} else {
+				queryDTO.setType(type);
+			}
+
+		}
+		
 		queryDTO.setStatus("1");
 		if(StringUtils.isNotBlank(hot)){
 			queryDTO.setHot(Byte.parseByte(hot));

@@ -34,6 +34,10 @@ public class ShopProductDaoImpl extends CustomBaseSqlDaoImpl implements ShopProd
     		 hql.append(" and t.type = :type ");
     		 map.put("type", shopProductQueryDTO.getType());
     	 }
+    	 if(shopProductQueryDTO.getTypes()!=null && (!shopProductQueryDTO.getTypes().isEmpty()) &&shopProductQueryDTO.getTypes().size()>0 ){
+        	 hql.append(" and t.type in ( :types ) ");
+        	 map.put("types", shopProductQueryDTO.getTypes());
+         }
     	 if(StringUtils.isNotBlank(shopProductQueryDTO.getVipLevel())){
     		 hql.append(" and t.vipLevel = :vipLevel ");
     		 map.put("vipLevel", shopProductQueryDTO.getVipLevel());
@@ -62,6 +66,10 @@ public class ShopProductDaoImpl extends CustomBaseSqlDaoImpl implements ShopProd
     		 hql.append(" and t.type = :type ");
     		 map.put("type", shopProductQueryDTO.getType());
     	 }
+    	 if(shopProductQueryDTO.getTypes()!=null && (!shopProductQueryDTO.getTypes().isEmpty()) &&shopProductQueryDTO.getTypes().size()>0 ){
+        	 hql.append(" and t.type in ( :types ) ");
+        	 map.put("types", shopProductQueryDTO.getTypes());
+         }
     	 if(StringUtils.isNotBlank(shopProductQueryDTO.getVipLevel())){
     		 hql.append(" and t.vipLevel = :vipLevel ");
     		 map.put("vipLevel", shopProductQueryDTO.getVipLevel());

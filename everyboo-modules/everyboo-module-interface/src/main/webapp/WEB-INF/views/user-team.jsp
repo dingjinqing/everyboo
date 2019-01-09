@@ -165,10 +165,10 @@
                                     view.directTeam = data.data.zhitui
                                     view.otherTeam = data.data.jiantui
                                     view.directTeam.forEach(function (item, index) {
-                                        item.userLevel = item.viplevel + '-' + USER_LEVELS[item.viplevel]
+                                        item.userLevel = USER_LEVELS[item.viplevel]
                                     })
                                     view.otherTeam.forEach(function (item, index) {
-                                        item.userLevel = item.viplevel + '-' + USER_LEVELS[item.viplevel]
+                                        item.userLevel = USER_LEVELS[item.viplevel]
                                     })
                                 } else if (data.success === 'false' && data.msg === LOGIN_ERR_MSG) {
                                     window.location.href = '<%=path%>/login?relogin=y'

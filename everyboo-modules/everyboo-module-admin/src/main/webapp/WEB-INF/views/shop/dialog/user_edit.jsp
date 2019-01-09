@@ -63,8 +63,9 @@
 													<input type="text" name="account" value="${bean.account }" />
 												</c:when>
 												<c:otherwise>
-													<input type="text" name="account" value=""
-														data-rule="手机号:required;account;remote[${ctx }/shopuser/validator/account]" />
+													<input type="text" name="account" />
+													<%-- <input type="text" name="account" value=""
+														data-rule="账号:required;account;remote[${ctx }/shopuser/validator/account]" /> --%>
 												</c:otherwise>
 											</c:choose>
 										</label>
@@ -123,29 +124,32 @@
 														<option value="v1"
 															<c:if test="${'v1' eq bean.vipLevel }">selected</c:if>>个人vip</option>
 														<option value="v2"
-															<c:if test="${'v2' eq bean.vipLevel }">selected</c:if>>初级代理</option>
+															<c:if test="${'v2' eq bean.vipLevel }">selected</c:if>>一级加盟店</option>
 														<option value="v3"
-															<c:if test="${'v3' eq bean.vipLevel }">selected</c:if>>中级代理</option>
+															<c:if test="${'v3' eq bean.vipLevel }">selected</c:if>>二级加盟店</option>
 														<option value="v4"
-															<c:if test="${'v4' eq bean.vipLevel }">selected</c:if>>高级代理</option>
+															<c:if test="${'v4' eq bean.vipLevel }">selected</c:if>>三级加盟店</option>
 														<option value="v5"
-															<c:if test="${'v5' eq bean.vipLevel }">selected</c:if>>核心代理</option>
+															<c:if test="${'v5' eq bean.vipLevel }">selected</c:if>>四级加盟店</option>
 														<option value="v6"
-															<c:if test="${'v6' eq bean.vipLevel }">selected</c:if>>运营中心</option>
+															<c:if test="${'v6' eq bean.vipLevel }">selected</c:if>>五级加盟店</option>
 														<option value="v7"
-															<c:if test="${'v7' eq bean.vipLevel }">selected</c:if>>公司合伙人</option>
+															<c:if test="${'v7' eq bean.vipLevel }">selected</c:if>>六级加盟店</option>
+														<option value="v8"
+															<c:if test="${'v8' eq bean.vipLevel }">selected</c:if>>七级加盟店</option>
 													</select>
 												</c:when>
 												<c:otherwise>
 													<select name="vipLevel" data-rule="会员等级:required;">
 														<option value="v0">普通会员</option>
 														<option value="v1" selected>个人vip</option>
-														<option value="v2">初级代理</option>
-														<option value="v3">中级代理</option>
-														<option value="v4">高级代理</option>
-														<option value="v5">核心代理</option>
-														<option value="v6">运营中心</option>
-														<option value="v7">公司合伙人</option>
+														<option value="v2">一级加盟店</option>
+														<option value="v3">二级加盟店</option>
+														<option value="v4">三级加盟店</option>
+														<option value="v5">四级加盟店</option>
+														<option value="v6">五级加盟店</option>
+														<option value="v7">六级加盟店</option>
+														<option value="v8">七级加盟店</option>
 													</select>
 												</c:otherwise>
 											</c:choose>
@@ -184,44 +188,105 @@
 						</tr>
 
 						<tr>
-							<td class="l_title w150"><b class="cRed">*</b>购物积分</td>
+							<td class="l_title w150"><b class="cRed">*</b>消费积分</td>
 							<td>
 								<div class="J_toolsBar fl">
 									<div class="t_text w200 ml10">
 										<label> <c:choose>
 												<c:when test="${not empty bean }">
 													<input type="text" name="shopUserExts.credits"
-														data-rule="购物积分:required;"
+														data-rule="消费积分:required;"
 														value="${bean.shopUserExts.credits }" />
 												</c:when>
 												<c:otherwise>
 													<input type="text" name="shopUserExts.credits"
-														data-rule="购物积分:required;" value="" />
+														data-rule="消费积分:required;" value="" />
 												</c:otherwise>
 											</c:choose>
 										</label>
 									</div>
 								</div>
 							</td>
-							<td class="l_title w150"><b class="cRed">*</b>共享上限</td>
+							<td class="l_title w150"><b class="cRed">*</b>总健康值</td>
 							<td>
 								<div class="J_toolsBar fl">
 									<div class="t_text w200 ml10">
 										<label> <c:choose>
 												<c:when test="${not empty bean }">
 													<input type="text" name="shopUserExts.bill"
-														data-rule="共享上限:required;"
+														data-rule="总健康值:required;"
 														value="${bean.shopUserExts.bill }" />
 												</c:when>
 												<c:otherwise>
 													<input type="text" name="shopUserExts.bill"
-														data-rule="共享上限:required;" value="" />
+														data-rule="总健康值:required;" value="" />
 												</c:otherwise>
 											</c:choose>
 										</label>
 									</div>
 								</div>
 							</td>
+						</tr>
+
+						<tr>
+							<td class="l_title w150"><b class="cRed">*</b>转让获得的健康值</td>
+							<td>
+								<div class="J_toolsBar fl">
+									<div class="t_text w200 ml10">
+										<label> <c:choose>
+												<c:when test="${not empty bean }">
+													<input type="text" name="shopUserExts.tradeBill"
+														data-rule="转让获得的健康值:required;"
+														value="${bean.shopUserExts.tradeBill }" />
+												</c:when>
+												<c:otherwise>
+													<input type="text" name="shopUserExts.tradeBill"
+														data-rule="转让获得的健康值:required;" value="" />
+												</c:otherwise>
+											</c:choose>
+										</label>
+									</div>
+								</div>
+							</td>
+							<%-- <td class="l_title w150"><b class="cRed">*</b>激活的健康值</td>
+							<td>
+								<div class="J_toolsBar fl">
+									<div class="t_text w200 ml10">
+										<label> <c:choose>
+												<c:when test="${not empty bean }">
+													<input type="text" name="shopUserExts.activeBill"
+														data-rule="转让获得的健康值:required;"
+														value="${bean.shopUserExts.activeBill }" />
+												</c:when>
+												<c:otherwise>
+													<input type="text" name="shopUserExts.activeBill"
+														data-rule="转让获得的健康值:required;" value="" />
+												</c:otherwise>
+											</c:choose>
+										</label>
+									</div>
+								</div>
+							</td> --%>
+							<td class="l_title w150"><b class="cRed">*</b>销售积分</td>
+							<td>
+								<div class="J_toolsBar fl">
+									<div class="t_text w200 ml10">
+										<label> <c:choose>
+												<c:when test="${not empty bean }">
+													<input type="text" name="shopUserExts.xiaoshou"
+														data-rule="销售积分:required;"
+														value="${bean.shopUserExts.xiaoshou }" />
+												</c:when>
+												<c:otherwise>
+													<input type="text" name="shopUserExts.xiaoshou"
+														data-rule="销售积分:required;" value="" />
+												</c:otherwise>
+											</c:choose>
+										</label>
+									</div>
+								</div>
+							</td> 
+
 						</tr>
 
 						<tr>
@@ -231,12 +296,12 @@
 									<div class="t_text w200 ml10">
 										<label> <c:choose>
 												<c:when test="${not empty bean }">
-													<input type="text" name="shopUserExts.activeBill"
+													<input type="text" name="shopUserExts.tuiguang"
 														data-rule="共享积分:required;"
-														value="${bean.shopUserExts.activeBill }" />
+														value="${bean.shopUserExts.tuiguang }" />
 												</c:when>
 												<c:otherwise>
-													<input type="text" name="shopUserExts.activeBill"
+													<input type="text" name="shopUserExts.tuiguang"
 														data-rule="共享积分:required;" value="" />
 												</c:otherwise>
 											</c:choose>
@@ -244,48 +309,26 @@
 									</div>
 								</div>
 							</td>
-							<td class="l_title w150"><b class="cRed">*</b>广告上限</td>
+							<td class="l_title w150"><b class="cRed">*</b>兑换积分</td>
 							<td>
 								<div class="J_toolsBar fl">
 									<div class="t_text w200 ml10">
 										<label> <c:choose>
 												<c:when test="${not empty bean }">
-													<input type="text" name="shopUserExts.tradeBill"
-														data-rule="广告上限:required;"
-														value="${bean.shopUserExts.tradeBill }" />
+													<input type="text" name="shopUserExts.duihuan"
+														data-rule="兑换积分:required;"
+														value="${bean.shopUserExts.duihuan }" />
 												</c:when>
 												<c:otherwise>
-													<input type="text" name="shopUserExts.tradeBill"
-														data-rule="广告上限:required;" value="" />
+													<input type="text" name="shopUserExts.duihuan"
+														data-rule="兑换积分:required;" value="" />
 												</c:otherwise>
 											</c:choose>
 										</label>
 									</div>
 								</div>
 							</td>
-						</tr>
-
-						<tr>
-							<td class="l_title w150"><b class="cRed">*</b>广告积分</td>
-							<td>
-								<div class="J_toolsBar fl">
-									<div class="t_text w200 ml10">
-										<label> <c:choose>
-												<c:when test="${not empty bean }">
-													<input type="text" name="shopUserExts.tuiguang"
-														data-rule="广告积分:required;"
-														value="${bean.shopUserExts.tuiguang }" />
-												</c:when>
-												<c:otherwise>
-													<input type="text" name="shopUserExts.tuiguang"
-														data-rule="广告积分:required;" value="" />
-												</c:otherwise>
-											</c:choose>
-										</label>
-									</div>
-								</div>
-							</td>
-							<td class="l_title w150"><b class="cRed">*</b>会员状态</td>
+							<%-- <td class="l_title w150"><b class="cRed">*</b>会员状态</td>
 							<td>
 								<div class="J_toolsBar fl">
 									<label><input name="vipStatus" type="radio" value="1"
@@ -293,10 +336,10 @@
 									<label><input name="vipStatus" type="radio" value="2"
 										<c:if test="${bean.vipStatus == 2 }">checked="checked"</c:if> />不参与</label>
 								</div>
-							</td>
+							</td> --%>
 						</tr>
 						<tr>
-							<td class="l_title w150">消费积分</td>
+							<td class="l_title w150">健康余额</td>
 							<td colspan="">
 								<div class="J_toolsBar fl">
 									<div class="t_text w200 ml10">

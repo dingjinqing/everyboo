@@ -79,22 +79,25 @@
 		                                     			个人vip
 		                                     		</c:when>
 															<c:when test="${'v2' eq u.vipLevel}">
-		                                     			初级代理
+		                                     			一级加盟店
 		                                     		</c:when>
 															<c:when test="${'v3' eq u.vipLevel}">
-		                                     			中级代理
+		                                     			二级加盟店
 		                                     		</c:when>
 															<c:when test="${'v4' eq u.vipLevel}">
-		                                     			高级代理
+		                                     			三级加盟店
 		                                     		</c:when>
 															<c:when test="${'v5' eq u.vipLevel}">
-		                                     			核心代理
+		                                     			四级加盟店
 		                                     		</c:when>
 															<c:when test="${'v6' eq u.vipLevel}">
-		                                     			运营中心
+		                                     			五级加盟店
 		                                     		</c:when>
 															<c:when test="${'v7' eq u.vipLevel}">
-		                                     			公司合伙人
+		                                     			六级加盟店
+		                                     		</c:when>
+															<c:when test="${'v8' eq u.vipLevel}">
+		                                     			七级加盟店
 		                                     		</c:when>
 															<c:otherwise>
 		                                     			普通会员

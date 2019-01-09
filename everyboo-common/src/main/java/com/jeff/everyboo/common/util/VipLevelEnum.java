@@ -10,12 +10,13 @@ package com.jeff.everyboo.common.util;
 public enum VipLevelEnum {
 	v0("v0","普通会员"),
 	v1("v1","个人vip"),
-	v2("v2","初级代理"),
-	v3("v3","中级代理"),
-	v4("v4","高级代理"),
-	v5("v5","核心代理"),
-	v6("v6","运营中心"),
-	v7("v7","公司合伙人");
+	v2("v2","一级加盟店"),
+	v3("v3","二级加盟店"),
+	v4("v4","三级加盟店"),
+	v5("v5","四级加盟店"),
+	v6("v6","五级加盟店"),
+	v7("v7","六级加盟店"),
+	v8("v8","七级加盟店");
 
 	private String level;	 
     private String desc;

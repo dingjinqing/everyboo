@@ -1,5 +1,7 @@
 package com.jeff.everyboo.cms.dto;
 
+import java.util.List;
+
 import com.jeff.everyboo.common.dto.CommonQueryDTO;
 
 /**
@@ -13,6 +15,7 @@ public class ShopProductQueryDTO extends CommonQueryDTO{
 	private String type;
 	private Byte hot;  //1 爆款商品
 	private String vipLevel;
+	private List<Integer> types;
 	public String getProName() {
 		return proName;
 	}
@@ -42,5 +45,11 @@ public class ShopProductQueryDTO extends CommonQueryDTO{
 	}
 	public void setHot(Byte hot) {
 		this.hot = hot;
+	}
+	public List<Integer> getTypes() {
+		return types;
+	}
+	public void setTypes(List<Integer> types) {
+		this.types = types;
 	}
 }

@@ -57,7 +57,7 @@
                                     <div v-else>
                                         <div v-for="item in hotProducts" class="single-shop mb-40">
                                             <div class="shop-img">
-                                                <a :href="'<%=path%>/product?id=' + item.id"><img :src="item.proLogoImgFull" alt="" /></a>
+                                                <a :href="'<%=path%>/product?id=' + item.id"><img :src="item.proLogoImgFull" class="img-responsive" alt="" /></a>
                                                 <div class="shop-quick-view">
                                                     <a :href="'<%=path%>/product?id=' + item.id">
                                                         <i class="pe-7s-look"></i>
@@ -102,7 +102,7 @@
                                                     <div v-else v-for="item in products" class="col-md-6 col-lg-4 col-sm-6">
                                                         <div class="single-shop mb-40">
                                                             <div class="shop-img">
-                                                                <a :href="'<%=path%>/product?id=' + item.id"><img :src="item.proLogoImgFull" alt="" /></a>
+                                                                <a :href="'<%=path%>/product?id=' + item.id"><img :src="item.proLogoImgFull" class="img-responsive" alt="" /></a>
                                                                 <div class="shop-quick-view">
                                                                     <a :href="'<%=path%>/product?id=' + item.id">
                                                                         <i class="pe-7s-look"></i>
