@@ -107,7 +107,7 @@ $(function(){
                                      	<c:choose>
                                      		<c:when test="${not empty bean }">
                                      			<select name="jtype" data-rule="交易类型:required;" >
-                                     				<option value=1 <c:if test="${1 eq bean.jtype }">selected</c:if> >购买会员大礼包</option>
+                                     				<option value=1 <c:if test="${1 eq bean.jtype }">selected</c:if> >购买商品</option>
                                      				<option value=2 <c:if test="${2 eq bean.jtype }">selected</c:if> >复购产品</option>
                                      				<%-- <option value=3 <c:if test="${3 eq bean.jtype }">selected</c:if> >直推</option>
                                      				<option value=4 <c:if test="${4 eq bean.jtype }">selected</c:if> >间推</option>
@@ -116,27 +116,27 @@ $(function(){
                                      				<option value=7 <c:if test="${7 eq bean.jtype }">selected</c:if> >平台分红</option>
                                      				<option value=8 <c:if test="${8 eq bean.jtype }">selected</c:if> >捐赠</option>
                                      				<option value=9 <c:if test="${9 eq bean.jtype }">selected</c:if> >购买返点</option>
-                                     				<option value=10 <c:if test="${10 eq bean.jtype }">selected</c:if> >直推购买返点</option>
-                                     				<option value=11 <c:if test="${11 eq bean.jtype }">selected</c:if> >间推购买返点</option>
+                                     				<option value=10 <c:if test="${10 eq bean.jtype }">selected</c:if> >一级销售奖</option>
+                                     				<option value=11 <c:if test="${11 eq bean.jtype }">selected</c:if> >二级销售奖</option>
                                      				<option value=12 <c:if test="${12 eq bean.jtype }">selected</c:if> >提现健康值</option> --%>
                                      				<option value=13 <c:if test="${13 eq bean.jtype }">selected</c:if> >项目合作</option>
                                      			</select>
                                      		</c:when>
                                      		<c:otherwise>
                                      			<select name="jtype" data-rule="交易类型:required;" >
-                                     				<option value=1  >购买会员大礼包</option>
-													<option value=2  >复购产品</option>
-													<!-- <option value=3  >直推</option>
+                                     				<option value=1  >购买商品</option>
+													<!-- <option value=2  >复购产品</option>
+													<option value=3  >直推</option>
 													<option value=4  >间推</option>
 													<option value=5  >业绩奖</option>
 													<option value=6  >股权收益</option>
 													<option value=7  >平台分红</option>
 													<option value=8  >捐赠</option>
 													<option value=9  >购买返点</option>
-													<option value=10 >直推购买返点</option>
-													<option value=11 >间推购买返点</option>
-													<option value=12 >提现健康值</option> -->
-													<option value=13 >项目合作</option>
+													<option value=10 >一级销售奖</option>
+													<option value=11 >二级销售奖</option>
+													<option value=12 >提现健康值</option>
+													<option value=13 >项目合作</option> -->
                                      			</select>
                                      		</c:otherwise>
                                      	</c:choose>
@@ -147,7 +147,7 @@ $(function(){
                      </tr>
                      
                      <tr>
-						<td class="l_title w150">使用积分总数</td>
+						<td class="l_title w150">使用消费积分</td>
                          <td>
                              <div class="J_toolsBar fl">
                                  <div class="t_text w200 ml10">
@@ -181,6 +181,26 @@ $(function(){
                                  </div>
                              </div>
                          </td>
+                     </tr>
+                     <tr>
+						<td class="l_title w150">使用兑换积分</td>
+                         <td colspan="3">
+                             <div class="J_toolsBar fl">
+                                 <div class="t_text w200 ml10">
+                                     <label>
+                                     	<c:choose>
+                                     		<c:when test="${not empty bean }">
+                                     			<input type="text" name="duihuan" value="${bean.duihuan }" />
+                                     		</c:when>
+                                     		<c:otherwise>
+                                     			<input type="text" name="duihuan" value="" />
+                                     		</c:otherwise>
+                                     	</c:choose>
+                                     </label>
+                                 </div>
+                             </div>
+                         </td>
+                         
                      </tr>
                      
                      

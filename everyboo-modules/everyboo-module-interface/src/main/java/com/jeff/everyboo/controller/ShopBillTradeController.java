@@ -2,6 +2,7 @@ package com.jeff.everyboo.controller;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jeff.everyboo.cms.dto.ShopBillTradeQueryDTO;
 import com.jeff.everyboo.cms.dto.ShopUserQueryDTO;
 import com.jeff.everyboo.cms.entity.ShopBillTrade;
@@ -220,14 +223,14 @@ public class ShopBillTradeController {
 	 */
 	@RequestMapping("/transfer")
 	@ResponseBody
-	public AjaxResult ajaxSaveTransfer(HttpServletRequest request) {
+	public AjaxResult ajaxSaveTransfer(HttpServletRequest request,@RequestBody JSONObject json) {
 		AjaxResult ajaxResult = new AjaxResult();
 		ajaxResult.setSuccess(false);
 
 		try {
-			String phone = request.getParameter("tradePhone");
-			String payPwd = request.getParameter("payPwd");
-			String amount = request.getParameter("amount");//传递负数
+			String phone = json.getString("tradePhone");
+			String payPwd = json.getString("payPwd");
+			String amount = json.getString("amount");//传递负数
 			if (StringUtils.isEmpty(phone)) {
 				ajaxResult.setMsg("手机号必须输入");
 				return ajaxResult;
@@ -235,6 +238,10 @@ public class ShopBillTradeController {
 //			获取当前用户
 			ShopUser user = WebHelper.getUser(request);
 			user = userService.find(user.getId());
+			if (user.getPhone().equals(phone)) {
+				ajaxResult.setMsg("不能转让给自己");
+				return ajaxResult;
+			}
 			
 			// 返回前台转让用户是否存在判断
 			ShopUserQueryDTO shopUserQueryDTO = new ShopUserQueryDTO();
@@ -307,6 +314,40 @@ public class ShopBillTradeController {
 			e.printStackTrace();
 		}
 
+		return ajaxResult;
+	}
+	
+	
+	@RequestMapping("/change")
+	@ResponseBody
+	public AjaxResult ajaxSaveChange(HttpServletRequest request) {
+		AjaxResult ajaxResult = new AjaxResult();
+		ajaxResult.setSuccess(false);
+		
+		try {
+			String type = request.getParameter("type");
+//			获取当前用户
+			ShopUser user = WebHelper.getUser(request);
+			user = userService.find(user.getId());
+			if ("1".equals(type)) {  //销售积分直接转换到余额
+				user.getShopUserExts().setBalance(user.getShopUserExts().getBalance().add(user.getShopUserExts().getXiaoshou()));
+				user.getShopUserExts().setXiaoshou(BigDecimal.ZERO);
+			}else if ("2".equals(type)) {//共享积分转换到余额
+				user.getShopUserExts().setBalance(user.getShopUserExts().getBalance().add(user.getShopUserExts().getTuiguang()));
+				user.getShopUserExts().setTuiguang(BigDecimal.ZERO);
+			}
+			
+			userService.update(user);
+			System.out.println("积分转换到账户余额：" + user.getId());
+			
+			ajaxResult.setSuccess(true);
+			
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			ajaxResult.setMsg(e.getMessage());
+			e.printStackTrace();
+		}
+		
 		return ajaxResult;
 	}
 

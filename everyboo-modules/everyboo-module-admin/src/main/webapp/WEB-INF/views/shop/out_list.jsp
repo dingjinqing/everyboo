@@ -33,11 +33,11 @@
 						<select name="jtype" value="${queryDTO.jtype }">
 							<option value="">请选择</option>
 							<%-- <option value=1
-								<c:if test="${1 eq queryDTO.jtype }">selected</c:if>>购买会员大礼包</option>
+								<c:if test="${1 eq queryDTO.jtype }">selected</c:if>>购买商品</option>
 							<option value=2
 								<c:if test="${2 eq queryDTO.jtype }">selected</c:if>>复购产品</option> --%>
 							<option value=3
-								<c:if test="${3 eq queryDTO.jtype }">selected</c:if>>直推奖励</option>
+								<c:if test="${3 eq queryDTO.jtype }">selected</c:if>>一级销售奖</option>
 							<option value=4
 								<c:if test="${4 eq queryDTO.jtype }">selected</c:if>>间推奖励</option>
 							<option value=5
@@ -51,9 +51,9 @@
 							<option value=9
 								<c:if test="${9 eq queryDTO.jtype }">selected</c:if>>购买返点</option>
 							<option value=10
-								<c:if test="${10 eq queryDTO.jtype }">selected</c:if>>直推购买返点</option>
+								<c:if test="${10 eq queryDTO.jtype }">selected</c:if>>一级销售奖</option>
 							<option value=11
-								<c:if test="${11 eq queryDTO.jtype }">selected</c:if>>间推购买返点</option>
+								<c:if test="${11 eq queryDTO.jtype }">selected</c:if>>二级销售奖</option>
 							<option value=12
 								<c:if test="${12 eq queryDTO.jtype }">selected</c:if>>提现健康值</option>
 							<%-- <option value=13
@@ -117,13 +117,13 @@
 													<div class="t_text tc">
 														<c:choose>
 															<%-- <c:when test="${1 eq u.jtype}">
-		                                     			购买会员大礼包
+		                                     			购买商品
 		                                     		</c:when>
 															<c:when test="${2 eq u.jtype}">
 		                                     			复购产品
 		                                     		</c:when> --%>
 															<c:when test="${3 eq u.jtype}">
-		                                     			直推奖励
+		                                     			一级销售奖
 		                                     		</c:when>
 															<c:when test="${4 eq u.jtype}">
 		                                     			间推奖励
@@ -144,10 +144,10 @@
 		                                     			购买返点
 		                                     		</c:when>
 															<c:when test="${10 eq u.jtype}">
-		                                     			直推购买返点
+		                                     			一级销售奖
 		                                     		</c:when>
 															<c:when test="${11 eq u.jtype}">
-		                                     			间推购买返点
+		                                     			二级销售奖
 		                                     		</c:when>
 															<c:when test="${12 eq u.jtype}">
 		                                     			提现健康值

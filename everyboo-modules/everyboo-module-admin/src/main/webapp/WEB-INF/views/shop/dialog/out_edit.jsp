@@ -106,7 +106,7 @@ $(function(){
                                      	<c:choose>
                                      		<c:when test="${not empty bean }">
                                      			<select name="jtype" data-rule="交易类型:required;" >
-                                     				<%-- <option value=1 <c:if test="${1 eq bean.jtype }">selected</c:if> >购买会员大礼包</option>
+                                     				<%-- <option value=1 <c:if test="${1 eq bean.jtype }">selected</c:if> >购买商品</option>
                                      				<option value=2 <c:if test="${2 eq bean.jtype }">selected</c:if> >复购产品</option> --%>
                                      				<option value=3 <c:if test="${3 eq bean.jtype }">selected</c:if> >直推</option>
                                      				<option value=4 <c:if test="${4 eq bean.jtype }">selected</c:if> >间推</option>
@@ -115,15 +115,15 @@ $(function(){
                                      				<option value=7 <c:if test="${7 eq bean.jtype }">selected</c:if> >平台分红</option>
                                      				<option value=8 <c:if test="${8 eq bean.jtype }">selected</c:if> >捐赠</option>
                                      				<option value=9 <c:if test="${9 eq bean.jtype }">selected</c:if> >购买返点</option>
-                                     				<option value=10 <c:if test="${10 eq bean.jtype }">selected</c:if> >直推购买返点</option>
-                                     				<option value=11 <c:if test="${11 eq bean.jtype }">selected</c:if> >间推购买返点</option>
+                                     				<option value=10 <c:if test="${10 eq bean.jtype }">selected</c:if> >一级销售奖</option>
+                                     				<option value=11 <c:if test="${11 eq bean.jtype }">selected</c:if> >二级销售奖</option>
                                      				<option value=12 <c:if test="${12 eq bean.jtype }">selected</c:if> >提现健康值</option>
                                      				<%-- <option value=13 <c:if test="${13 eq bean.jtype }">selected</c:if> >项目合作</option> --%>
                                      			</select>
                                      		</c:when>
                                      		<c:otherwise>
                                      			<select name="jtype" data-rule="交易类型:required;" >
-                                     				<!-- <option value=1  >购买会员大礼包</option>
+                                     				<!-- <option value=1  >购买商品</option>
 													<option value=2  >复购产品</option> -->
 													<option value=3  >直推</option>
 													<option value=4  >间推</option>
@@ -132,8 +132,8 @@ $(function(){
 													<option value=7  >平台分红</option>
 													<option value=8  >捐赠</option>
 													<option value=9  >购买返点</option>
-													<option value=10 >直推购买返点</option>
-													<option value=11 >间推购买返点</option>
+													<option value=10 >一级销售奖</option>
+													<option value=11 >二级销售奖</option>
 													<option value=12 >提现健康值</option>
 													<!-- <option value=13 >项目合作</option> -->
                                      			</select>

@@ -26,33 +26,47 @@ public class ShopTradeDto implements java.io.Serializable {
 	private int userId;
 	private int jtype;
 	private BigDecimal price;
+	private BigDecimal duihuan;
 	private int status;
 	private int credits;
 	private Date createDate;
 	private String createBy;
 	private String payPwd;
 	private String remark;
-
-	
 	private Set<ShopTradeDetail> shopTradeDetails = new HashSet<ShopTradeDetail>(0);
 
 	public ShopTradeDto() {
 	}
 
-	public ShopTradeDto(int jtype, BigDecimal price, int credits) {
-		this.jtype = jtype;
-		this.price = price;
-		this.credits = credits;
-	}
-
-	public ShopTradeDto(Integer id, String tradeNo, int userId, int jtype, BigDecimal price, int status, int credits,
-			Date createDate, String createBy, String payPwd, String remark, Set<ShopTradeDetail> shopTradeDetails) {
+	public ShopTradeDto(Integer id, String tradeNo, int userId, int jtype, BigDecimal price, BigDecimal duihuan,
+			int status, int credits, Date createDate, String createBy, String payPwd, String remark) {
 		super();
 		this.id = id;
 		this.tradeNo = tradeNo;
 		this.userId = userId;
 		this.jtype = jtype;
 		this.price = price;
+		this.duihuan = duihuan;
+		this.status = status;
+		this.credits = credits;
+		this.createDate = createDate;
+		this.createBy = createBy;
+		this.payPwd = payPwd;
+		this.remark = remark;
+	}
+
+
+
+	public ShopTradeDto(Integer id, String tradeNo, int userId, int jtype, BigDecimal price, BigDecimal duihuan,
+			int status, int credits, Date createDate, String createBy, String payPwd, String remark,
+			Set<ShopTradeDetail> shopTradeDetails) {
+		super();
+		this.id = id;
+		this.tradeNo = tradeNo;
+		this.userId = userId;
+		this.jtype = jtype;
+		this.price = price;
+		this.duihuan = duihuan;
 		this.status = status;
 		this.credits = credits;
 		this.createDate = createDate;
@@ -61,6 +75,8 @@ public class ShopTradeDto implements java.io.Serializable {
 		this.remark = remark;
 		this.shopTradeDetails = shopTradeDetails;
 	}
+
+
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -170,6 +186,14 @@ public class ShopTradeDto implements java.io.Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public BigDecimal getDuihuan() {
+		return duihuan;
+	}
+
+	public void setDuihuan(BigDecimal duihuan) {
+		this.duihuan = duihuan;
 	}
 
 }

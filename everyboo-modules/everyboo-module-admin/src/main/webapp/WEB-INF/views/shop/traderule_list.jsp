@@ -75,10 +75,10 @@
                                      <span>购买返点</span>
                                  </td>
                                  <td>
-                                     <span>直推购买返点</span>
+                                     <span>一级销售奖</span>
                                  </td>
                                  <td>
-                                     <span>间推购买返点</span>
+                                     <span>二级销售奖</span>
                                  </td>
                                  <td>
                                  	 <span>创建时间</span>

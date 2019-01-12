@@ -25,7 +25,7 @@ public class ShopTradeDaoImpl extends CustomBaseSqlDaoImpl implements ShopTradeD
          Map<String,Object> map = new HashMap<String,Object>();
          StringBuilder hql = new StringBuilder();
          if (shopTradeQueryDTO.getIsFront() != null && shopTradeQueryDTO.getIsFront()) {
-             hql.append("select new ShopTrade(id,tradeNo,userId,jtype,price,status,credits,createDate) from ShopTrade t where 1=1  ");
+             hql.append("select new ShopTrade(id,tradeNo,userId,jtype,duihuan,price,status,credits,createDate) from ShopTrade t where 1=1  ");
          }else {
              hql.append("select t from ShopTrade t where 1=1  ");
          }
@@ -54,7 +54,7 @@ public class ShopTradeDaoImpl extends CustomBaseSqlDaoImpl implements ShopTradeD
     public PageModel<ShopTradeUser> queryShopTradeUserPage(ShopTradeQueryDTO shopTradeQueryDTO){
     	Map<String,Object> map = new HashMap<String,Object>();
     	StringBuilder hql = new StringBuilder();
-    	hql.append("select new ShopTradeUser(t.id as id,t.tradeNo as tradeNo,t.userId as userId,t.jtype as jtype,t.price as price,t.status as status,t.credits as credits,t.createDate as createDate,"
+    	hql.append("select new ShopTradeUser(t.id as id,t.tradeNo as tradeNo,t.userId as userId,t.jtype as jtype,t.price as price,t.duihuan as duihuan,t.status as status,t.credits as credits,t.createDate as createDate,"
     			+ "t2.account as account ,t2.phone as phone,t2.shopUserExts.bankOwer as bankOwer,t2.shopUserExts.bankCard as bankCard) from ShopTrade t ,ShopUser t2  where t.userId=t2.id  ");
 //    	hql.append("select new ShopTradeUser(t.id,t.tradeNo,t.userId,t.jtype,t.price,t.status,t.credits,t.createDate,t2.account ,t2.phone) from ShopTrade t ,ShopUser t2  where t.userId=t2.id  ");
 
@@ -124,7 +124,7 @@ public class ShopTradeDaoImpl extends CustomBaseSqlDaoImpl implements ShopTradeD
 
     	Map<String,Object> map = new HashMap<String,Object>();
     	StringBuilder hql = new StringBuilder();
-    	hql.append("select new ShopTradeUser(t.id as id,t.tradeNo as tradeNo,t.userId as userId,t.jtype as jtype,t.price as price,t.status as status,t.credits as credits,t.createDate as createDate,"
+    	hql.append("select new ShopTradeUser(t.id as id,t.tradeNo as tradeNo,t.userId as userId,t.jtype as jtype,t.price as price,t.duihuan as duihuan,t.status as status,t.credits as credits,t.createDate as createDate,"
     			+ "t2.account as account ,t2.phone as phone,t2.shopUserExts.bankOwer as bankOwer,t2.shopUserExts.bankCard as bankCard) from ShopTrade t ,ShopUser t2  where t.userId=t2.id  ");
     	
     	if(shopTradeQueryDTO.getStatus()!=0){

@@ -29,6 +29,7 @@ public class ShopTradeDetail implements java.io.Serializable {
 	private int proId;
 	private int count;
 	private BigDecimal price;
+	private BigDecimal duihuan;
 	private int credits;
 	private String proName;
 	private String proLogoImg;
@@ -44,6 +45,20 @@ public class ShopTradeDetail implements java.io.Serializable {
 		this.proName = proName;
 		this.proLogoImg = proLogoImg;
 		this.credits = credits;
+	}
+	
+	public ShopTradeDetail(Integer id, ShopTrade shopTrade, int proId, int count, BigDecimal price, BigDecimal duihuan,
+			int credits, String proName, String proLogoImg) {
+		super();
+		this.id = id;
+		this.shopTrade = shopTrade;
+		this.proId = proId;
+		this.count = count;
+		this.price = price;
+		this.duihuan = duihuan;
+		this.credits = credits;
+		this.proName = proName;
+		this.proLogoImg = proLogoImg;
 	}
 
 	@Id
@@ -119,6 +134,14 @@ public class ShopTradeDetail implements java.io.Serializable {
 
 	public void setCredits(int credits) {
 		this.credits = credits;
+	}
+
+	public BigDecimal getDuihuan() {
+		return duihuan;
+	}
+
+	public void setDuihuan(BigDecimal duihuan) {
+		this.duihuan = duihuan;
 	}
 
 }

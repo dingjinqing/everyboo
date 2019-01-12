@@ -266,6 +266,12 @@ public class ShopUserController {
 				if (uExt.getTradeBill()==null) {
 					uExt.setTradeBill(new BigDecimal(0));
 				}
+				if (uExt.getDuihuan()==null) {
+					uExt.setDuihuan(new BigDecimal(0));
+				}
+				if (uExt.getXiaoshou()==null) {
+					uExt.setXiaoshou(new BigDecimal(0));
+				}
 				if (uExt.getTuiguang()==null) {
 					uExt.setTuiguang(new BigDecimal(0));
 				}

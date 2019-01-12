@@ -55,6 +55,7 @@
                                         <div class="login-form">
                                             <form>
                                                 <input v-model="form.phone" placeholder="请输入手机号" type="text">
+                                                <input v-model="form.account" placeholder="请输入用户名" type="text">
                                                 <input v-model="form.password" placeholder="请输入密码" type="password">
                                                 <input v-model="form.code" placeholder="请输入短信验证码" type="text">
                                                 <button v-if="sendCode == false" type="button"

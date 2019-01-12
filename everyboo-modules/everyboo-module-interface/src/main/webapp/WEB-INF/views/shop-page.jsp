@@ -291,7 +291,7 @@
                             {
                                 pageSize: 15,
                                 currentPage: 1,
-                                type: 2,
+                                type: [1,2],
                                 hot: 1
                             },
                             function (data) {

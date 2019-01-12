@@ -490,6 +490,7 @@ public class ShopUserController {
 			shopUserExt.setTradeBill(BigDecimal.ZERO);
 			shopUserExt.setTuiguang(BigDecimal.ZERO);
 			shopUserExt.setXiaoshou(BigDecimal.ZERO);
+			shopUserExt.setDuihuan(BigDecimal.ZERO);
 			shopUserExt.setShopUser(user);
 			shopUserExt.setCreateDate(new Date());
 			userExtService.save(shopUserExt);

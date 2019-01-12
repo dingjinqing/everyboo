@@ -62,7 +62,9 @@ var LOGOUT_URL = BASE_URL + MODULE_WEB+ '/api/shopuser/login_out';
 
 var HOLDER_PROFIT_URL = BASE_URL + MODULE_WEB + '/api/shoptrade/listProfit';
 
-var SHOPBILL_TRANSFER = BASE_URL + MODULE_WEB + '/api/shopbilltrade/transfer'
+var SHOPBILL_TRANSFER = BASE_URL + MODULE_WEB + '/api/shopbilltrade/transfer';
+
+var SHOPBILL_CHANGE = BASE_URL + MODULE_WEB + '/api/shopbilltrade/change';
 
 var LOGIN_ERR_MSG = 'login first'
 
@@ -104,15 +106,15 @@ var USER_PRICE = {
 }
 
 var INCOME = {
-    '1': '首次购买奖励',
+    '1': '购买商品',
     '2': '复购产品收益',
-    '3': '直推收益',
+    '3': '一级销售奖',
     '4': '间推收益',
     '5': '加盟店奖励',
     '6': '股权收益',
     '7': '平台分红',
     '8': '捐赠',
-    '9': '购买返点',
+    '9': '首次购买奖励',
     '10': '一级销售奖',
     '11': '二级销售奖',
     '12': '提现健康值',
@@ -135,7 +137,7 @@ var BILL_STATUS = {
 }
 
 var ORDER_TYPES = {
-    '1': '购买会员大礼包',
+    '1': '购买商品',
     '2': '复购产品',
     '13': '项目合作'
 }

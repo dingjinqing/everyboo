@@ -132,7 +132,7 @@
                                                 <input type="number" v-model="quantity">
                                             </div>
                                             <div class="single-pro-cart"></div>
-                                            <div v-if="product.type == '2'" class="single-pro-cart" style="display: inline;">
+                                            <div class="single-pro-cart" style="display: inline;">
                                                 <a href="javascript:;" @click="addCart" title="添加到购物车">
                                                     <i class="pe-7s-cart"></i>
                                                     添加到购物车

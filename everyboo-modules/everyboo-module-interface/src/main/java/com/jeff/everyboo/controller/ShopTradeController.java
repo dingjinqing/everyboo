@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.jeff.everyboo.cms.dto.ShopProfitQueryDTO;
 import com.jeff.everyboo.cms.dto.ShopTradeQueryDTO;
 import com.jeff.everyboo.cms.dto.ShopUserQueryDTO;
@@ -191,10 +192,17 @@ public class ShopTradeController {
 
 			// 账户积分-订单积分+购买商品赠送积分
 			BigDecimal credits = user.getShopUserExts().getCredits();
-			BigDecimal credits2 = new BigDecimal(bean.getCredits());
+			BigDecimal credits2 = new BigDecimal(bean.getCredits()).abs();
 			if (credits.compareTo(credits2) < 0) {
 				ajaxResult.setSuccess(false);
-				ajaxResult.setMsg("积分不足");
+				ajaxResult.setMsg("消费积分不足");
+				return ajaxResult;
+			}
+			BigDecimal duihuan1 = user.getShopUserExts().getDuihuan();
+			BigDecimal duihuan2 = bean.getDuihuan()==null?BigDecimal.ZERO:bean.getDuihuan().abs();
+			if (duihuan1.compareTo(duihuan2) < 0) {
+				ajaxResult.setSuccess(false);
+				ajaxResult.setMsg("兑换积分不足");
 				return ajaxResult;
 			}
 
@@ -207,6 +215,7 @@ public class ShopTradeController {
 			trade.setStatus(bean.getStatus());
 			trade.setPrice(bean.getPrice());
 			trade.setCreateDate(bean.getCreateDate());
+			trade.setDuihuan(bean.getDuihuan());
 			trade.setId(bean.getId());
 			trade.setRemark(bean.getRemark());
 			trade.setUpdateDate(new Date());
@@ -246,6 +255,7 @@ public class ShopTradeController {
 			}
 			// 账户积分-订单积分+购买商品赠送积分
 			user.getShopUserExts().setCredits(credits.subtract(credits2));
+			user.getShopUserExts().setDuihuan(duihuan1.subtract(duihuan2));
 			userService.update(user);
 //			下单直接调用返利逻辑
 			fangli(user,trade);
@@ -312,12 +322,12 @@ public class ShopTradeController {
 				// 邀请用户复购的直推返点 给用户本身账户余额增加
 				// 如果第一次购买
 				if (user.getVipLevel().equals("v0")) {
-					BigDecimal a1 = ztUser.getShopUserExts().getDuihuan().add(shopTrade.getPrice().abs());
-					ztUser.getShopUserExts().setDuihuan(a1);
-					this.saveTrade(shopTrade.getPrice(), ztUser, 3);
+					BigDecimal toprice = shopTrade.getPrice().add(shopTrade.getDuihuan()).add(new BigDecimal(shopTrade.getCredits()));
+					BigDecimal a1 = user.getShopUserExts().getDuihuan().add(toprice.abs());
+					this.saveTrade(shopTrade.getPrice().abs(), ztUser, 3);
 					userService.update(ztUser);
 				} else {
-					BigDecimal a2 = new BigDecimal(0.2).multiply(shopTrade.getPrice().abs());
+					BigDecimal a2 = new BigDecimal(0.2).multiply(shopTrade.getPrice().add(new BigDecimal(shopTrade.getCredits())).abs());
 					this.saveTradeInfo(a2, ztUser, 10);
 				}
 
@@ -330,7 +340,7 @@ public class ShopTradeController {
 					if (jtUser != null) {
 						// 邀请用户复购的直推返点 给用户本身账户余额增加
 						// rule = tradeRuleService.queryShopTradeRule(proId, jtUser.getVipLevel());
-						BigDecimal a3 = new BigDecimal(0.1).multiply(shopTrade.getPrice().abs());
+						BigDecimal a3 = new BigDecimal(0.1).multiply(shopTrade.getPrice().add(new BigDecimal(shopTrade.getCredits())).abs());
 						this.saveTradeInfo(a3, jtUser, 11);
 					}
 				}
@@ -341,9 +351,10 @@ public class ShopTradeController {
 		if (user.getVipLevel().equals("v0")) {
 			// 赠送积分：第一次购买就赠送等值积分，假如我是你上家，那丁清第一次购买时，你获得300分我获得300，丁清第二次~N次购买我不获得任何积分。
 			user.setVipLevel("v1");
-			BigDecimal a1 = user.getShopUserExts().getDuihuan().add(shopTrade.getPrice().abs());
+			BigDecimal toprice = shopTrade.getPrice().add(shopTrade.getDuihuan()).add(new BigDecimal(shopTrade.getCredits()));
+			BigDecimal a1 = user.getShopUserExts().getDuihuan().add(toprice.abs());
 			user.getShopUserExts().setDuihuan(a1);
-			this.saveTrade(shopTrade.getPrice(), user, 1);
+			this.saveTrade(shopTrade.getPrice().abs(), user, 9);
 			userService.update(user);
 		}
 
@@ -372,7 +383,9 @@ public class ShopTradeController {
 		ztTrade.setJtype(type);// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点
 		ztTrade.setStatus(3);
 		ztTrade.setCredits(0);
+		ztTrade.setDuihuan(BigDecimal.ZERO);
 		ztTrade.setCreateDate(new Date());
+		ztTrade.setUpdateDate(new Date());
 		ztTrade.setShopTradeDetails(null);
 		tradeService.save(ztTrade);
 	}
@@ -418,18 +431,11 @@ public class ShopTradeController {
 
 			ShopProduct product = productService.find(bean.getProId());
 
-			BigDecimal tprice;
-			if (user.getVipLevel().equals(VipLevelEnum.v1) || user.getVipLevel().equals(VipLevelEnum.v2)
-					|| user.getVipLevel().equals(VipLevelEnum.v3)) {
-				tprice = new BigDecimal(product.getPrice1());
-			} else if (user.getVipLevel().equals(VipLevelEnum.v1) || user.getVipLevel().equals(VipLevelEnum.v2)) {
-				tprice = new BigDecimal(product.getPrice2());
-			} else {
-				tprice = new BigDecimal(product.getPrice3());
-			}
+			BigDecimal tprice = new BigDecimal(product.getPrice1());
 			bean.setPrice(tprice.multiply(new BigDecimal(bean.getCount())));
 			bean.setProName(product.getProName());
 			bean.setProLogoImg(product.getProLogoImg());
+			bean.setDuihuan(new BigDecimal(product.getPrice3()));
 			bean.setCredits(product.getConsumeCredits() == null ? 0 : Integer.parseInt(product.getConsumeCredits()));
 			// 查询是否添加过购物车（session有没有封装属性）
 			List<ShopTradeDetail> cartlist = (List<ShopTradeDetail>) session.getAttribute("cartlist");
@@ -496,15 +502,7 @@ public class ShopTradeController {
 
 				ShopProduct product = productService.find(bean.getProId());
 
-				BigDecimal tprice;
-				if (user.getVipLevel().equals(VipLevelEnum.v1) || user.getVipLevel().equals(VipLevelEnum.v2)
-						|| user.getVipLevel().equals(VipLevelEnum.v3)) {
-					tprice = new BigDecimal(product.getPrice1());
-				} else if (user.getVipLevel().equals(VipLevelEnum.v1) || user.getVipLevel().equals(VipLevelEnum.v2)) {
-					tprice = new BigDecimal(product.getPrice2());
-				} else {
-					tprice = new BigDecimal(product.getPrice3());
-				}
+				BigDecimal tprice = new BigDecimal(product.getPrice1());
 				bean.setPrice(tprice.multiply(new BigDecimal(bean.getCount())));
 
 				List<ShopTradeDetail> cartlist = (List<ShopTradeDetail>) session.getAttribute("cartlist");
@@ -520,6 +518,8 @@ public class ShopTradeController {
 						sc.setPrice(tprice.multiply(new BigDecimal(bean.getCount())));
 						sc.setCredits(sc.getCount() * (product.getConsumeCredits() == null ? 0
 								: Integer.parseInt(product.getConsumeCredits())));
+						sc.setDuihuan(new BigDecimal( sc.getCount() * (product.getPrice3() == null ? 0
+								: Integer.parseInt(product.getPrice3()))));
 						cartlist.set(i, sc);
 						break;
 					}

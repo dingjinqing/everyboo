@@ -28,6 +28,7 @@ public class ShopTradeUser implements java.io.Serializable {
 	private int userId;
 	private int jtype;
 	private BigDecimal price;
+	private BigDecimal duihuan;
 	private int status;
 	private int credits;
 	private Date createDate;
@@ -58,18 +59,16 @@ public class ShopTradeUser implements java.io.Serializable {
 		this.account = account;
 		this.phone = phone;
 	}
-	
-	
 
-
-	public ShopTradeUser(Integer id, String tradeNo, int userId, int jtype, BigDecimal price, int status, int credits,
-			Date createDate, String account, String phone, String bankOwer, String bankCard) {
+	public ShopTradeUser(Integer id, String tradeNo, int userId, int jtype, BigDecimal price, BigDecimal duihuan,
+			int status, int credits, Date createDate, String account, String phone, String bankOwer, String bankCard) {
 		super();
 		this.id = id;
 		this.tradeNo = tradeNo;
 		this.userId = userId;
 		this.jtype = jtype;
 		this.price = price;
+		this.duihuan = duihuan;
 		this.status = status;
 		this.credits = credits;
 		this.createDate = createDate;
@@ -193,6 +192,16 @@ public class ShopTradeUser implements java.io.Serializable {
 
 	public void setBankCard(String bankCard) {
 		this.bankCard = bankCard;
+	}
+
+
+	public BigDecimal getDuihuan() {
+		return duihuan;
+	}
+
+
+	public void setDuihuan(BigDecimal duihuan) {
+		this.duihuan = duihuan;
 	}
 	
 }

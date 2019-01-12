@@ -107,23 +107,24 @@
 											<td class="my-td"><span
 												v-text="user.shopUserExts.balance"></span></td>
 											<td style="font-size: 16px;"><a href="javascript:;"
-												@click="toDonate">捐赠</a> <!-- <br> <a href="javascript:;"
-												@click="toWithdraw">兑换</a> --> <br> <a href="javascript:;"
+												@click="toDonate">捐赠</a> <br> <a href="javascript:;"
+												@click="toWithdraw">提现</a> <br> <a href="javascript:;"
 												@click="toRecharge">充值</a> <br> <a href="javascript:;"
 												@click="toTransfer">赠送</a></td>
 										</tr>
 
 										<tr>
 											<td>销售积分</td>
-											<td><span v-text="user.shopUserExts.xiaoshou"></span></td>
-											<td></td>
-											<%-- <td style="font-size: 16px;"><a href="<%=path%>/bill-detail">查看<br/>明细</a></td> --%>
+											<td class="my-td"><span v-text="user.shopUserExts.xiaoshou"></span></td>
+											<td style="font-size: 16px;"><a href="javascript:;"
+												@click="xiaoshouchange">转换</a></td>
 										</tr>
 										<tr>
 											<td>共享积分</td>
 											<td class="my-td"><span
 												v-text="user.shopUserExts.tuiguang"></span></td>
-											<td></td>
+											<td style="font-size: 16px;"><a href="javascript:;"
+												@click="gongxiaongchange">转换</a></td>
 										</tr>
 										<tr>
 											<td>兑换积分</td>
@@ -203,7 +204,8 @@
 										disabled="disabled"> 余额提现数量<input
 										v-model="withdrawCount" placeholder="请输入余额提现数量" type="number">
 									交易密码<input v-model="withdrawPayPwd" placeholder="请输入交易密码"
-										type="password"> <span v-html="errMsg"
+										type="password"> 到账金额:<span v-text="daoshou" data-toggle="tooltip" title="到账金额扣去百分之五的税率"
+										style="font-size: 16px;"></span><span v-html="errMsg"
 										style="color: red; font-size: 14px;"></span>
 									<button v-if="!userOpt" class="login-btn" type="button"
 										@click="withdraw">确定提现</button>
@@ -408,6 +410,7 @@
                     bankCard: '',
                     bankDeposit: '',
                     banks: [],
+                    daoshou: 0,
                     userOpt: false,
                     errMsg: ''
                 },
@@ -797,6 +800,54 @@
                             )
                         }
                     },
+                    gongxiaongchange: function () {
+                        view.userOpt = false
+                        if (isNaN(view.user.shopUserExts.tuiguang) || view.user.shopUserExts.tuiguang <= 0 ) {
+                        } else {
+                            view.userOpt = true
+                            var self = this
+                            $.post(
+                            	SHOPBILL_CHANGE,
+                                {
+                                	type: 2
+                                },
+                                function (data) {
+                                    if (data.success === true) {
+                                        self.getUser()
+                                        self.hideUserOpt()
+                                    } else if (data.success === false) {
+                                        view.userOpt = false
+                                    } else if (data.success === 'false' && data.msg === LOGIN_ERR_MSG) {
+                                        window.location.href = '<%=path%>/login?relogin=y'
+                                    }
+                                }
+                            )
+                        }
+                    },
+                    xiaoshouchange: function () {
+                        view.userOpt = false
+                        if (isNaN(view.user.shopUserExts.xiaoshou) || view.user.shopUserExts.xiaoshou <= 0 ) {
+                        } else {
+                            view.userOpt = true
+                            var self = this
+                            $.post(
+                            	SHOPBILL_CHANGE,
+                                {
+                                	type: 1
+                                },
+                                function (data) {
+                                    if (data.success === true) {
+                                        self.getUser()
+                                        self.hideUserOpt()
+                                    } else if (data.success === false) {
+                                        view.userOpt = false
+                                    } else if (data.success === 'false' && data.msg === LOGIN_ERR_MSG) {
+                                        window.location.href = '<%=path%>/login?relogin=y'
+                                    }
+                                }
+                            )
+                        }
+                    },
                     selectChange: function (opt) {
                         view.errMsg = ''
                         view.donateOpt = false
@@ -955,6 +1006,30 @@
                             )
                         }
                     },
+                    /* watch: {
+                        useCredits: {
+                            handler: function (newValue, oldValue) {
+                                var userCredits = parseInt(${sessionScope.userInfo.shopUserExts.credits})
+                                // 用户总积分500 订单总金额200 可使用总积分100
+                                if (view.totalCredits <= userCredits) {
+                                    if (newValue >= view.totalCredits) {
+                                        view.useCredits = view.totalCredits
+                                    }
+                                } else {
+                                    if (newValue >= userCredits) {
+                                        view.useCredits = userCredits
+                                    }
+                                }
+                                if (newValue < 0) {
+                                    view.useCredits = 0
+                                }
+                                if (newValue === '-') {
+                                    view.useCredits = 0
+                                }
+                                view.totalPrice = view.oTotalPrice - view.useCredits-view.useDuihuan
+                            }
+                        }
+                    }, */
                     recharge: function () {
                         view.userOpt = false
                         var errMsg = ''

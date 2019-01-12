@@ -29,6 +29,7 @@ public class ShopTrade implements java.io.Serializable {
 	private String tradeNo;
 	private int userId;
 	private int jtype;
+	private BigDecimal duihuan;
 	private BigDecimal price;
 	private int status;
 	private int credits;
@@ -41,51 +42,15 @@ public class ShopTrade implements java.io.Serializable {
 	public ShopTrade() {
 	}
 
-	public ShopTrade(/*String tradeNo, int userId, */int jtype, BigDecimal price, int credits) {
-		//this.tradeNo = tradeNo;
-		//this.userId = userId;
-		this.jtype = jtype;
-		this.price = price;
-		this.credits = credits;
-	}
-
-	public ShopTrade(String tradeNo, int userId, int jtype, BigDecimal price, int status, int credits, Date createDate,
-			String createBy, Set<ShopTradeDetail> shopTradeDetails) {
-		this.tradeNo = tradeNo;
-		this.userId = userId;
-		this.jtype = jtype;
-		this.price = price;
-		this.status = status;
-		this.credits = credits;
-		this.createDate = createDate;
-		this.createBy = createBy;
-		this.shopTradeDetails = shopTradeDetails;
-	}
-	
-	
-
-	public ShopTrade(Integer id, String tradeNo, int userId, int jtype, BigDecimal price, int status, int credits,
-			Date createDate) {
+	public ShopTrade(Integer id, String tradeNo, int userId, int jtype, BigDecimal duihuan, BigDecimal price,
+			int status, int credits, String remark, Date createDate, String createBy, Date updateDate,
+			Set<ShopTradeDetail> shopTradeDetails) {
 		super();
 		this.id = id;
 		this.tradeNo = tradeNo;
 		this.userId = userId;
 		this.jtype = jtype;
-		this.price = price;
-		this.status = status;
-		this.credits = credits;
-		this.createDate = createDate;
-	}
-	
-	
-
-	public ShopTrade(Integer id, String tradeNo, int userId, int jtype, BigDecimal price, int status, int credits,
-			String remark, Date createDate, String createBy, Date updateDate, Set<ShopTradeDetail> shopTradeDetails) {
-		super();
-		this.id = id;
-		this.tradeNo = tradeNo;
-		this.userId = userId;
-		this.jtype = jtype;
+		this.duihuan = duihuan;
 		this.price = price;
 		this.status = status;
 		this.credits = credits;
@@ -96,36 +61,34 @@ public class ShopTrade implements java.io.Serializable {
 		this.shopTradeDetails = shopTradeDetails;
 	}
 
-	public ShopTrade(Integer id, String tradeNo, int userId, int jtype, BigDecimal price, int status, int credits,
-			Date createDate, String createBy, Date updateDate, Set<ShopTradeDetail> shopTradeDetails) {
+	public ShopTrade(Integer id, String tradeNo, int userId, int jtype, BigDecimal duihuan, BigDecimal price,
+			int status, int credits, String remark, Date createDate, String createBy, Date updateDate) {
 		super();
 		this.id = id;
 		this.tradeNo = tradeNo;
 		this.userId = userId;
 		this.jtype = jtype;
+		this.duihuan = duihuan;
 		this.price = price;
 		this.status = status;
 		this.credits = credits;
+		this.remark = remark;
 		this.createDate = createDate;
 		this.createBy = createBy;
 		this.updateDate = updateDate;
-		this.shopTradeDetails = shopTradeDetails;
 	}
-	
-
-	public ShopTrade(Integer id, String tradeNo, int userId, int jtype, BigDecimal price, int status, int credits,
-			Date createDate, String createBy, Date updateDate) {
+	public ShopTrade(Integer id, String tradeNo, int userId, int jtype, BigDecimal duihuan, BigDecimal price,
+			int status, int credits,  Date createDate) {
 		super();
 		this.id = id;
 		this.tradeNo = tradeNo;
 		this.userId = userId;
 		this.jtype = jtype;
+		this.duihuan = duihuan;
 		this.price = price;
 		this.status = status;
 		this.credits = credits;
 		this.createDate = createDate;
-		this.createBy = createBy;
-		this.updateDate = updateDate;
 	}
 
 	@Id
@@ -239,6 +202,15 @@ public class ShopTrade implements java.io.Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	
+	@Column(name = "duihuan", length = 12)
+	public BigDecimal getDuihuan() {
+		return duihuan;
+	}
+
+	public void setDuihuan(BigDecimal duihuan) {
+		this.duihuan = duihuan;
 	}
 
 }

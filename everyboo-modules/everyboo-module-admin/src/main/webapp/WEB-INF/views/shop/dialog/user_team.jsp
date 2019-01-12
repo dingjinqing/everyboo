@@ -143,7 +143,7 @@
 					<div class="t_table">
 						<table>
 							<thead>
-								<tr><td colspan="4"><span> 直推团队</span></td></tr>
+								<tr><td colspan="4"><span> 一级销售团队</span></td></tr>
 								<tr>
 									<td><span>姓名</span></td>
 									<td><span>手机号</span></td>
@@ -189,6 +189,9 @@
 															<c:when test="${'v7' eq u.viplevel}">
 		                                     			六级加盟店
 		                                     		</c:when>
+															<c:when test="${'v8' eq u.viplevel}">
+		                                     			七级加盟店
+		                                     		</c:when>
 															<c:otherwise>
 		                                     			普通会员
 		                                     		</c:otherwise>
@@ -224,7 +227,7 @@
 					<div class="t_table">
 						<table>
 							<thead>
-								<tr><td colspan="4"><span>间推团队 </span></td></tr>
+								<tr><td colspan="4"><span>二级销售团队 </span></td></tr>
 								<tr>
 									<td><span>姓名</span></td>
 									<td><span>手机号</span></td>
@@ -266,6 +269,9 @@
 		                                     		</c:when>
 															<c:when test="${'v7' eq u.viplevel}">
 		                                     			六级加盟店
+		                                     		</c:when>
+		                                     		<c:when test="${'v8' eq u.viplevel}">
+		                                     			七级加盟店
 		                                     		</c:when>
 															<c:otherwise>
 		                                     			普通会员

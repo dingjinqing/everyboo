@@ -95,8 +95,11 @@
                                         账户消费积分：<span v-text="user.shopUserExts.credits"></span><br/>
                                         账户兑换积分：<span v-text="user.shopUserExts.duihuan"></span><br/>
                                         最高可抵扣消费积分：<span v-text="totalCredits"></span><br/>
+                                        最高可抵扣兑换积分：<span v-text="totalDuihuan"></span><br/>
                                         <form>
                                             抵扣消费积分：<input v-model="useCredits" placeholder="请输入需要抵扣的积分数" type="number" style="width: 100px;">
+                                            <br/>
+                                            抵扣兑换积分：<input v-model="useDuihuan" placeholder="请输入需要抵扣的积分数" type="number" style="width: 100px;">
                                             <br/>
                                             备注：<input v-model="remark" placeholder="请输入订单备注" type="text" style="width: 200px;">
                                             <br/>
@@ -163,10 +166,12 @@
                 data: {
                     products: [],
                     useCredits: 0,
+                    useDuihuan: 0,
                     totalPrice: 0,
                     totalCredits: 0,
+                    totalDuihuan: 0,
                     oTotalPrice: 0,
-                    jtype: 0,
+                    jtype: 1,
                     submitted: false,
                     submitting: false,
                     payPwd: '',
@@ -230,10 +235,11 @@
                                             view.totalPrice += item.count * item.price
                                             view.oTotalPrice = view.totalPrice
                                             view.totalCredits += item.credits
+                                            view.totalDuihuan += item.duihuan
                                             item.id = item.proId
                                             item.proLogoImgFull = BASE_URL + MODULE_ADMIN + item.proLogoImg
                                         })
-                                        view.jtype = 2
+                                        /* view.jtype = 2 */
                                     } else if (data.success === 'false' && data.msg === LOGIN_ERR_MSG) {
                                         window.location.href = '<%=path%>/login?relogin=y'
                                     }
@@ -250,19 +256,9 @@
                                     if (data.success === true) {
                                         data.data.proLogoImgFull = BASE_URL + MODULE_ADMIN + data.data.proLogoImg
                                         data.data.count = quantity
-                                        // 如果不是会员大礼包
-                                        if (data.data.type !== '1') {
-                                            if (userLevel != null && userLevel !== undefined && userLevel !== '') {
-                                                data.data.price = data.data[USER_PRICE[userLevel]]
-                                            } else {
-                                                data.data.price = data.data.price1
-                                            }
-                                        } else {
-                                            data.data.price = data.data.price1
-                                        }
-                                        if (data.data.type === '2') {
-                                            view.totalCredits += parseInt(data.data.consumeCredits)
-                                        }
+                                        data.data.price = data.data.price1
+                                        view.totalCredits += parseInt(data.data.consumeCredits)
+                                        view.totalDuihuan += parseInt(data.data.price3)
                                         view.products.push(data.data)
                                         view.totalPrice += quantity * data.data.price
                                         view.oTotalPrice = view.totalPrice
@@ -305,8 +301,10 @@
                                     data: JSON.stringify({
                                         userId: userId,
                                         price: -view.totalPrice,
-                                        credits: view.useCredits,
-                                        jtype: view.jtype,
+                                        credits: -view.useCredits,
+                                        duihuan: -view.useDuihuan,
+                                        /* jtype: view.jtype, */
+                                        jtype: 1,
                                         payPwd: view.payPwd,
                                         remark: view.remark,
                                         shopTradeDetails: view.products
@@ -357,7 +355,35 @@
                             if (newValue === '-') {
                                 view.useCredits = 0
                             }
-                            view.totalPrice = view.oTotalPrice - view.useCredits
+                            view.totalPrice = view.oTotalPrice - view.useCredits-view.useDuihuan
+                            if(view.totalPrice<0){
+                            	view.useCredits = view.oTotalPrice - view.useDuihuan
+                            }
+                        }
+                    },
+                    useDuihuan: {
+                        handler: function (newValue, oldValue) {
+                            var userDuihuan = parseInt(${sessionScope.userInfo.shopUserExts.duihuan})
+                            // 用户总积分500 订单总金额200 可使用总积分100
+                            if (view.totalDuihuan <= userDuihuan) {
+                                if (newValue >= view.totalDuihuan) {
+                                    view.useDuihuan = view.totalDuihuan
+                                }
+                            } else {
+                                if (newValue >= userDuihuan) {
+                                    view.useDuihuan = userDuihuan
+                                }
+                            }
+                            if (newValue < 0) {
+                                view.useDuihuan = 0
+                            }
+                            if (newValue === '-') {
+                                view.useDuihuan = 0
+                            }
+                            view.totalPrice = view.oTotalPrice - view.useCredits -view.useDuihuan
+                            if(view.totalPrice<0){
+                            	view.useDuihuan = view.oTotalPrice - view.useCredits
+                            }
                         }
                     }
                 }
