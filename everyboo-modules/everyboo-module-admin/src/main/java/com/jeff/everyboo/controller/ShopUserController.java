@@ -125,10 +125,11 @@ public class ShopUserController {
 		headNameMap.put("vipLevel", "会员等级");
 		headNameMap.put("status", "账号状态");
 		headNameMap.put("vipStatus", "会员状态");
-		headNameMap.put("balance", "消费积分");
+		headNameMap.put("balance", "健康余额");
 		headNameMap.put("tuiguang", "共享积分");
-		headNameMap.put("activeBill", "共享积分");
-		headNameMap.put("credits", "购物积分");
+		headNameMap.put("xiaoshou", "销售积分");
+		headNameMap.put("duihuan", "兑换积分");
+		headNameMap.put("credits", "消费积分");
 		headNameMap.put("createDate", "创建时间");
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -157,7 +158,8 @@ public class ShopUserController {
 				map.put("vipStatus", vstatusName);
 				map.put("balance", user.getShopUserExts().getBalance());
 				map.put("tuiguang", user.getShopUserExts().getTuiguang());
-				map.put("activeBill", user.getShopUserExts().getActiveBill());
+				map.put("xiaoshou", user.getShopUserExts().getXiaoshou());
+				map.put("duihuan", user.getShopUserExts().getDuihuan());
 				map.put("credits", user.getShopUserExts().getCredits());
 				map.put("createDate", createDate);
 				list.add(map);

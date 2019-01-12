@@ -124,7 +124,7 @@
 											<td class="my-td"><span
 												v-text="user.shopUserExts.tuiguang"></span></td>
 											<td style="font-size: 16px;"><a href="javascript:;"
-												@click="gongxiaongchange">转换</a></td>
+												@click="gongxiangchange">转换</a></td>
 										</tr>
 										<tr>
 											<td>兑换积分</td>
@@ -202,10 +202,11 @@
 										type="text" disabled="disabled"> 银行开户账号<input
 										v-model="bankCard" placeholder="请输入银行开户账号" type="text"
 										disabled="disabled"> 余额提现数量<input
-										v-model="withdrawCount" placeholder="请输入余额提现数量" type="number">
+										v-model="withdrawCount" placeholder="请输入整百提现余额" type="number" step="100" min="100">
 									交易密码<input v-model="withdrawPayPwd" placeholder="请输入交易密码"
-										type="password"> 到账金额:<span v-text="daoshou" data-toggle="tooltip" title="到账金额扣去百分之五的税率"
-										style="font-size: 16px;"></span><span v-html="errMsg"
+										type="password"> <span data-toggle="tooltip" title="到账金额扣去百分之五的税率"
+										style="font-size: 16px;">到账金额:<span v-text="'￥' + daoshou" style="color: red; font-size: 16px;"></span></span>
+										<br><span v-html="errMsg"
 										style="color: red; font-size: 14px;"></span>
 									<button v-if="!userOpt" class="login-btn" type="button"
 										@click="withdraw">确定提现</button>
@@ -399,18 +400,18 @@
                     getLinkPayPwd: '',
                     transLinkPayPwd: '',
                     donateLinkPayPwd: '',
-                    withdrawCount: 500,
+                    withdrawCount: 100,
                     withdrawPayPwd: '',
                     rechargeCount: 0,
                     rechargePayPwd: '',
                     transferPhone: '',
                     transferCount: 0,
+                    daoshou: 95,
                     transferPayPwd: '',
                     bankName: '',
                     bankCard: '',
                     bankDeposit: '',
                     banks: [],
-                    daoshou: 0,
                     userOpt: false,
                     errMsg: ''
                 },
@@ -800,16 +801,16 @@
                             )
                         }
                     },
-                    gongxiaongchange: function () {
+                    xiaoshouchange: function () {
                         view.userOpt = false
-                        if (isNaN(view.user.shopUserExts.tuiguang) || view.user.shopUserExts.tuiguang <= 0 ) {
+                        if (isNaN(view.user.shopUserExts.xiaoshou) || view.user.shopUserExts.xiaoshou <= 0 ) {
                         } else {
                             view.userOpt = true
                             var self = this
                             $.post(
                             	SHOPBILL_CHANGE,
-                                {
-                                	type: 2
+                            	{
+                                	type: 1
                                 },
                                 function (data) {
                                     if (data.success === true) {
@@ -824,16 +825,16 @@
                             )
                         }
                     },
-                    xiaoshouchange: function () {
+                    gongxiangchange: function () {
                         view.userOpt = false
-                        if (isNaN(view.user.shopUserExts.xiaoshou) || view.user.shopUserExts.xiaoshou <= 0 ) {
+                        if (isNaN(view.user.shopUserExts.tuiguang) || view.user.shopUserExts.tuiguang <= 0 ) {
                         } else {
                             view.userOpt = true
                             var self = this
                             $.post(
                             	SHOPBILL_CHANGE,
-                                {
-                                	type: 1
+                            	{
+                                	type: 2
                                 },
                                 function (data) {
                                     if (data.success === true) {
@@ -963,8 +964,11 @@
                         if (view.bankName.trim() === '' || view.bankCard.trim() === '') {
                             errMsg += '请在个人信息操作中修改银行账户资料<br/>'
                         }
-                        if (isNaN(view.withdrawCount) || view.withdrawCount < 500 || view.withdrawCount > view.user.shopUserExts.balance) {
-                            errMsg += '请输入不大于健康余额的数值，且最小提现额为500<br/>'
+                        if (isNaN(view.withdrawCount) || view.withdrawCount < 100 || view.withdrawCount > view.user.shopUserExts.balance) {
+                            errMsg += '请输入不大于健康余额的数值，且最小提现额为100<br/>'
+                        }
+                        if (!(view.withdrawCount % 100 === 0)) {
+                            errMsg += '请输入100的整数进行提现<br/>'
                         }
                         if (view.withdrawPayPwd.trim() === '') {
                             errMsg += '请输入交易密码，若未设置请先设置交易密码<br/>'
@@ -1006,30 +1010,6 @@
                             )
                         }
                     },
-                    /* watch: {
-                        useCredits: {
-                            handler: function (newValue, oldValue) {
-                                var userCredits = parseInt(${sessionScope.userInfo.shopUserExts.credits})
-                                // 用户总积分500 订单总金额200 可使用总积分100
-                                if (view.totalCredits <= userCredits) {
-                                    if (newValue >= view.totalCredits) {
-                                        view.useCredits = view.totalCredits
-                                    }
-                                } else {
-                                    if (newValue >= userCredits) {
-                                        view.useCredits = userCredits
-                                    }
-                                }
-                                if (newValue < 0) {
-                                    view.useCredits = 0
-                                }
-                                if (newValue === '-') {
-                                    view.useCredits = 0
-                                }
-                                view.totalPrice = view.oTotalPrice - view.useCredits-view.useDuihuan
-                            }
-                        }
-                    }, */
                     recharge: function () {
                         view.userOpt = false
                         var errMsg = ''
@@ -1133,6 +1113,14 @@
                         this.$nextTick(function() {
                             $('#my-mobile-menu').meanmenu()
                         })
+                    }
+                },
+                watch: {
+                	withdrawCount: {
+                        handler: function (newValue, oldValue) {
+                            var price = view.withdrawCount*0.95
+                            view.daoshou = price.toFixed(2)
+                        }
                     }
                 }
             });

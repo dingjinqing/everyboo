@@ -365,11 +365,11 @@ public class ShopTradeController {
 		// 邀请用户复购的直推返点 给用户本身账户余额增加
 		if (ba.compareTo(BigDecimal.ZERO) > 0) {
 			this.saveTrade(ba, user, type);
-			// 80%到销售积分里，20%到消费积分
+			// 直推间推的钱先到销售积分，等客户点击转换的时候，在百分之八十到余额，百分之二十到消费积分
 			user.getShopUserExts()
-					.setXiaoshou(user.getShopUserExts().getXiaoshou().add(ba.multiply(new BigDecimal(0.8))));
-			user.getShopUserExts()
-					.setCredits(user.getShopUserExts().getCredits().add(ba.multiply(new BigDecimal(0.2))));
+					.setXiaoshou(user.getShopUserExts().getXiaoshou().add(ba));
+//			user.getShopUserExts()
+//					.setCredits(user.getShopUserExts().getCredits().add(ba.multiply(new BigDecimal(0.2))));
 			userService.update(user);
 		}
 

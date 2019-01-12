@@ -329,14 +329,18 @@ public class ShopBillTradeController {
 //			获取当前用户
 			ShopUser user = WebHelper.getUser(request);
 			user = userService.find(user.getId());
-			if ("1".equals(type)) {  //销售积分直接转换到余额
-				user.getShopUserExts().setBalance(user.getShopUserExts().getBalance().add(user.getShopUserExts().getXiaoshou()));
+			if ("1".equals(type)) {
+				  //销售积分直接转换到余额
+				BigDecimal xiaoshou = user.getShopUserExts().getXiaoshou()==null ? BigDecimal.ZERO:user.getShopUserExts().getXiaoshou();
+				user.getShopUserExts().setBalance(user.getShopUserExts().getBalance().add(xiaoshou.multiply(new BigDecimal(0.8))));
+				user.getShopUserExts().setCredits(user.getShopUserExts().getCredits().add(xiaoshou.multiply(new BigDecimal(0.2))));
 				user.getShopUserExts().setXiaoshou(BigDecimal.ZERO);
 			}else if ("2".equals(type)) {//共享积分转换到余额
-				user.getShopUserExts().setBalance(user.getShopUserExts().getBalance().add(user.getShopUserExts().getTuiguang()));
+				BigDecimal tuiguang = user.getShopUserExts().getTuiguang()==null ? BigDecimal.ZERO:user.getShopUserExts().getTuiguang();
+				user.getShopUserExts().setBalance(user.getShopUserExts().getBalance().add(tuiguang.multiply(new BigDecimal(0.8))));
+				user.getShopUserExts().setCredits(user.getShopUserExts().getCredits().add(tuiguang.multiply(new BigDecimal(0.2))));
 				user.getShopUserExts().setTuiguang(BigDecimal.ZERO);
 			}
-			
 			userService.update(user);
 			System.out.println("积分转换到账户余额：" + user.getId());
 			
