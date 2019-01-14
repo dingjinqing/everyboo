@@ -108,8 +108,7 @@
 												v-text="user.shopUserExts.balance"></span></td>
 											<td style="font-size: 16px;"><a href="javascript:;"
 												@click="toDonate">捐赠</a> <br> <a href="javascript:;"
-												@click="toWithdraw">提现</a> <br> <a href="javascript:;"
-												@click="toRecharge">充值</a> <br> <a href="javascript:;"
+												@click="toWithdraw">提现</a> <br> <a href="<%=path%>/recharge">充值</a> <br> <a href="javascript:;"
 												@click="toTransfer">赠送</a></td>
 										</tr>
 

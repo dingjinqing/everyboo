@@ -205,6 +205,11 @@ public class IndexController {
         mav.setViewName("qrcode");
         return mav;
     }
+    
+    @RequestMapping("recharge")
+    public String showRecharge() {
+    	return "chongzhi";
+    }
 
     @RequestMapping("holder-profit-detail")
     public ModelAndView holderProfitDetail(HttpSession session) {
