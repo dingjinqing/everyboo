@@ -267,19 +267,19 @@
 									</div>
 								</div>
 							</td> --%>
-							<td class="l_title w150"><b class="cRed">*</b>销售积分</td>
+							<td class="l_title w150"><b class="cRed">*</b>销售收益</td>
 							<td>
 								<div class="J_toolsBar fl">
 									<div class="t_text w200 ml10">
 										<label> <c:choose>
 												<c:when test="${not empty bean }">
 													<input type="text" name="shopUserExts.xiaoshou"
-														data-rule="销售积分:required;"
+														data-rule="销售收益:required;"
 														value="${bean.shopUserExts.xiaoshou }" />
 												</c:when>
 												<c:otherwise>
 													<input type="text" name="shopUserExts.xiaoshou"
-														data-rule="销售积分:required;" value="" />
+														data-rule="销售收益:required;" value="" />
 												</c:otherwise>
 											</c:choose>
 										</label>
@@ -290,19 +290,19 @@
 						</tr>
 
 						<tr>
-							<td class="l_title w150"><b class="cRed">*</b>共享积分</td>
+							<td class="l_title w150"><b class="cRed">*</b>共享收益</td>
 							<td>
 								<div class="J_toolsBar fl">
 									<div class="t_text w200 ml10">
 										<label> <c:choose>
 												<c:when test="${not empty bean }">
 													<input type="text" name="shopUserExts.tuiguang"
-														data-rule="共享积分:required;"
+														data-rule="共享收益:required;"
 														value="${bean.shopUserExts.tuiguang }" />
 												</c:when>
 												<c:otherwise>
 													<input type="text" name="shopUserExts.tuiguang"
-														data-rule="共享积分:required;" value="" />
+														data-rule="共享收益:required;" value="" />
 												</c:otherwise>
 											</c:choose>
 										</label>

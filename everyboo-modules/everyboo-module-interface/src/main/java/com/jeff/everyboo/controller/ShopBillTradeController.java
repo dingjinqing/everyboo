@@ -330,12 +330,12 @@ public class ShopBillTradeController {
 			ShopUser user = WebHelper.getUser(request);
 			user = userService.find(user.getId());
 			if ("1".equals(type)) {
-				  //销售积分直接转换到余额
+				  //销售收益直接转换到余额
 				BigDecimal xiaoshou = user.getShopUserExts().getXiaoshou()==null ? BigDecimal.ZERO:user.getShopUserExts().getXiaoshou();
 				user.getShopUserExts().setBalance(user.getShopUserExts().getBalance().add(xiaoshou.multiply(new BigDecimal(0.8))));
 				user.getShopUserExts().setCredits(user.getShopUserExts().getCredits().add(xiaoshou.multiply(new BigDecimal(0.2))));
 				user.getShopUserExts().setXiaoshou(BigDecimal.ZERO);
-			}else if ("2".equals(type)) {//共享积分转换到余额
+			}else if ("2".equals(type)) {//共享收益转换到余额
 				BigDecimal tuiguang = user.getShopUserExts().getTuiguang()==null ? BigDecimal.ZERO:user.getShopUserExts().getTuiguang();
 				user.getShopUserExts().setBalance(user.getShopUserExts().getBalance().add(tuiguang.multiply(new BigDecimal(0.8))));
 				user.getShopUserExts().setCredits(user.getShopUserExts().getCredits().add(tuiguang.multiply(new BigDecimal(0.2))));

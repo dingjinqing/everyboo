@@ -113,13 +113,13 @@
 										</tr>
 
 										<tr>
-											<td>销售积分</td>
+											<td>销售收益</td>
 											<td class="my-td"><span v-text="user.shopUserExts.xiaoshou"></span></td>
 											<td style="font-size: 16px;"><a href="javascript:;"
 												@click="xiaoshouchange">转换</a></td>
 										</tr>
 										<tr>
-											<td>共享积分</td>
+											<td>共享收益</td>
 											<td class="my-td"><span
 												v-text="user.shopUserExts.tuiguang"></span></td>
 											<td style="font-size: 16px;"><a href="javascript:;"
@@ -169,13 +169,13 @@
 									个人信息操作： <select style="width: 120px;" v-model="operation"
 										@change="selectChange(1)">
 										<option value="0">请选择操作</option>
-										<option value="1">修改个人资料</option>
-										<option value="6">修改银行开户资料</option>
+										<option value="1">个人资料</option>
+										<option value="6">银行开户资料设置</option>
 										<option value="2">修改登录密码</option>
 										<!--
                                             <option value="3">重置登录密码</option>
                                             -->
-										<option value="4">修改交易密码</option>
+										<option value="4">交易密码设置</option>
 										<option value="5">重置交易密码</option>
 									</select> <br /> <br /> <!-- 健康值操作： <select style="width: 120px;"
 										v-model="operation1" @change="selectChange(2)">

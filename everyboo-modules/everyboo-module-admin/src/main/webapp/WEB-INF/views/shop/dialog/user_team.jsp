@@ -249,14 +249,17 @@
 												<td>
 													<div class="t_text tc">
 														<c:choose>
-															<c:when test="${'v1' eq u.viplevel}">
+															<c:when test="${'v0' eq u.viplevel}">
 		                                     			普通会员
 		                                     		</c:when>
-															<c:when test="${'v2' eq u.viplevel}">
+															<c:when test="${'v1' eq u.viplevel}">
 		                                     			个人vip
 		                                     		</c:when>
-															<c:when test="${'v3' eq u.viplevel}">
+															<c:when test="${'v2' eq u.viplevel}">
 		                                     			一级加盟店
+		                                     		</c:when>
+															<c:when test="${'v3' eq u.viplevel}">
+		                                     			二级加盟店
 		                                     		</c:when>
 															<c:when test="${'v4' eq u.viplevel}">
 		                                     			三级加盟店
@@ -270,7 +273,7 @@
 															<c:when test="${'v7' eq u.viplevel}">
 		                                     			六级加盟店
 		                                     		</c:when>
-		                                     		<c:when test="${'v8' eq u.viplevel}">
+															<c:when test="${'v8' eq u.viplevel}">
 		                                     			七级加盟店
 		                                     		</c:when>
 															<c:otherwise>

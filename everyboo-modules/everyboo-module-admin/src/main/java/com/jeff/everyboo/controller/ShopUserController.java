@@ -1,10 +1,12 @@
 package com.jeff.everyboo.controller;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jeff.everyboo.cms.dto.ShopUserQueryDTO;
+import com.jeff.everyboo.cms.entity.ShopTrade;
 import com.jeff.everyboo.cms.entity.ShopUser;
 import com.jeff.everyboo.cms.entity.ShopUserExt;
+import com.jeff.everyboo.cms.service.ShopTradeService;
 import com.jeff.everyboo.cms.service.ShopUserExtService;
 import com.jeff.everyboo.cms.service.ShopUserService;
 import com.jeff.everyboo.common.dto.AjaxResult;
@@ -30,6 +34,7 @@ import com.jeff.everyboo.common.util.ExcelUtils;
 import com.jeff.everyboo.common.util.Md5Util;
 import com.jeff.everyboo.common.util.TradeTypeEnum;
 import com.jeff.everyboo.util.Constants;
+import com.jeff.everyboo.util.WebHelper;
 
 /**
  * 用户管理Controller
@@ -46,6 +51,9 @@ public class ShopUserController {
 
 	@Autowired
 	private ShopUserService userService;
+	
+	@Autowired
+	private ShopTradeService tradeService;
 
 	/**
 	 * 获取用户列表
@@ -91,6 +99,70 @@ public class ShopUserController {
 
 		return "shop/user_list";
 	}
+	/**
+	 * 分红
+	 * @param request
+	 * @param model
+	 * @return
+	 * @throws ParseException 
+	 */
+	@RequestMapping("/fenhong")
+	public String fenhong(HttpServletRequest request) throws ParseException {
+//		AjaxResult ajaxResult = new AjaxResult();
+//		ajaxResult.setSuccess(false);
+		
+		String account = request.getParameter("account");
+		String phone = request.getParameter("phone");
+		String status = request.getParameter("status");
+		String vipLevel = request.getParameter("vipLevel");
+		
+		
+		String shouyi = request.getParameter("shouyi");
+		String createDate = request.getParameter("createDate");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date cdDate = simpleDateFormat.parse(createDate);
+		int sta = 0;
+		if (StringUtils.isNotBlank(status)) {
+			sta = Integer.parseInt(status);
+		}
+		
+		ShopUserQueryDTO userQueryDTO = new ShopUserQueryDTO();
+		userQueryDTO.setAccount(account);
+		userQueryDTO.setPhone(phone);
+		userQueryDTO.setStatus(sta);
+		userQueryDTO.setVipLevel(vipLevel);
+		
+		List<ShopUser> list = userService.queryShopUserList(userQueryDTO);
+		List<ShopTrade> trades = new ArrayList<>();
+		if (list!=null && list.size()>0) {
+			for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+//				如果没超过收益上限，则增加收益，并插入收益明细表，收益上限暂时不处理
+				
+				ShopUser shopUser = (ShopUser) iterator.next();
+//				增加共享收益
+				shopUser.getShopUserExts().setTuiguang(shopUser.getShopUserExts().getTuiguang().add(new BigDecimal(shouyi)));
+				
+				ShopTrade ztTrade = new ShopTrade();
+				ztTrade.setPrice(new BigDecimal(shouyi));
+				ztTrade.setUserId(shopUser.getId());
+				ztTrade.setTradeNo(WebHelper.getDayNo());
+				ztTrade.setJtype(7);// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点
+				ztTrade.setStatus(3);
+				ztTrade.setCredits(0);
+				ztTrade.setDuihuan(BigDecimal.ZERO);
+				ztTrade.setCreateDate(cdDate);
+				ztTrade.setUpdateDate(new Date());
+				ztTrade.setShopTradeDetails(null);
+				trades.add(ztTrade);
+				
+			}
+		}
+		
+		userService.save(list);
+		tradeService.save(trades);
+//		ajaxResult.setSuccess(true);
+		return "redirect:list";
+	}
 
 	/**
 	 * 导出用户数据
@@ -126,8 +198,8 @@ public class ShopUserController {
 		headNameMap.put("status", "账号状态");
 		headNameMap.put("vipStatus", "会员状态");
 		headNameMap.put("balance", "健康余额");
-		headNameMap.put("tuiguang", "共享积分");
-		headNameMap.put("xiaoshou", "销售积分");
+		headNameMap.put("tuiguang", "共享收益");
+		headNameMap.put("xiaoshou", "销售收益");
 		headNameMap.put("duihuan", "兑换积分");
 		headNameMap.put("credits", "消费积分");
 		headNameMap.put("createDate", "创建时间");

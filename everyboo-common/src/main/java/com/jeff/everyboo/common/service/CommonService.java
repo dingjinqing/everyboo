@@ -71,6 +71,10 @@ public abstract class CommonService<E,ID extends Serializable>  {
 	public E save(E entity) {
 		return commonDao.save(entity);
 	}
+	
+	public List<E> save(List<E> list) {
+		return commonDao.save(list);
+	}
 
 	/**
 	 * 修改Entity
@@ -79,6 +83,10 @@ public abstract class CommonService<E,ID extends Serializable>  {
 	 */
 	public E update(E entity) {
 		return commonDao.save(entity);
+	}
+	
+	public List<E> update(List<E> list) {
+		return commonDao.save(list);
 	}
 	
 	/**

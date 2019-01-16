@@ -34,9 +34,9 @@ public class ShopUserExt implements java.io.Serializable {
 	private BigDecimal activeBill;	
 	private BigDecimal tradeBill;	
 	private BigDecimal balance;	
-	private BigDecimal tuiguang;	//共享积分（直推奖+间推奖）
-	private BigDecimal duihuan;	//3、共享积分=平台分红*X%
-	private BigDecimal xiaoshou;	//3、销售积分
+	private BigDecimal tuiguang;	//共享收益（直推奖+间推奖）
+	private BigDecimal duihuan;	//3、共享收益=平台分红*X%
+	private BigDecimal xiaoshou;	//3、销售收益
 	private String bankOwer;
 	private String bankCard;
 	private String bankDeposit;

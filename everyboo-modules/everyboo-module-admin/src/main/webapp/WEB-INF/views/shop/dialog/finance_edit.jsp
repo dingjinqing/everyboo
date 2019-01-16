@@ -223,7 +223,7 @@ $(function(){
                                      <label>
                                      	<c:choose>
                                      		<c:when test="${not empty bean }">
-                                     			<select  value="${user.vipLevel }" readonly="readonly" >
+                                     			<select  name="vipLevel" readonly="readonly" >
                                      				<option value="v0" <c:if test="${'v0' eq user.vipLevel }">selected</c:if> >普通会员</option>
                                      				<option value="v1" <c:if test="${'v1' eq user.vipLevel }">selected</c:if> >个人vip</option>
                                      				<option value="v2" <c:if test="${'v2' eq user.vipLevel }">selected</c:if> >一级加盟店</option>
@@ -236,7 +236,7 @@ $(function(){
                                      			</select>
                                      		</c:when>
                                      		<c:otherwise>
-                                     			<select  >
+                                     			<select name="vipLevel" >
                                      				<option value="v0">普通会员</option>
                                      				<option value="v1" selected>个人vip</option>
                                      				<option value="v2">一级加盟店</option>

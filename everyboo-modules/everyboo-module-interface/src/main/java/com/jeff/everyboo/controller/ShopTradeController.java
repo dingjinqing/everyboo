@@ -326,10 +326,9 @@ public class ShopTradeController {
 					BigDecimal a1 = user.getShopUserExts().getDuihuan().add(toprice.abs());
 					this.saveTrade(shopTrade.getPrice().abs(), ztUser, 3);
 					userService.update(ztUser);
-				} else {
-					BigDecimal a2 = new BigDecimal(0.2).multiply(shopTrade.getPrice().add(new BigDecimal(shopTrade.getCredits())).abs());
-					this.saveTradeInfo(a2, ztUser, 10);
-				}
+				} 
+				BigDecimal a2 = new BigDecimal(0.2).multiply(shopTrade.getPrice().add(new BigDecimal(shopTrade.getCredits())).abs());
+				this.saveTradeInfo(a2, ztUser, 10);
 
 				// 如果介绍人电话不为空，介绍人获得间推收益
 				if (StringUtils.isNotEmpty(ztUser.getRefPhone())) {
@@ -365,7 +364,7 @@ public class ShopTradeController {
 		// 邀请用户复购的直推返点 给用户本身账户余额增加
 		if (ba.compareTo(BigDecimal.ZERO) > 0) {
 			this.saveTrade(ba, user, type);
-			// 直推间推的钱先到销售积分，等客户点击转换的时候，在百分之八十到余额，百分之二十到消费积分
+			// 直推间推的钱先到销售收益，等客户点击转换的时候，在百分之八十到余额，百分之二十到消费积分
 			user.getShopUserExts()
 					.setXiaoshou(user.getShopUserExts().getXiaoshou().add(ba));
 //			user.getShopUserExts()

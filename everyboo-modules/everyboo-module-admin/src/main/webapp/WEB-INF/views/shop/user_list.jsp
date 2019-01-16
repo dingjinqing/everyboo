@@ -34,7 +34,7 @@
 							<option value=2 <c:if test="${2 eq userQueryDTO.status }">selected</c:if> >无效</option>
 						</select>
 					</div>
-					<%-- <div class="t_label">加盟店等级</div>
+					<div class="t_label">加盟店等级</div>
 					<div class="t_text ml10">
 						<select name="vipLevel" 
 							value="${userQueryDTO.vipLevel }">
@@ -49,7 +49,7 @@
 							<option value="v7" <c:if test="${'v7' eq userQueryDTO.vipLevel }">selected</c:if> >六级加盟店</option>
 							<option value="v8" <c:if test="${'v8' eq userQueryDTO.vipLevel }">selected</c:if> >七级加盟店</option>
 						</select>
-					</div> --%>
+					</div>
 
 					<div class="t_button mgl30">
 						<a class="abtn red" href="javascript:myQuery();"> <i
@@ -69,6 +69,21 @@
 					<div class="t_label ml10">
 						记录数：<label style="color: red;" id="total">${page.totalCount }</label>
 					</div>
+					
+					<div class="t_label">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+					<div class="t_label">分红金额</div>
+					<div class="t_text ml10">
+						<input placeholder="请输入分红金额" type="text" name="shouyi" id="shouyi" />
+					</div>
+					<div class="t_label">分红时间</div>
+					<div class="t_text ml10">
+						<input type="text" name="createDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})"/>
+					</div>
+					<div class="t_button ml10">
+	               		<a class="abtn maxblue" href="javascript:fenhong();">
+	               			<i class="icon"></i>分红
+	               		</a>
+	               	</div>
 				</div>
 
 				<div class="J_table mt20">
@@ -79,14 +94,14 @@
 									<td><span>账户名</span></td>
 									<td><span>手机号</span></td>
 									<td><span>推荐人手机号</span></td>
-									<!-- <td><span>加盟店等级</span></td> -->
+									<td><span>加盟店等级</span></td>
 									<td><span>账号状态</span></td>
 									<!-- <td><span>会员状态</span></td> -->
 									<td><span>健康余额</span></td>
 									<td><span>兑换积分</span></td>
-									<td><span>共享积分</span></td>
+									<td><span>共享收益</span></td>
 									<td><span>消费积分</span></td>
-									<td><span>销售积分</span></td>
+									<td><span>销售收益</span></td>
 									<td><span>创建时间</span></td>
 									<td><span>操作</span></td>
 								</tr>
@@ -105,7 +120,7 @@
 												<td>
 													<div class="t_text tc">${u.refPhone }</div>
 												</td>
-												<%-- <td>
+												<td>
 													<div class="t_text tc">
 														<c:choose>
 															<c:when test="${'v0' eq u.vipLevel}">
@@ -140,7 +155,7 @@
 		                                     		</c:otherwise>
 														</c:choose>
 													</div>
-												</td> --%>
+												</td>
 												<td>
 													<div class="t_text tc">
 														<c:choose>
@@ -290,6 +305,10 @@
 
 		function myQuery() {
 			$("#queryForm").attr("action","${ctx}/shopuser/list");
+			$('#queryForm').submit();
+		}
+		function fenhong() {
+			$("#queryForm").attr("action","${ctx}/shopuser/fenhong");
 			$('#queryForm').submit();
 		}
 		
