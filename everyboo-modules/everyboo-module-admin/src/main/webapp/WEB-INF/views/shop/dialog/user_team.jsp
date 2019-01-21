@@ -76,8 +76,8 @@
                                      	<c:choose>
                                      		<c:when test="${not empty bean }">
                                      			<select name="vipLevel" data-rule="加盟店等级:required;" value="${bean.vipLevel }">
-                                     				<option value="v0" <c:if test="${'v0' eq bean.vipLevel }">selected</c:if> >普通会员</option>
-                                     				<option value="v1" <c:if test="${'v1' eq bean.vipLevel }">selected</c:if> >个人vip</option>
+<%--                                      				<option value="v0" <c:if test="${'v0' eq bean.vipLevel }">selected</c:if> >普通会员</option>
+ --%>                                     				<option value="v1" <c:if test="${'v1' eq bean.vipLevel }">selected</c:if> >无</option>
                                      				<option value="v2" <c:if test="${'v2' eq bean.vipLevel }">selected</c:if> >一级加盟店</option>
                                      				<option value="v3" <c:if test="${'v3' eq bean.vipLevel }">selected</c:if> >二级加盟店</option>
                                      				<option value="v4" <c:if test="${'v4' eq bean.vipLevel }">selected</c:if> >三级加盟店</option>
@@ -89,8 +89,8 @@
                                      		</c:when>
                                      		<c:otherwise>
                                      			<select name="vipLevel" data-rule="加盟店等级:required;" >
-                                     				<option value="v0">普通会员</option>
-                                     				<option value="v1" selected>个人vip</option>
+<!--                                      				<option value="v0">普通会员</option>
+ -->                                     				<option value="v1" selected>无</option>
                                      				<option value="v2">一级加盟店</option>
                                      				<option value="v3">二级加盟店</option>
                                      				<option value="v4">三级加盟店</option>
@@ -143,11 +143,13 @@
 					<div class="t_table">
 						<table>
 							<thead>
-								<tr><td colspan="4"><span> 一级销售团队</span></td></tr>
+								<tr><td colspan="5"><span> 一级销售团队</span></td></tr>
 								<tr>
 									<td><span>姓名</span></td>
 									<td><span>手机号</span></td>
-									<td><span>等级</span></td>
+									<td><span>消费金额</span></td>
+									<td><span>会员等级</span></td>
+									<td><span>加盟店等级</span></td>
 									<td><span>昵称</span></td>
 								</tr>
 							</thead>
@@ -163,13 +165,34 @@
 													<div class="t_text tc">${u.phone }</div>
 												</td>
 												<td>
+													<div class="t_text tc">${u.selfyeji }</div>
+												</td>
+												<td>
 													<div class="t_text tc">
 														<c:choose>
-															<c:when test="${'v0' eq u.viplevel}">
-		                                     			普通会员
+															<c:when test="${'t1' eq u.level}">
+		                                     			黄金会员
 		                                     		</c:when>
+															<c:when test="${'t2' eq u.level}">
+		                                     			白金会员
+		                                     		</c:when>
+															<c:when test="${'t3' eq u.level}">
+		                                     			钻石会员
+		                                     		</c:when>	
+															<c:otherwise>
+		                                     			普通会员
+		                                     		</c:otherwise>
+														</c:choose>
+													</div>
+												</td>
+												<td>
+													<div class="t_text tc">
+														<c:choose>
+															<%-- <c:when test="${'v0' eq u.viplevel}">
+		                                     			普通会员
+		                                     		</c:when> --%>
 															<c:when test="${'v1' eq u.viplevel}">
-		                                     			个人vip
+		                                     			无
 		                                     		</c:when>
 															<c:when test="${'v2' eq u.viplevel}">
 		                                     			一级加盟店
@@ -207,7 +230,7 @@
 									</c:when>
 									<c:otherwise>
 										<tr>
-											<td colspan="8">
+											<td colspan="5">
 												<div class="J_null mt40">
 													<img src="${ctx }/static/images/null.png">
 													<p>暂无相关数据</p>
@@ -227,11 +250,13 @@
 					<div class="t_table">
 						<table>
 							<thead>
-								<tr><td colspan="4"><span>二级销售团队 </span></td></tr>
+								<tr><td colspan="5"><span>二级销售团队 </span></td></tr>
 								<tr>
 									<td><span>姓名</span></td>
 									<td><span>手机号</span></td>
-									<td><span>等级</span></td>
+									<td><span>消费金额</span></td>
+									<td><span>会员等级</span></td>
+									<td><span>加盟店等级</span></td>
 									<td><span>昵称</span></td>
 								</tr>
 							</thead>
@@ -247,13 +272,34 @@
 													<div class="t_text tc">${u.phone }</div>
 												</td>
 												<td>
+													<div class="t_text tc">${u.selfyeji }</div>
+												</td>
+												<td>
 													<div class="t_text tc">
 														<c:choose>
-															<c:when test="${'v0' eq u.viplevel}">
-		                                     			普通会员
+															<c:when test="${'t1' eq u.level}">
+		                                     			黄金会员
 		                                     		</c:when>
+															<c:when test="${'t2' eq u.level}">
+		                                     			白金会员
+		                                     		</c:when>
+															<c:when test="${'t3' eq u.level}">
+		                                     			钻石会员
+		                                     		</c:when>	
+															<c:otherwise>
+		                                     			普通会员
+		                                     		</c:otherwise>
+														</c:choose>
+													</div>
+												</td>
+												<td>
+													<div class="t_text tc">
+														<c:choose>
+															<%-- <c:when test="${'v0' eq u.viplevel}">
+		                                     			普通会员
+		                                     		</c:when> --%>
 															<c:when test="${'v1' eq u.viplevel}">
-		                                     			个人vip
+		                                     			无
 		                                     		</c:when>
 															<c:when test="${'v2' eq u.viplevel}">
 		                                     			一级加盟店
@@ -291,7 +337,7 @@
 									</c:when>
 									<c:otherwise>
 										<tr>
-											<td colspan="8">
+											<td colspan="5">
 												<div class="J_null mt40">
 													<img src="${ctx }/static/images/null.png">
 													<p>暂无相关数据</p>

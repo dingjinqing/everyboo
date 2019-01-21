@@ -114,18 +114,18 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="l_title w150"><b class="cRed">*</b>兑换积分</td>
+								<td class="l_title w150"><b class="cRed">*</b>商品价格</td>
 								<td>
 									<div class="J_toolsBar fl">
 										<div class="t_text w200 ml10">
 											<label> <c:choose>
 													<c:when test="${not empty bean }">
 														<input type="text" name="price1"
-															data-rule="兑换积分:required;" value="${bean.price1 }" />
+															data-rule="商品价格:required;" value="${bean.price1 }" />
 													</c:when>
 													<c:otherwise>
 														<input type="text" name="price1"
-															data-rule="兑换积分:required;" />
+															data-rule="商品价格:required;" />
 													</c:otherwise>
 												</c:choose>
 											</label>

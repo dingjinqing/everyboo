@@ -59,16 +59,18 @@
                                         <tr>
                                             <th>姓名</th>
                                             <th>手机号</th>
-                                            <th>等级</th>
-                                            <th>昵称</th>
+                                            <th>会员等级</th>
+                                            <th>加盟店等级</th>
+                                            <!-- <th>昵称</th> -->
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr v-for="item in directTeam">
                                             <td v-text="item.account"></td>
                                             <td v-text="item.phone"></td>
+                                            <td v-text="item.level"></td>
                                             <td v-text="item.userLevel"></td>
-                                            <td v-text="item.nickname"></td>
+                                            <!-- <td v-text="item.nickname"></td> -->
                                         </tr>
                                         </tbody>
                                     </table>
@@ -81,15 +83,17 @@
                                         <thead>
                                         <tr>
                                             <th>姓名</th>
-                                            <th>等级</th>
-                                            <th>昵称</th>
+                                            <th>会员等级</th>
+                                            <th>加盟店等级</th>
+                                            <!-- <th>昵称</th> -->
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr v-for="item in otherTeam">
                                             <td v-text="item.account"></td>
+                                            <td v-text="item.level"></td>
                                             <td v-text="item.userLevel"></td>
-                                            <td v-text="item.nickname"></td>
+                                            <!-- <td v-text="item.nickname"></td> -->
                                         </tr>
                                         </tbody>
                                     </table>
@@ -166,9 +170,11 @@
                                     view.otherTeam = data.data.jiantui
                                     view.directTeam.forEach(function (item, index) {
                                         item.userLevel = USER_LEVELS[item.viplevel]
+                                        item.level = LEVELS[item.level]
                                     })
                                     view.otherTeam.forEach(function (item, index) {
                                         item.userLevel = USER_LEVELS[item.viplevel]
+                                        item.level = LEVELS[item.level]
                                     })
                                 } else if (data.success === 'false' && data.msg === LOGIN_ERR_MSG) {
                                     window.location.href = '<%=path%>/login?relogin=y'

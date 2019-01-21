@@ -75,8 +75,8 @@ $(function(){
                                      	<c:choose>
                                      		<c:when test="${not empty bean }">
                                      			<select name="vipLevel" data-rule="加盟店等级:required;" value="${bean.vipLevel }">
-                                     				<option value="v0" <c:if test="${'v0' eq bean.vipLevel }">selected</c:if> >普通会员</option>
-                                     				<option value="v1" <c:if test="${'v1' eq bean.vipLevel }">selected</c:if> >个人vip</option>
+<%--                                      				<option value="v0" <c:if test="${'v0' eq bean.vipLevel }">selected</c:if> >普通会员</option>
+ --%>                                     				<option value="v1" <c:if test="${'v1' eq bean.vipLevel }">selected</c:if> >无</option>
                                      				<option value="v2" <c:if test="${'v2' eq bean.vipLevel }">selected</c:if> >一级加盟店</option>
                                      				<option value="v3" <c:if test="${'v3' eq bean.vipLevel }">selected</c:if> >二级加盟店</option>
                                      				<option value="v4" <c:if test="${'v4' eq bean.vipLevel }">selected</c:if> >三级加盟店</option>
@@ -88,8 +88,8 @@ $(function(){
                                      		</c:when>
                                      		<c:otherwise>
                                      			<select name="vipLevel" data-rule="加盟店等级:required;" >
-                                     				<option value="v0">普通会员</option>
-                                     				<option value="v1" selected>个人vip</option>
+<!--                                      				<option value="v0">普通会员</option>
+ -->                                     				<option value="v1" selected>无</option>
                                      				<option value="v2">一级加盟店</option>
                                      				<option value="v3">二级加盟店</option>
                                      				<option value="v4">三级加盟店</option>

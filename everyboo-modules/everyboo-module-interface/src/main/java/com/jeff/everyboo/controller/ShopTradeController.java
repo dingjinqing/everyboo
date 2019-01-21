@@ -321,7 +321,7 @@ public class ShopTradeController {
 				// rule = tradeRuleService.queryShopTradeRule(proId, ztUser.getVipLevel());
 				// 邀请用户复购的直推返点 给用户本身账户余额增加
 				// 如果第一次购买
-				if (user.getVipLevel().equals("v0")) {
+				if (user.getLevel().equals("t0")) {
 					BigDecimal toprice = shopTrade.getPrice().add(shopTrade.getDuihuan()).add(new BigDecimal(shopTrade.getCredits()));
 					BigDecimal a1 = user.getShopUserExts().getDuihuan().add(toprice.abs());
 					this.saveTrade(shopTrade.getPrice().abs(), ztUser, 3);
@@ -347,9 +347,9 @@ public class ShopTradeController {
 		}
 
 		// 如果第一次购买,本人增加购买金额对应的兑换积分
-		if (user.getVipLevel().equals("v0")) {
+		if (user.getLevel().equals("t0")) {
 			// 赠送积分：第一次购买就赠送等值积分，假如我是你上家，那丁清第一次购买时，你获得300分我获得300，丁清第二次~N次购买我不获得任何积分。
-			user.setVipLevel("v1");
+			user.setLevel("t1");
 			BigDecimal toprice = shopTrade.getPrice().add(shopTrade.getDuihuan()).add(new BigDecimal(shopTrade.getCredits()));
 			BigDecimal a1 = user.getShopUserExts().getDuihuan().add(toprice.abs());
 			user.getShopUserExts().setDuihuan(a1);

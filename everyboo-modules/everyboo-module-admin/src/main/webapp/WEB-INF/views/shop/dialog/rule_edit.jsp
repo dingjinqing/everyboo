@@ -60,8 +60,8 @@ $(function(){
                                      	<c:choose>
                                      		<c:when test="${not empty bean }">
                                      			<select name="vipLevel" data-rule="加盟店等级:required;" value="${bean.vipLevel }">
-                                     				<option value="v0" <c:if test="${'v0' eq bean.vipLevel }">selected</c:if> >普通会员</option>
-                                     				<option value="v1" <c:if test="${'v1' eq bean.vipLevel }">selected</c:if> >个人vip</option>
+<%--                                      				<option value="v0" <c:if test="${'v0' eq bean.vipLevel }">selected</c:if> >普通会员</option>
+ --%>                                     				<option value="v1" <c:if test="${'v1' eq bean.vipLevel }">selected</c:if> >无</option>
                                      				<option value="v2" <c:if test="${'v2' eq bean.vipLevel }">selected</c:if> >一级加盟店</option>
                                      				<option value="v3" <c:if test="${'v3' eq bean.vipLevel }">selected</c:if> >二级加盟店</option>
                                      				<option value="v4" <c:if test="${'v4' eq bean.vipLevel }">selected</c:if> >三级加盟店</option>
@@ -73,8 +73,8 @@ $(function(){
                                      		</c:when>
                                      		<c:otherwise>
                                      			<select name="vipLevel" data-rule="加盟店等级:required;" >
-                                     				<option value="v0">普通会员</option>
-                                     				<option value="v1" selected>个人vip</option>
+<!--                                      				<option value="v0">普通会员</option>
+ -->                                     				<option value="v1" selected>无</option>
                                      				<option value="v2">一级加盟店</option>
                                      				<option value="v3">二级加盟店</option>
                                      				<option value="v4">三级加盟店</option>
@@ -183,17 +183,17 @@ $(function(){
                      </tr>
                      
                      <tr>
-						<td class="l_title w150"><b class="cRed">*</b> 业绩奖</td>
+						<td class="l_title w150"><b class="cRed">*</b> 加盟店奖励</td>
                          <td>
                              <div class="J_toolsBar fl">
                                  <div class="t_text w200 ml10">
                                      <label>
                                      	<c:choose>
                                      		<c:when test="${not empty bean }">
-                                     			<input type="text" name="glj" data-rule="业绩奖:required;" value="${bean.glj }" />
+                                     			<input type="text" name="glj" data-rule="加盟店奖励:required;" value="${bean.glj }" />
                                      		</c:when>
                                      		<c:otherwise>
-                                     			<input type="text" name="glj" data-rule="业绩奖:required;" value="" />
+                                     			<input type="text" name="glj" data-rule="加盟店奖励:required;" value="" />
                                      		</c:otherwise>
                                      	</c:choose>
                                      </label>

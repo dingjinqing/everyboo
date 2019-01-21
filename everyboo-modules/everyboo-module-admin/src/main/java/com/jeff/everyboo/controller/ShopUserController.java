@@ -68,6 +68,7 @@ public class ShopUserController {
 		String phone = request.getParameter("phone");
 		String status = request.getParameter("status");
 		String vipLevel = request.getParameter("vipLevel");
+		String level = request.getParameter("level");
 		String currentPageStr = request.getParameter("currentPage");
 		String pageSizeStr = request.getParameter("pageSize");
 
@@ -91,6 +92,7 @@ public class ShopUserController {
 		userQueryDTO.setVipLevel(vipLevel);
 		userQueryDTO.setCurrentPage(currentPage);
 		userQueryDTO.setPageSize(pageSize);
+		userQueryDTO.setLevel(level);
 
 		PageModel<ShopUser> page = userService.queryShopUserPage(userQueryDTO);
 		model.addAttribute("page", page);
@@ -115,12 +117,13 @@ public class ShopUserController {
 		String phone = request.getParameter("phone");
 		String status = request.getParameter("status");
 		String vipLevel = request.getParameter("vipLevel");
-		
+		String level = request.getParameter("level");
 		
 		String shouyi = request.getParameter("shouyi");
 		String createDate = request.getParameter("createDate");
+		String fenhongtype = request.getParameter("fenhongtype");
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date cdDate = simpleDateFormat.parse(createDate);
+		Date cdDate = StringUtils.isEmpty(createDate)?new Date():simpleDateFormat.parse(createDate);
 		int sta = 0;
 		if (StringUtils.isNotBlank(status)) {
 			sta = Integer.parseInt(status);
@@ -131,7 +134,8 @@ public class ShopUserController {
 		userQueryDTO.setPhone(phone);
 		userQueryDTO.setStatus(sta);
 		userQueryDTO.setVipLevel(vipLevel);
-		
+		userQueryDTO.setLevel(level);
+
 		List<ShopUser> list = userService.queryShopUserList(userQueryDTO);
 		List<ShopTrade> trades = new ArrayList<>();
 		if (list!=null && list.size()>0) {
@@ -146,7 +150,11 @@ public class ShopUserController {
 				ztTrade.setPrice(new BigDecimal(shouyi));
 				ztTrade.setUserId(shopUser.getId());
 				ztTrade.setTradeNo(WebHelper.getDayNo());
-				ztTrade.setJtype(7);// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点
+				if ("2".equals(fenhongtype)) { //2 加盟店   1 平台分红
+					ztTrade.setJtype(5);
+				}else {
+					ztTrade.setJtype(7);// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点
+				}
 				ztTrade.setStatus(3);
 				ztTrade.setCredits(0);
 				ztTrade.setDuihuan(BigDecimal.ZERO);
@@ -177,6 +185,7 @@ public class ShopUserController {
 		String phone = request.getParameter("phone");
 		String status = request.getParameter("status");
 		String vipLevel = request.getParameter("vipLevel");
+		String level = request.getParameter("level");
 		int sta = 0;
 		if (StringUtils.isNotBlank(status)) {
 			sta = Integer.parseInt(status);
@@ -187,6 +196,7 @@ public class ShopUserController {
 		userQueryDTO.setPhone(phone);
 		userQueryDTO.setStatus(sta);
 		userQueryDTO.setVipLevel(vipLevel);
+		userQueryDTO.setLevel(level);
 
 		List<ShopUser> userList = this.userService.queryShopUserList(userQueryDTO);
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -289,8 +299,8 @@ public class ShopUserController {
 		String id = request.getParameter("id");
 		if (StringUtils.isNotBlank(id)) {
 			ShopUser bean = userService.find(Integer.parseInt(id));
-			List<Map<String, Object>> list = userService.queryUser2List(bean.getPhone());
-			List<Map<String, Object>> list2 = userService.queryUser3List(bean.getPhone());
+			List<Map<String, Object>> list = userService.queryUser4List(bean.getPhone());
+			List<Map<String, Object>> list2 = userService.queryUser5List(bean.getPhone());
 			model.addAttribute("bean", bean);
 			model.addAttribute("zhitui", list);//直推信息
 			model.addAttribute("jiantui", list2);//间推信息

@@ -479,7 +479,8 @@ public class ShopUserController {
 			user.setStatus(1);
 			user.setCreateDate(new Date());
 			
-			user.setVipLevel("v0");
+			user.setVipLevel("v1");
+			user.setLevel("t0");
 			user = userService.save(user);
 			
 			ShopUserExt shopUserExt  = new ShopUserExt();

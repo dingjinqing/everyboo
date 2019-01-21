@@ -60,6 +60,22 @@ public class ShopUserService extends CommonService< ShopUser,Integer >  {
     public List<Map<String, Object>> queryUser3List(String phone){
     	return shopUserDao.queryUser3List(phone);
     }
+    
+    /**后台通过phone获取我的团队直推成员
+     * @param phone
+     * @return
+     */
+    public List<Map<String, Object>> queryUser4List(String phone){
+    	return shopUserDao.queryUser4List(phone);
+    }
+    
+    /**后台通过phone获取我的团队间推成员
+     * @param phone
+     * @return
+     */
+    public List<Map<String, Object>> queryUser5List(String phone){
+    	return shopUserDao.queryUser5List(phone);
+    }
 
 	/**获取我的收入汇总
 	 * @param userId

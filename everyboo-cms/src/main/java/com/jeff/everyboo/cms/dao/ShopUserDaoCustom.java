@@ -21,6 +21,10 @@ public interface ShopUserDaoCustom {
       
       List<Map<String, Object>> queryUser3List(String phone);
       
+      List<Map<String, Object>> queryUser4List(String phone);
+      
+      List<Map<String, Object>> queryUser5List(String phone);
+      
       List<Map<String, Object>> queryIncomeList(String userId);
       
       List<Map<String, Object>> queryIncomeList(ShopUserQueryDTO shopUserQueryDTO);

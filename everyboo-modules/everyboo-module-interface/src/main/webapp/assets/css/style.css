@@ -2569,7 +2569,7 @@ button.submit:hover {
 }
 .about-all ul li::before {
     color: #333;
-    content: "";
+    content: "飦�";
     font-family: FontAwesome;
     font-size: 12px;
     line-height: 12px;
@@ -3353,9 +3353,7 @@ blockquote p i {
     margin-right: 5px;
 }
 .single-blog img {
-    /**
-    width: 100%;
-    */
+    max-width: 100%;
 }
 h3.leave-comment-text {
     color: #333;

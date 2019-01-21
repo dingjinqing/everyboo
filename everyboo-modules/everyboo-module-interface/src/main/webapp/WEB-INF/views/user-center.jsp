@@ -98,7 +98,12 @@
 											<td></td>
 										</tr>
 										<tr>
-											<td>等级</td>
+											<td>会员等级</td>
+											<td class="my-td"><span v-text="user.level"></span></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>加盟店等级</td>
 											<td class="my-td"><span v-text="user.userLevel"></span></td>
 											<td></td>
 										</tr>
@@ -448,6 +453,7 @@
                                 if (data.success === true) {
                                     view.user = data.data
                                     view.user.userLevel = USER_LEVELS[view.user.vipLevel]
+                                    view.user.level = LEVELS[view.user.level]
                                     view.account = view.user.account
                                     view.address = view.user.address
                                     view.bankName = view.user.shopUserExts.bankOwer

@@ -111,7 +111,7 @@ $(function(){
                                      				<option value=2 <c:if test="${2 eq bean.jtype }">selected</c:if> >复购产品</option>
                                      				<%-- <option value=3 <c:if test="${3 eq bean.jtype }">selected</c:if> >直推</option>
                                      				<option value=4 <c:if test="${4 eq bean.jtype }">selected</c:if> >间推</option>
-                                     				<option value=5 <c:if test="${5 eq bean.jtype }">selected</c:if> >业绩奖</option>
+                                     				<option value=5 <c:if test="${5 eq bean.jtype }">selected</c:if> >加盟店奖励</option>
                                      				<option value=6 <c:if test="${6 eq bean.jtype }">selected</c:if> >股权收益</option>
                                      				<option value=7 <c:if test="${7 eq bean.jtype }">selected</c:if> >平台分红</option>
                                      				<option value=8 <c:if test="${8 eq bean.jtype }">selected</c:if> >捐赠</option>
@@ -128,7 +128,7 @@ $(function(){
 													<!-- <option value=2  >复购产品</option>
 													<option value=3  >直推</option>
 													<option value=4  >间推</option>
-													<option value=5  >业绩奖</option>
+													<option value=5  >加盟店奖励</option>
 													<option value=6  >股权收益</option>
 													<option value=7  >平台分红</option>
 													<option value=8  >捐赠</option>
@@ -267,8 +267,8 @@ $(function(){
                                      	<c:choose>
                                      		<c:when test="${not empty bean }">
                                      			<select  value="${user.vipLevel }" readonly="readonly" >
-                                     				<option value="v0" <c:if test="${'v0' eq user.vipLevel }">selected</c:if>  >普通会员</option>
-                                     				<option value="v1" <c:if test="${'v1' eq user.vipLevel }">selected</c:if> >个人vip</option>
+<%--                                      				<option value="v0" <c:if test="${'v0' eq user.vipLevel }">selected</c:if>  >普通会员</option>
+ --%>                                     				<option value="v1" <c:if test="${'v1' eq user.vipLevel }">selected</c:if> >无</option>
                                      				<option value="v2" <c:if test="${'v2' eq user.vipLevel }">selected</c:if> >一级加盟店</option>
                                      				<option value="v3" <c:if test="${'v3' eq user.vipLevel }">selected</c:if> >二级加盟店</option>
                                      				<option value="v4" <c:if test="${'v4' eq user.vipLevel }">selected</c:if> >三级加盟店</option>
@@ -280,8 +280,8 @@ $(function(){
                                      		</c:when>
                                      		<c:otherwise>
                                      			<select  >
-                                     				<option value="v0">普通会员</option>
-                                     				<option value="v1" selected>个人vip</option>
+<!--                                      				<option value="v0">普通会员</option>
+ -->                                     				<option value="v1" selected>无</option>
                                      				<option value="v2">一级加盟店</option>
                                      				<option value="v3">二级加盟店</option>
                                      				<option value="v4">三级加盟店</option>

@@ -27,20 +27,28 @@
 					</div>
 					<div class="t_label">会员状态</div>
 					<div class="t_text ml10">
-						<select name="status" 
-							value="${userQueryDTO.status }">
+						<select name="status" >
 							<option value=0>请选择</option>
 							<option value=1  <c:if test="${1 eq userQueryDTO.status }">selected</c:if> >有效</option>
 							<option value=2 <c:if test="${2 eq userQueryDTO.status }">selected</c:if> >无效</option>
 						</select>
 					</div>
+					<div class="t_label">会员等级</div>
+					<div class="t_text ml10">
+						<select name="level" >
+							<option value="">请选择</option>
+							<option value="t0" <c:if test="${'t0' eq userQueryDTO.level }">selected</c:if> >普通会员</option>
+							<option value="t1" <c:if test="${'t1' eq userQueryDTO.level }">selected</c:if> >黄金会员</option>
+							<option value="t2" <c:if test="${'t2' eq userQueryDTO.level }">selected</c:if> >白金会员</option>
+							<option value="t3" <c:if test="${'t3' eq userQueryDTO.level }">selected</c:if> >钻石会员</option>
+						</select>
+					</div>
 					<div class="t_label">加盟店等级</div>
 					<div class="t_text ml10">
-						<select name="vipLevel" 
-							value="${userQueryDTO.vipLevel }">
+						<select name="vipLevel" >
 							<option value="">请选择</option>
-							<option value="v0" <c:if test="${'v0' eq userQueryDTO.vipLevel }">selected</c:if> >普通会员</option>
-							<option value="v1" <c:if test="${'v1' eq userQueryDTO.vipLevel }">selected</c:if> >个人vip</option>
+							<%-- <option value="v0" <c:if test="${'v0' eq userQueryDTO.vipLevel }">selected</c:if> >普通会员</option> --%>
+							<option value="v1" <c:if test="${'v1' eq userQueryDTO.vipLevel }">selected</c:if> >无</option>
 							<option value="v2" <c:if test="${'v2' eq userQueryDTO.vipLevel }">selected</c:if> >一级加盟店</option>
 							<option value="v3" <c:if test="${'v3' eq userQueryDTO.vipLevel }">selected</c:if> >二级加盟店</option>
 							<option value="v4" <c:if test="${'v4' eq userQueryDTO.vipLevel }">selected</c:if> >三级加盟店</option>
@@ -79,6 +87,13 @@
 					<div class="t_text ml10">
 						<input type="text" name="createDate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})"/>
 					</div>
+					<div class="t_label">分红类型</div>
+					<div class="t_text ml10">
+						<select name="fenhongtype" >
+							<option value=1 selected  >平台分红</option>
+							<option value=2 >加盟店奖励</option>
+						</select>
+					</div>
 					<div class="t_button ml10">
 	               		<a class="abtn maxblue" href="javascript:fenhong();">
 	               			<i class="icon"></i>分红
@@ -94,6 +109,7 @@
 									<td><span>账户名</span></td>
 									<td><span>手机号</span></td>
 									<td><span>推荐人手机号</span></td>
+									<td><span>会员等级</span></td>
 									<td><span>加盟店等级</span></td>
 									<td><span>账号状态</span></td>
 									<!-- <td><span>会员状态</span></td> -->
@@ -123,11 +139,29 @@
 												<td>
 													<div class="t_text tc">
 														<c:choose>
-															<c:when test="${'v0' eq u.vipLevel}">
-		                                     			普通会员
+															<c:when test="${'t1' eq u.level}">
+		                                     			黄金会员
 		                                     		</c:when>
+															<c:when test="${'t2' eq u.level}">
+		                                     			白金会员
+		                                     		</c:when>
+															<c:when test="${'t3' eq u.level}">
+		                                     			钻石会员
+		                                     		</c:when>	
+															<c:otherwise>
+		                                     			普通会员
+		                                     		</c:otherwise>
+														</c:choose>
+													</div>
+												</td>
+												<td>
+													<div class="t_text tc">
+														<c:choose>
+															<%-- <c:when test="${'v0' eq u.vipLevel}">
+		                                     			普通会员
+		                                     		</c:when> --%>
 															<c:when test="${'v1' eq u.vipLevel}">
-		                                     			个人vip
+		                                     			无
 		                                     		</c:when>
 															<c:when test="${'v2' eq u.vipLevel}">
 		                                     			一级加盟店

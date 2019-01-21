@@ -119,10 +119,10 @@
 												<c:when test="${not empty bean }">
 													<select name="vipLevel" data-rule="加盟店等级:required;"
 														value="${bean.vipLevel }">
-														<option value="v0"
-															<c:if test="${'v0' eq bean.vipLevel }">selected</c:if>>普通会员</option>
+														<%-- <option value="v0"
+															<c:if test="${'v0' eq bean.vipLevel }">selected</c:if>>普通会员</option> --%>
 														<option value="v1"
-															<c:if test="${'v1' eq bean.vipLevel }">selected</c:if>>个人vip</option>
+															<c:if test="${'v1' eq bean.vipLevel }">selected</c:if>>无</option>
 														<option value="v2"
 															<c:if test="${'v2' eq bean.vipLevel }">selected</c:if>>一级加盟店</option>
 														<option value="v3"
@@ -141,8 +141,8 @@
 												</c:when>
 												<c:otherwise>
 													<select name="vipLevel" data-rule="加盟店等级:required;">
-														<option value="v0">普通会员</option>
-														<option value="v1" selected>个人vip</option>
+														<!-- <option value="v0">普通会员</option> -->
+														<option value="v1" selected>无</option>
 														<option value="v2">一级加盟店</option>
 														<option value="v3">二级加盟店</option>
 														<option value="v4">三级加盟店</option>
@@ -285,7 +285,7 @@
 										</label>
 									</div>
 								</div>
-							</td> 
+							</td>
 
 						</tr>
 
@@ -340,7 +340,7 @@
 						</tr>
 						<tr>
 							<td class="l_title w150">健康余额</td>
-							<td colspan="">
+							<td>
 								<div class="J_toolsBar fl">
 									<div class="t_text w200 ml10">
 										<label> <c:choose>
@@ -377,7 +377,7 @@
 
 						<tr>
 							<td class="l_title w150">银行卡户主名字</td>
-							<td colspan="">
+							<td>
 								<div class="J_toolsBar fl">
 									<div class="t_text w200 ml10">
 										<label> <c:choose>
@@ -411,7 +411,38 @@
 								</div>
 							</td>
 						</tr>
-
+						<tr>
+							<td class="l_title w150"><b class="cRed">*</b> 会员等级</td>
+							<td colspan="3">
+								<div class="J_toolsBar fl">
+									<div class="t_text w200 ml10">
+										<label> <c:choose>
+												<c:when test="${not empty bean }">
+													<select name="level" data-rule="会员等级:required;">
+														<option value="t1"
+															<c:if test="${'t1' eq bean.level }">selected</c:if>>黄金会员</option>
+														<option value="t2"
+															<c:if test="${'t2' eq bean.level }">selected</c:if>>白金会员</option>
+														<option value="t3"
+															<c:if test="${'t3' eq bean.level }">selected</c:if>>钻石会员</option>
+														<option value="t0"
+															<c:if test="${'t0' eq bean.level }">selected</c:if>>普通会员</option>
+													</select>
+												</c:when>
+												<c:otherwise>
+													<select name="level" data-rule="会员等级:required;">
+														<option value="t0" selected>普通会员</option>
+														<option value="t1">黄金会员</option>
+														<option value="t2">白金会员</option>
+														<option value="t3">钻石会员</option>
+													</select>
+												</c:otherwise>
+											</c:choose>
+										</label>
+									</div>
+								</div>
+							</td>
+						</tr>
 					</table>
 				</div>
 			</div>

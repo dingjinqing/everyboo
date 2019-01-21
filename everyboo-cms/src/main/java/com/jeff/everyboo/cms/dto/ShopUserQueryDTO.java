@@ -20,6 +20,7 @@ public class ShopUserQueryDTO extends CommonQueryDTO{
 	private int userId;
 	private Date startTime;
 	private Date endTime;
+	private String level;
 	
 	public String getVipLevel() {
 		return vipLevel;
@@ -74,6 +75,12 @@ public class ShopUserQueryDTO extends CommonQueryDTO{
 	}
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
 	}
 
 }

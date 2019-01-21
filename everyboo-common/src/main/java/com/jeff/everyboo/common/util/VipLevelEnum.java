@@ -8,8 +8,8 @@ package com.jeff.everyboo.common.util;
  *
  */
 public enum VipLevelEnum {
-	v0("v0","普通会员"),
-	v1("v1","个人vip"),
+	/*v0("v0","普通会员"),*/
+	v1("v1","无"),
 	v2("v2","一级加盟店"),
 	v3("v3","二级加盟店"),
 	v4("v4","三级加盟店"),

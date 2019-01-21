@@ -54,7 +54,7 @@
                                      <span>间推奖</span>
                                  </td>
                                  <td>
-                                     <span>业绩奖</span>
+                                     <span>加盟店奖励</span>
                                  </td>
                                  <td>
                                      <span>获得健康值数量</span>
@@ -76,7 +76,7 @@
 		                                     <div class="t_text tc">
 		                                        <c:choose>
 															<c:when test="${'v1' eq u.vipLevel}">
-		                                     			个人vip
+		                                     			无
 		                                     		</c:when>
 															<c:when test="${'v2' eq u.vipLevel}">
 		                                     			一级加盟店

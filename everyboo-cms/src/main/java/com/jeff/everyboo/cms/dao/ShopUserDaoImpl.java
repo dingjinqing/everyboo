@@ -32,6 +32,10 @@ public class ShopUserDaoImpl extends CustomBaseSqlDaoImpl implements ShopUserDao
         		 hql.append(" and t.vipLevel = :vipLevel ");
         		 map.put("vipLevel", shopUserQueryDTO.getVipLevel());
         	 }
+        	 if(StringUtils.isNotBlank(shopUserQueryDTO.getLevel())){
+        		 hql.append(" and t.level = :level ");
+        		 map.put("level", shopUserQueryDTO.getLevel());
+        	 }
         	 if(shopUserQueryDTO.getStatus()!=0){
         		 hql.append(" and t.status = :status ");
         		 map.put("status", shopUserQueryDTO.getStatus());
@@ -65,6 +69,10 @@ public class ShopUserDaoImpl extends CustomBaseSqlDaoImpl implements ShopUserDao
         		 hql.append(" and t.vipLevel = :vipLevel ");
         		 map.put("vipLevel", shopUserQueryDTO.getVipLevel());
         	 }
+        	 if(StringUtils.isNotBlank(shopUserQueryDTO.getLevel())){
+        		 hql.append(" and t.level = :level ");
+        		 map.put("level", shopUserQueryDTO.getLevel());
+        	 }
         	 if(shopUserQueryDTO.getStatus()!=0){
         		 hql.append(" and t.status = :status ");
         		 map.put("status", shopUserQueryDTO.getStatus());
@@ -86,7 +94,7 @@ public class ShopUserDaoImpl extends CustomBaseSqlDaoImpl implements ShopUserDao
 
     public List<Map<String, Object>> queryUser2List(String phone){
     	StringBuilder sql = new StringBuilder();
-    	sql.append("select account,nick_name as nickNmae,phone,vip_level as viplevel  from  shop_user where ref_phone=? ");
+    	sql.append("select account,nick_name as nickNmae,phone,level,vip_level as viplevel  from  shop_user where ref_phone=? ");
     	
     	List<Object> params = new ArrayList<>();
     	params.add(phone);
@@ -95,7 +103,32 @@ public class ShopUserDaoImpl extends CustomBaseSqlDaoImpl implements ShopUserDao
     
     public List<Map<String, Object>> queryUser3List(String phone){
     	StringBuilder sql = new StringBuilder();
-    	sql.append("SELECT account,nick_name as nickName,phone,vip_level as viplevel from shop_user where ref_phone in (select phone from  shop_user where ref_phone=? )");
+    	sql.append("SELECT account,nick_name as nickName,phone,level,vip_level as viplevel from shop_user where ref_phone in (select phone from  shop_user where ref_phone=? )");
+    	List<Object> params = new ArrayList<>();
+    	params.add(phone);
+    	return this.querySqlObjects(sql.toString(), params);
+    }
+    
+    /**后台查询直接团队购买明细
+     * @param phone
+     * @return
+     */
+    public List<Map<String, Object>> queryUser4List(String phone){
+    	StringBuilder sql = new StringBuilder();
+    	sql.append("select account,nick_name as nickNmae,phone,level,vip_level as viplevel,(SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) from shop_trade where user_id=t.id and type=1) as selfyeji   from  shop_user t where ref_phone=? ");
+    	
+    	List<Object> params = new ArrayList<>();
+    	params.add(phone);
+    	return this.querySqlObjects(sql.toString(), params);
+    }
+    
+    /**后台查询间推团队购买明细
+     * @param phone
+     * @return
+     */
+    public List<Map<String, Object>> queryUser5List(String phone){
+    	StringBuilder sql = new StringBuilder();
+    	sql.append("SELECT account,nick_name as nickName,phone,level,vip_level as viplevel ,(SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) from shop_trade where user_id=t.id and type=1) as selfyeji  from shop_user t where ref_phone in (select phone from  shop_user where ref_phone=? )");
     	List<Object> params = new ArrayList<>();
     	params.add(phone);
     	return this.querySqlObjects(sql.toString(), params);

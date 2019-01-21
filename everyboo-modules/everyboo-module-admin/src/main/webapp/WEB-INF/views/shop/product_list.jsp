@@ -55,11 +55,11 @@
 								<tr>
 									<td><span>商品名称</span></td>
 									<td><span>商品库存</span></td>
-									<td><span>购买商品赠送积分</span></td>
-									<td><span>购买商品最高抵扣积分</span></td>
-									<td><span>商品价格1</span></td>
-									<td><span>商品价格2</span></td>
-									<td><span>商品价格3</span></td>
+									<td><span>赠送消费积分</span></td>
+									<td><span>可抵扣消费积分</span></td>
+									<td><span>商品价格</span></td>
+									<td><span>可抵扣兑换积分</span></td>
+									<td><span>是否热门</span></td>
 									<td><span>商品状态</span></td>
 									<td><span>创建时间</span></td>
 									<td><span>操作</span></td>
@@ -86,10 +86,19 @@
 													<div class="t_text tc">${u.price1 }</div>
 												</td>
 												<td>
-													<div class="t_text tc">${u.price2 }</div>
+													<div class="t_text tc">${u.price3 }</div>
 												</td>
 												<td>
-													<div class="t_text tc">${u.price3 }</div>
+													<div class="t_text tc">
+														<c:choose>
+															<c:when test="${1 eq u.hot}">
+		                                     			热门
+		                                     		</c:when>
+															<c:otherwise>
+		                                     			普通
+		                                     		</c:otherwise>
+														</c:choose>
+													</div>
 												</td>
 												<td>
 													<div class="t_text tc">

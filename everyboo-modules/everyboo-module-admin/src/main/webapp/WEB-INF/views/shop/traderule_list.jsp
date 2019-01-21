@@ -19,8 +19,8 @@
 						<select name="vipLevel" 
 							value="${queryDTO.vipLevel }">
 							<option value="">请选择</option>
-							<option value="v0" <c:if test="${'v0' eq queryDTO.vipLevel }">selected</c:if> >普通会员</option>
-							<option value="v1" <c:if test="${'v1' eq queryDTO.vipLevel }">selected</c:if> >个人vip</option>
+<%-- 							<option value="v0" <c:if test="${'v0' eq queryDTO.vipLevel }">selected</c:if> >普通会员</option>
+ --%>							<option value="v1" <c:if test="${'v1' eq queryDTO.vipLevel }">selected</c:if> >无</option>
 							<option value="v2" <c:if test="${'v2' eq queryDTO.vipLevel }">selected</c:if> >一级加盟店</option>
 							<option value="v3" <c:if test="${'v3' eq queryDTO.vipLevel }">selected</c:if> >二级加盟店</option>
 							<option value="v4" <c:if test="${'v4' eq queryDTO.vipLevel }">selected</c:if> >三级加盟店</option>
@@ -97,7 +97,7 @@
 		                                     <div class="t_text tc">
 		                                        <c:choose>
 															<c:when test="${'v1' eq u.vipLevel}">
-		                                     			个人vip
+		                                     			无
 		                                     		</c:when>
 															<c:when test="${'v2' eq u.vipLevel}">
 		                                     			一级加盟店

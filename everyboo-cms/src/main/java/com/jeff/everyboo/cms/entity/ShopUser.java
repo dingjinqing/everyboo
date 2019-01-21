@@ -40,7 +40,7 @@ public class ShopUser implements java.io.Serializable {
 	private int status;//账号状态
 	private int vipStatus;//会员状态
 	private ShopUserExt shopUserExts;
-
+	private String level;
 
 
 	public ShopUser(Integer id, String account, String phone, String password, String refPhone, String vipLevel,
@@ -73,12 +73,9 @@ public class ShopUser implements java.io.Serializable {
 		this.password = password;
 	}
 
-
-
-
 	public ShopUser(Integer id, String account, String phone, String password, String refPhone, String vipLevel,
 			String address, Date createDate, String createBy, Date updateDate, String updateBy, String nickName,
-			String jiaoyimima, int status, int vipStatus, ShopUserExt shopUserExts) {
+			String jiaoyimima, int status, int vipStatus, ShopUserExt shopUserExts, String level) {
 		super();
 		this.id = id;
 		this.account = account;
@@ -96,6 +93,7 @@ public class ShopUser implements java.io.Serializable {
 		this.status = status;
 		this.vipStatus = vipStatus;
 		this.shopUserExts = shopUserExts;
+		this.level = level;
 	}
 
 	@Id
@@ -245,6 +243,15 @@ public class ShopUser implements java.io.Serializable {
 
 	public void setVipStatus(int vipStatus) {
 		this.vipStatus = vipStatus;
+	}
+	
+	@Column(name = "level")
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 
 }
