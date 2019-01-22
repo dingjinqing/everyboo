@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.jeff.everyboo.cms.entity.ShopTrade;
 import com.jeff.everyboo.cms.entity.ShopTradeUser;
 import com.jeff.everyboo.cms.dto.ShopTradeQueryDTO;
+import com.jeff.everyboo.cms.dto.ShopUserQueryDTO;
 /**
  * @author dingjinqing
  * @desc ShopTradeDaoImpl类 
@@ -145,6 +146,66 @@ public class ShopTradeDaoImpl extends CustomBaseSqlDaoImpl implements ShopTradeD
     	}
     	hql.append(" order by t.id desc");
     	return this.queryByMapParams(hql.toString(),map);    
+	}
+	
+	
+	@Override
+	public List<Map<String, Object>> queryFenhongList() {
+		// TODO Auto-generated method stub
+		StringBuilder sql = new StringBuilder();
+    	sql.append("SELECT user_id,SUM(ABS(price)) shouyi from shop_trade WHERE type in (10,11) GROUP BY user_id  ");
+    	return this.querySqlObjects(sql.toString());
+	}
+	
+	@Override
+	public List<Map<String, Object>> queryGongxiangList() {
+		// TODO Auto-generated method stub
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT user_id,SUM(ABS(price)) shouyi from shop_trade WHERE type in (5,7) GROUP BY user_id  ");
+		return this.querySqlObjects(sql.toString());
+	}
+	
+	@Override
+	public String queryGerenXiaofei(int userid) {
+		// TODO Auto-generated method stub
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade where user_id =?  and type=1；  ");
+		List<Object> params = new ArrayList<>();
+    	if (userid!=0) {
+    		params.add(userid);
+		}
+    	List<Map<String, Object>> list = this.querySqlObjects(sql.toString(),params);
+    	if (list!=null && list.size()>0) {
+    		return list.get(0).get("xiaofei").toString();
+		}
+    	return "0";
+	}
+	@Override
+	public String queryZhituiXiaofei(String phone) {
+		// TODO Auto-generated method stub
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade t where t.user_id in (SELECT t3.id from shop_user t3 where t3.ref_phone=?)  and t.type=1 " );
+		List<Object> params = new ArrayList<>();
+		params.add(phone);
+		List<Map<String, Object>> list = this.querySqlObjects(sql.toString(),params);
+		if (list!=null && list.size()>0) {
+			return list.get(0).get("xiaofei").toString();
+		}
+		return "0";
+	}
+	
+	@Override
+	public String queryJiantuiXiaofei(String phone) {
+		// TODO Auto-generated method stub
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade t LEFT JOIN shop_user t3 on t.user_id =t3.id and t.type=1 where  t3.ref_phone in (SELECT t4.phone from shop_user t4 where t4.ref_phone=?) " );
+		List<Object> params = new ArrayList<>();
+		params.add(phone);
+		List<Map<String, Object>> list = this.querySqlObjects(sql.toString(),params);
+		if (list!=null && list.size()>0) {
+			return list.get(0).get("xiaofei").toString();
+		}
+		return "0";
 	}
 
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,12 +35,14 @@ import com.jeff.everyboo.cms.entity.ShopUser;
 import com.jeff.everyboo.cms.service.ShopProductService;
 import com.jeff.everyboo.cms.service.ShopProfitService;
 import com.jeff.everyboo.cms.service.ShopRegisterRuleService;
+import com.jeff.everyboo.cms.service.ShopSysParamService;
 import com.jeff.everyboo.cms.service.ShopTradeDetailService;
 import com.jeff.everyboo.cms.service.ShopTradeRuleService;
 import com.jeff.everyboo.cms.service.ShopTradeService;
 import com.jeff.everyboo.cms.service.ShopUserService;
 import com.jeff.everyboo.common.dto.AjaxResult;
 import com.jeff.everyboo.common.entity.PageModel;
+import com.jeff.everyboo.common.util.CommonConstants;
 import com.jeff.everyboo.common.util.Md5Util;
 import com.jeff.everyboo.common.util.VipLevelEnum;
 import com.jeff.everyboo.util.WebHelper;
@@ -70,6 +73,8 @@ public class ShopTradeController {
 	private ShopTradeRuleService tradeRuleService;
 	@Autowired
 	private ShopProfitService shopProfitService;
+	@Autowired
+	private ShopSysParamService sysparamService;
 
 	/**
 	 * 获取订单列表
@@ -309,7 +314,17 @@ public class ShopTradeController {
 
 	public void fangli(ShopUser user,ShopTrade shopTrade) {
 		// 直推间推返利开始
-
+		
+		
+		// 获取推荐返利比例
+		Map<String, String> map = sysparamService.findByType(CommonConstants.SYS_TUIJIAN_PERCENT);
+		// 获取不同等级分红奖励上限
+		Map<String, String> rule = sysparamService.findByType(CommonConstants.SYS_AWARDS_LIMIT);
+//		获取目前分红金额
+		Map<String, String> tuijian = tradeService.queryFenhongList();
+		Map<String, String> gongxiang = tradeService.queryGongxiangList();
+		
+		
 		// 如果介绍人电话不为空，介绍人获得直推收益
 		if (StringUtils.isNotEmpty(user.getRefPhone())) {
 			ShopUserQueryDTO shopUserQueryDTO = new ShopUserQueryDTO();
@@ -327,8 +342,16 @@ public class ShopTradeController {
 					this.saveTrade(shopTrade.getPrice().abs(), ztUser, 3);
 					userService.update(ztUser);
 				} 
-				BigDecimal a2 = new BigDecimal(0.2).multiply(shopTrade.getPrice().add(new BigDecimal(shopTrade.getCredits())).abs());
-				this.saveTradeInfo(a2, ztUser, 10);
+//				如果未超出上限，继续分红，否则不分红
+				BigDecimal ztshangxian = new BigDecimal(rule.get(ztUser.getLevel()).toString());
+				BigDecimal zttuijian = new BigDecimal(tuijian.get(ztUser.getId().toString())==null?"0":tuijian.get(ztUser.getId().toString()));
+				BigDecimal ztfenhong = new BigDecimal(gongxiang.get(ztUser.getId().toString())==null?"0":gongxiang.get(ztUser.getId().toString()));
+				if (ztshangxian.compareTo(zttuijian)>0 && ztshangxian.compareTo(ztfenhong)>0) {
+					BigDecimal a2 = new BigDecimal(map.get("t1")).multiply(shopTrade.getPrice().add(new BigDecimal(shopTrade.getCredits())).abs());
+					this.saveTradeInfo(a2, ztUser, 10);
+				}else {
+					System.out.println(ztUser.getId()+"超出上限，不进行直推奖励");
+				}
 
 				// 如果介绍人电话不为空，介绍人获得间推收益
 				if (StringUtils.isNotEmpty(ztUser.getRefPhone())) {
@@ -338,9 +361,16 @@ public class ShopTradeController {
 					// 如果根据介绍人电话查找的用户不存在，则不赠送
 					if (jtUser != null) {
 						// 邀请用户复购的直推返点 给用户本身账户余额增加
-						// rule = tradeRuleService.queryShopTradeRule(proId, jtUser.getVipLevel());
-						BigDecimal a3 = new BigDecimal(0.1).multiply(shopTrade.getPrice().add(new BigDecimal(shopTrade.getCredits())).abs());
-						this.saveTradeInfo(a3, jtUser, 11);
+//						如果未超出上限，继续分红，否则不分红
+						BigDecimal jtshangxian = new BigDecimal(rule.get(jtUser.getLevel()).toString());
+						BigDecimal jttuijian = new BigDecimal(tuijian.get(jtUser.getId().toString())==null?"0":tuijian.get(jtUser.getId().toString()));
+						BigDecimal jtfenhong = new BigDecimal(gongxiang.get(jtUser.getId().toString())==null?"0":gongxiang.get(jtUser.getId().toString()));
+						if (jtshangxian.compareTo(jttuijian)>0 && jtshangxian.compareTo(jtfenhong)>0) {
+							BigDecimal a3 = new BigDecimal(map.get("t2")).multiply(shopTrade.getPrice().add(new BigDecimal(shopTrade.getCredits())).abs());
+							this.saveTradeInfo(a3, jtUser, 11);
+						}else {
+							System.out.println(jtUser.getId()+"超出上限，不进行间推奖励");
+						}
 					}
 				}
 			}

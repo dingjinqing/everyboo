@@ -2910,6 +2910,11 @@ button.submit:hover {
     font-size: 25px;
     margin: 10px 0 8px;
 }
+
+.single-product-dec .tab-content img {
+    max-width: 100%;
+}
+
 .for-pro-border {
     border-bottom: 1px solid #ddd;
 }

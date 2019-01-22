@@ -17,7 +17,6 @@ public class WebHelper {
 	
 	public static final String LOGIN_USER = "userInfo";
 	
-	public static final String SYS_PARAM_TIXIAN = "SYS_TIXIAN";
 	/**
 	 * 
 	 * @param request
@@ -30,7 +29,6 @@ public class WebHelper {
 				&& StringUtils.isNumeric(currentPage)) {
 			return Integer.parseInt(currentPage);
 		}
-
 		return null;
 	}
 

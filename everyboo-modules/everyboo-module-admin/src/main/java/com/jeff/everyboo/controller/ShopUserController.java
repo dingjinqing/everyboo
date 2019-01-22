@@ -25,11 +25,13 @@ import com.jeff.everyboo.cms.dto.ShopUserQueryDTO;
 import com.jeff.everyboo.cms.entity.ShopTrade;
 import com.jeff.everyboo.cms.entity.ShopUser;
 import com.jeff.everyboo.cms.entity.ShopUserExt;
+import com.jeff.everyboo.cms.service.ShopSysParamService;
 import com.jeff.everyboo.cms.service.ShopTradeService;
 import com.jeff.everyboo.cms.service.ShopUserExtService;
 import com.jeff.everyboo.cms.service.ShopUserService;
 import com.jeff.everyboo.common.dto.AjaxResult;
 import com.jeff.everyboo.common.entity.PageModel;
+import com.jeff.everyboo.common.util.CommonConstants;
 import com.jeff.everyboo.common.util.ExcelUtils;
 import com.jeff.everyboo.common.util.Md5Util;
 import com.jeff.everyboo.common.util.TradeTypeEnum;
@@ -48,13 +50,13 @@ public class ShopUserController {
 
 	@Autowired
 	private ShopUserExtService userExtService;
-
 	@Autowired
 	private ShopUserService userService;
-	
 	@Autowired
 	private ShopTradeService tradeService;
-
+	@Autowired
+	private ShopSysParamService sysparamService;
+	
 	/**
 	 * 获取用户列表
 	 * 
@@ -138,30 +140,46 @@ public class ShopUserController {
 
 		List<ShopUser> list = userService.queryShopUserList(userQueryDTO);
 		List<ShopTrade> trades = new ArrayList<>();
+		
+		// 获取不同等级分红奖励上限
+		Map<String, String> rule = sysparamService.findByType(CommonConstants.SYS_AWARDS_LIMIT);
+//				获取目前分红金额
+		Map<String, String> tuijian = tradeService.queryFenhongList();
+		Map<String, String> gongxiang = tradeService.queryGongxiangList();
 		if (list!=null && list.size()>0) {
 			for (Iterator iterator = list.iterator(); iterator.hasNext();) {
 //				如果没超过收益上限，则增加收益，并插入收益明细表，收益上限暂时不处理
 				
 				ShopUser shopUser = (ShopUser) iterator.next();
-//				增加共享收益
-				shopUser.getShopUserExts().setTuiguang(shopUser.getShopUserExts().getTuiguang().add(new BigDecimal(shouyi)));
 				
-				ShopTrade ztTrade = new ShopTrade();
-				ztTrade.setPrice(new BigDecimal(shouyi));
-				ztTrade.setUserId(shopUser.getId());
-				ztTrade.setTradeNo(WebHelper.getDayNo());
-				if ("2".equals(fenhongtype)) { //2 加盟店   1 平台分红
-					ztTrade.setJtype(5);
+//				如果未超出上限，继续分红，否则不分红
+				BigDecimal ztshangxian = new BigDecimal(rule.get(shopUser.getLevel()).toString());
+				BigDecimal zttuijian = new BigDecimal(tuijian.get(shopUser.getId().toString())==null?"0":tuijian.get(shopUser.getId().toString()));
+				BigDecimal ztfenhong = new BigDecimal(gongxiang.get(shopUser.getId().toString())==null?"0":gongxiang.get(shopUser.getId().toString()));
+				if (ztshangxian.compareTo(zttuijian)>0 && ztshangxian.compareTo(ztfenhong)>0) {
+//				增加共享收益
+					shopUser.getShopUserExts().setTuiguang(shopUser.getShopUserExts().getTuiguang().add(new BigDecimal(shouyi)));
+					
+					ShopTrade ztTrade = new ShopTrade();
+					ztTrade.setPrice(new BigDecimal(shouyi));
+					ztTrade.setUserId(shopUser.getId());
+					ztTrade.setTradeNo(WebHelper.getDayNo());
+					if ("2".equals(fenhongtype)) { //2 加盟店   1 平台分红
+						ztTrade.setJtype(5);
+					}else {
+						
+						ztTrade.setJtype(7);// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点
+					}
+					ztTrade.setStatus(3);
+					ztTrade.setCredits(0);
+					ztTrade.setDuihuan(BigDecimal.ZERO);
+					ztTrade.setCreateDate(cdDate);
+					ztTrade.setUpdateDate(new Date());
+					ztTrade.setShopTradeDetails(null);
+					trades.add(ztTrade);
 				}else {
-					ztTrade.setJtype(7);// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点
+					System.out.println(shopUser.getId()+"超出上限，不进行分红");
 				}
-				ztTrade.setStatus(3);
-				ztTrade.setCredits(0);
-				ztTrade.setDuihuan(BigDecimal.ZERO);
-				ztTrade.setCreateDate(cdDate);
-				ztTrade.setUpdateDate(new Date());
-				ztTrade.setShopTradeDetails(null);
-				trades.add(ztTrade);
 				
 			}
 		}
@@ -204,7 +222,8 @@ public class ShopUserController {
 		headNameMap.put("account", "账户名");
 		headNameMap.put("phone", "手机号");
 		headNameMap.put("refPhone", "推荐人手机号");
-		headNameMap.put("vipLevel", "会员等级");
+		headNameMap.put("level", "会员等级");
+		headNameMap.put("vipLevel", "加盟店等级");
 		headNameMap.put("status", "账号状态");
 		headNameMap.put("vipStatus", "会员状态");
 		headNameMap.put("balance", "健康余额");
@@ -219,12 +238,19 @@ public class ShopUserController {
 			for (ShopUser user : userList) {
 				String statusName = "有效";
 				String vstatusName = "参与分红";
+				String levelName = "黄金会员";
 				String createDate = "";
 				if (user.getStatus() == 2) {
 					statusName = "无效";
 				}
 				if (user.getVipStatus() == 2) {
 					vstatusName = "不参与";
+				}
+				
+				if (user.getLevel().equals("t2")) {
+					levelName = "铂金会员";
+				}else if (user.getLevel().equals("t3")) {
+					levelName = "钻石会员";
 				}
 
 				if (user.getCreateDate() != null) {
@@ -235,6 +261,7 @@ public class ShopUserController {
 				map.put("account", user.getAccount());
 				map.put("phone", user.getPhone());
 				map.put("refPhone", user.getRefPhone());
+				map.put("level", levelName);
 				map.put("vipLevel", com.jeff.everyboo.common.util.VipLevelEnum.getDescByCode(user.getVipLevel()));
 				map.put("status", statusName);
 				map.put("vipStatus", vstatusName);
@@ -301,9 +328,16 @@ public class ShopUserController {
 			ShopUser bean = userService.find(Integer.parseInt(id));
 			List<Map<String, Object>> list = userService.queryUser4List(bean.getPhone());
 			List<Map<String, Object>> list2 = userService.queryUser5List(bean.getPhone());
+			String xiaofei1 = tradeService.queryGerenXiaofei(bean.getId());
+			String xiaofei2 = tradeService.queryZhituiXiaofei(bean.getPhone());
+			String xiaofei3 = tradeService.queryJiantuiXiaofei(bean.getPhone());
+			
 			model.addAttribute("bean", bean);
 			model.addAttribute("zhitui", list);//直推信息
 			model.addAttribute("jiantui", list2);//间推信息
+			model.addAttribute("xiaofei1", xiaofei1);//个人消费
+			model.addAttribute("xiaofei2", xiaofei2);//直推消费
+			model.addAttribute("xiaofei3", xiaofei3);//间推消费
 			
 		}
 		return "shop/dialog/user_team";

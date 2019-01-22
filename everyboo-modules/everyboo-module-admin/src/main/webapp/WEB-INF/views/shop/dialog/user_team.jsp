@@ -133,6 +133,72 @@
                              </div>
                          </td> 
                      </tr>
+                     
+                     <tr>
+						<td class="l_title w150"> 个人消费</td>
+                         <td>
+                             <div class="J_toolsBar fl">
+                                 <div class="t_text w200 ml10">
+                                     <label>
+                                     			<input type="text" name="xiaofei1" value="${xiaofei1 }" />
+                                     </label>
+                                 </div>
+                             </div>
+                         </td>
+                         <td class="l_title w150">直推消费</td>
+                         <td>
+                             <div class="J_toolsBar fl">
+                                 <div class="t_text w200 ml10">
+                                     <label>
+                                     			<input type="text" name="xiaofei2" value="${xiaofei2 }"  />
+                                     </label>
+                                 </div>
+                             </div>
+                         </td>
+                     </tr>
+                     <tr>
+						<td class="l_title w150"> 间推消费</td>
+                         <td>
+                             <div class="J_toolsBar fl">
+                                 <div class="t_text w200 ml10">
+                                     <label>
+                                     			<input type="text" name="xiaofei3" value="${xiaofei3 }" />
+                                     </label>
+                                 </div>
+                             </div>
+                         </td>
+                         <td class="l_title w150">会员等级</td>
+                         <td>
+                             <div class="J_toolsBar fl">
+                                 <div class="t_text w200 ml10">
+                                     <label>
+                                     <c:choose>
+												<c:when test="${not empty bean }">
+													<select name="level" data-rule="会员等级:required;">
+														<option value="t1"
+															<c:if test="${'t1' eq bean.level }">selected</c:if>>黄金会员</option>
+														<option value="t2"
+															<c:if test="${'t2' eq bean.level }">selected</c:if>>铂金会员</option>
+														<option value="t3"
+															<c:if test="${'t3' eq bean.level }">selected</c:if>>钻石会员</option>
+														<option value="t0"
+															<c:if test="${'t0' eq bean.level }">selected</c:if>>普通会员</option>
+													</select>
+												</c:when>
+												<c:otherwise>
+													<select name="level" data-rule="会员等级:required;">
+														<option value="t0" selected>普通会员</option>
+														<option value="t1">黄金会员</option>
+														<option value="t2">铂金会员</option>
+														<option value="t3">钻石会员</option>
+													</select>
+												</c:otherwise>
+											</c:choose>
+                                     </label>
+                                 </div>
+                             </div>
+                         </td>
+                     </tr>
                   </table>
                   </div>
 	
@@ -174,7 +240,7 @@
 		                                     			黄金会员
 		                                     		</c:when>
 															<c:when test="${'t2' eq u.level}">
-		                                     			白金会员
+		                                     			铂金会员
 		                                     		</c:when>
 															<c:when test="${'t3' eq u.level}">
 		                                     			钻石会员
@@ -281,7 +347,7 @@
 		                                     			黄金会员
 		                                     		</c:when>
 															<c:when test="${'t2' eq u.level}">
-		                                     			白金会员
+		                                     			铂金会员
 		                                     		</c:when>
 															<c:when test="${'t3' eq u.level}">
 		                                     			钻石会员

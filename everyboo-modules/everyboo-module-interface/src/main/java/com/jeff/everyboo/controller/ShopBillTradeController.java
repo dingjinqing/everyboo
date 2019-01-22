@@ -27,6 +27,7 @@ import com.jeff.everyboo.cms.service.ShopTradeService;
 import com.jeff.everyboo.cms.service.ShopUserService;
 import com.jeff.everyboo.common.dto.AjaxResult;
 import com.jeff.everyboo.common.entity.PageModel;
+import com.jeff.everyboo.common.util.CommonConstants;
 import com.jeff.everyboo.common.util.Md5Util;
 import com.jeff.everyboo.util.WebHelper;
 
@@ -181,7 +182,7 @@ public class ShopBillTradeController {
 			 * }else { ajaxResult.setMsg("转让用户不存在"); return ajaxResult; } }else
 			 */if (bean.getType() == 1) {// 提现到个人账户余额
 				// 获取提现比例
-				ShopSysParam param = sysParamService.findByCode(WebHelper.SYS_PARAM_TIXIAN);
+				ShopSysParam param = sysParamService.findByCode(CommonConstants.SYS_PARAM_TIXIAN);
 				// 数量乘以兑换比例
 				BigDecimal jine = new BigDecimal(param.getSysValue()).multiply(new BigDecimal(bean.getCount()));
 				user.getShopUserExts().setBalance(user.getShopUserExts().getBalance().add(jine));

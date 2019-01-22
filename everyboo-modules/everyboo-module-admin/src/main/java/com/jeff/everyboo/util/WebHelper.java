@@ -20,7 +20,6 @@ public class WebHelper {
 
 	public static final String SESSION_NO_IMPORT_SCORE = "session_no_import_score";
 	
-	public static final String SYS_PARAM_TIXIAN = "SYS_TIXIAN";
 	/**
 	 * 
 	 * @param request

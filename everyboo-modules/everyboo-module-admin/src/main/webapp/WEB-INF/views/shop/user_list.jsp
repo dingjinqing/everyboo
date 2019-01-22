@@ -39,7 +39,7 @@
 							<option value="">请选择</option>
 							<option value="t0" <c:if test="${'t0' eq userQueryDTO.level }">selected</c:if> >普通会员</option>
 							<option value="t1" <c:if test="${'t1' eq userQueryDTO.level }">selected</c:if> >黄金会员</option>
-							<option value="t2" <c:if test="${'t2' eq userQueryDTO.level }">selected</c:if> >白金会员</option>
+							<option value="t2" <c:if test="${'t2' eq userQueryDTO.level }">selected</c:if> >铂金会员</option>
 							<option value="t3" <c:if test="${'t3' eq userQueryDTO.level }">selected</c:if> >钻石会员</option>
 						</select>
 					</div>
@@ -143,7 +143,7 @@
 		                                     			黄金会员
 		                                     		</c:when>
 															<c:when test="${'t2' eq u.level}">
-		                                     			白金会员
+		                                     			铂金会员
 		                                     		</c:when>
 															<c:when test="${'t3' eq u.level}">
 		                                     			钻石会员
@@ -319,7 +319,7 @@
 				layer.open({
 					title : title,
 					type : 1,
-					area : [ '860px', '500px' ],
+					area : [ '860px', '600px' ],
 					content : str,
 					/* btn : [ '确定', '取消' ], */
 					btn : [ '取消' ],

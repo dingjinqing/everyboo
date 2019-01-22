@@ -422,7 +422,7 @@
 														<option value="t1"
 															<c:if test="${'t1' eq bean.level }">selected</c:if>>黄金会员</option>
 														<option value="t2"
-															<c:if test="${'t2' eq bean.level }">selected</c:if>>白金会员</option>
+															<c:if test="${'t2' eq bean.level }">selected</c:if>>铂金会员</option>
 														<option value="t3"
 															<c:if test="${'t3' eq bean.level }">selected</c:if>>钻石会员</option>
 														<option value="t0"
@@ -433,7 +433,7 @@
 													<select name="level" data-rule="会员等级:required;">
 														<option value="t0" selected>普通会员</option>
 														<option value="t1">黄金会员</option>
-														<option value="t2">白金会员</option>
+														<option value="t2">铂金会员</option>
 														<option value="t3">钻石会员</option>
 													</select>
 												</c:otherwise>

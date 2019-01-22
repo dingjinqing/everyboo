@@ -55,7 +55,7 @@ public class ShopSysParam implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "sys_code", nullable = false, length = 12)
+	@Column(name = "sys_code", nullable = false, length = 24)
 	public String getSysCode() {
 		return this.sysCode;
 	}
