@@ -69,104 +69,119 @@
 							</h2>
 						</div>
 						<div class="row">
-							<div class="col-md-6 col-sm-12">
-								<div class="table-content table-responsive my-table">
-									<table>
-										<thead>
+							<ul id="myTab" class="nav nav-pills">
+								<li class="active">
+									<a href="#homeinfo" data-toggle="tab">
+										 <h4>个人资料</h4>
+									</a>
+								</li>
+								<li><a href="#homedetail" data-toggle="tab"> <h4>账户资料</h4></h4></a></li>
+								
+							</ul>
+							<div id="myTabContent" class="tab-content">
+								<div class="col-md-6 col-sm-12 tab-pane fade in active" id="homeinfo">
+									<div class="table-content table-responsive  my-table">
+										<table class="table-hover">
+											<thead>
+												<tr>
+													<th colspan="2" class="text-center"><h3>个人资料</h3></th>
+												</tr>
+											</thead>
 											<tr>
-												<th>项目</th>
-												<th>值</th>
-												<th>操作</th>
+												<td>姓名</td>
+												<td><span
+													v-if="user.account != null && user.account != ''"
+													v-text="user.account"></span> <span v-else
+													style="color: red;">请修改个人资料</span></td>
 											</tr>
-										</thead>
-										<tr>
-											<td>姓名</td>
-											<td><span
-												v-if="user.account != null && user.account != ''"
-												v-text="user.account"></span> <span v-else
-												style="color: red;">请修改个人资料</span></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>手机号</td>
-											<td><span v-text="user.phone"></span></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>收货地址</td>
-											<td><span v-text="user.address"></span></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>会员等级</td>
-											<td class="my-td"><span v-text="user.level"></span></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>加盟店等级</td>
-											<td class="my-td"><span v-text="user.userLevel"></span></td>
-											<td></td>
-										</tr>
-										<tr class="my-tr">
-											<td>健康余额</td>
-											<td class="my-td"><span
-												v-text="user.shopUserExts.balance"></span></td>
-											<td style="font-size: 16px;"><a href="javascript:;"
-												@click="toDonate">捐赠</a> <br> <a href="javascript:;"
-												@click="toWithdraw">提现</a> <br> <a href="<%=path%>/recharge">充值</a> <br> <a href="javascript:;"
-												@click="toTransfer">赠送</a></td>
-										</tr>
-
-										<tr>
-											<td>销售收益</td>
-											<td class="my-td"><span v-text="user.shopUserExts.xiaoshou"></span></td>
-											<td style="font-size: 16px;"><a href="javascript:;"
-												@click="xiaoshouchange">转换</a></td>
-										</tr>
-										<tr>
-											<td>共享收益</td>
-											<td class="my-td"><span
-												v-text="user.shopUserExts.tuiguang"></span></td>
-											<td style="font-size: 16px;"><a href="javascript:;"
-												@click="gongxiangchange">转换</a></td>
-										</tr>
-										<tr>
-											<td>兑换积分</td>
-											<td><span v-text="user.shopUserExts.duihuan"></span></td>
-											<td></td>
-											<%-- <td style="font-size: 16px;"><a href="<%=path%>/bill-detail">查看<br/>明细</a></td> --%>
-										</tr>
-										<tr>
-											<td>消费积分</td>
-											<td><span v-text="user.shopUserExts.credits"></span></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>健康值</td>
-											<td><span v-text="user.shopUserExts.bill"></span></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>银行账户名</td>
-											<td><span v-text="user.shopUserExts.bankOwer"></span></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>银行账号</td>
-											<td><span v-text="user.shopUserExts.bankCard"></span></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>开户行</td>
-											<td><span v-text="user.shopUserExts.bankDeposit"></span></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>推荐人手机号</td>
-											<td><span v-text="user.refPhone"></span></td>
-											<td></td>
-										</tr>
-									</table>
+											<tr>
+												<td>手机号</td>
+												<td><span v-text="user.phone"></span></td>
+											</tr>
+											<tr>
+												<td>收货地址</td>
+												<td><span v-text="user.address"></span></td>
+											</tr>
+											<tr>
+												<td>会员等级</td>
+												<td class="my-td"><span v-text="user.level"></span></td>
+											</tr>
+											<tr>
+												<td>加盟店等级</td>
+												<td class="my-td"><span v-text="user.userLevel"></span></td>
+											</tr>
+											<tr>
+												<td>推荐人手机号</td>
+												<td><span v-text="user.refPhone"></span></td>
+											</tr>
+											<tr>
+												<td>银行账户名</td>
+												<td><span v-text="user.shopUserExts.bankOwer"></span></td>
+											</tr>
+											<tr>
+												<td>银行账号</td>
+												<td><span v-text="user.shopUserExts.bankCard"></span></td>
+											</tr>
+											<tr>
+												<td>开户行</td>
+												<td><span v-text="user.shopUserExts.bankDeposit"></span></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="col-md-6 col-sm-12 tab-pane fade" id="homedetail">
+									<div class="table-content table-responsive my-table">
+										<table class="table-hover">
+											<thead>
+												<tr>
+													<th colspan="3" class="text-center"><h3></h3>账户信息</th>
+												</tr>
+											</thead>
+											<tr class="my-tr">
+												<td>健康余额</td>
+												<td class="my-td"><span
+													v-text="user.shopUserExts.balance"></span></td>
+												<td style="font-size: 16px;"><a href="javascript:;"
+													@click="toDonate">捐赠</a> <br> <a href="javascript:;"
+													@click="toWithdraw">提现</a> <br> <a
+													href="<%=path%>/recharge">充值</a> <br> <a
+													href="javascript:;" @click="toTransfer">赠送</a></td>
+											</tr>
+	
+											<tr>
+												<td>销售收益</td>
+												<td class="my-td"><span
+													v-text="user.shopUserExts.xiaoshou"></span></td>
+												<td style="font-size: 16px;"><a href="javascript:;"
+													@click="xiaoshouchange">转换</a></td>
+											</tr>
+											<tr>
+												<td>共享收益</td>
+												<td class="my-td"><span
+													v-text="user.shopUserExts.tuiguang"></span></td>
+												<td style="font-size: 16px;"><a href="javascript:;"
+													@click="gongxiangchange">转换</a></td>
+											</tr>
+											<tr>
+												<td>兑换积分</td>
+												<td><span v-text="user.shopUserExts.duihuan"></span></td>
+												<td></td>
+												<%-- <td style="font-size: 16px;"><a href="<%=path%>/bill-detail">查看<br/>明细</a></td> --%>
+											</tr>
+											<tr>
+												<td>消费积分</td>
+												<td><span v-text="user.shopUserExts.credits"></span></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td>健康值</td>
+												<td><span v-text="user.shopUserExts.bill"></span></td>
+												<td></td>
+											</tr>
+	
+	
+										</table>
+									</div>
 								</div>
 							</div>
 							<div class="col-md-6 col-sm-12 login-form">
@@ -182,7 +197,8 @@
                                             -->
 										<option value="4">交易密码设置</option>
 										<option value="5">重置交易密码</option>
-									</select> <br /> <br /> <!-- 健康值操作： <select style="width: 120px;"
+									</select> <br /> <br />
+									<!-- 健康值操作： <select style="width: 120px;"
 										v-model="operation1" @change="selectChange(2)">
 										<option value="0">请选择操作</option>
 										<option value="1">健康值提现</option>
@@ -206,11 +222,13 @@
 										type="text" disabled="disabled"> 银行开户账号<input
 										v-model="bankCard" placeholder="请输入银行开户账号" type="text"
 										disabled="disabled"> 余额提现数量<input
-										v-model="withdrawCount" placeholder="请输入整百提现余额" type="number" step="100" min="100">
-									交易密码<input v-model="withdrawPayPwd" placeholder="请输入交易密码"
-										type="password"> <span data-toggle="tooltip" title="到账金额扣去百分之五的税率"
-										style="font-size: 16px;">到账金额:<span v-text="'￥' + daoshou" style="color: red; font-size: 16px;"></span></span>
-										<br><span v-html="errMsg"
+										v-model="withdrawCount" placeholder="请输入整百提现余额" type="number"
+										step="100" min="100"> 交易密码<input
+										v-model="withdrawPayPwd" placeholder="请输入交易密码" type="password">
+									<span data-toggle="tooltip" title="到账金额扣去百分之五的税率"
+										style="font-size: 16px;">到账金额:<span
+										v-text="'￥' + daoshou" style="color: red; font-size: 16px;"></span></span>
+									<br> <span v-html="errMsg"
 										style="color: red; font-size: 14px;"></span>
 									<button v-if="!userOpt" class="login-btn" type="button"
 										@click="withdraw">确定提现</button>
