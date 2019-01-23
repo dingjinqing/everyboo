@@ -91,7 +91,7 @@
 										<table class="table-hover">
 											<thead>
 												<tr>
-													<th colspan="2" class="text-center"><h3>个人资料</h3></th>
+													<th colspan="2" class="text-center">&nbsp;&nbsp;</th>
 												</tr>
 											</thead>
 											<tr>
@@ -141,7 +141,7 @@
 										<table class="table-hover">
 											<thead>
 												<tr>
-													<th colspan="3" class="text-center"><h3>账户信息</h3></th>
+													<th colspan="3" class="text-center">&nbsp;&nbsp;</th>
 												</tr>
 											</thead>
 											<tr class="my-tr">
