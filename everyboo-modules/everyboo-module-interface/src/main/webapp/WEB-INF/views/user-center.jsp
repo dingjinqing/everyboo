@@ -48,6 +48,13 @@
 	font-weight: bold;
 	color: black;
 }
+
+#myTab {
+	padding-left:15px;
+}
+#myTab a{
+	font-size:22px;
+	font-weight:400;
 </style>
 </head>
 <body>
@@ -69,13 +76,13 @@
 							</h2>
 						</div>
 						<div class="row">
-							<ul id="myTab" class="nav nav-pills">
+							<ul id="myTab" class="nav nav-pills col-sm-12">
 								<li class="active">
 									<a href="#homeinfo" data-toggle="tab">
-										 <h4>个人资料</h4>
+										 个人资料
 									</a>
 								</li>
-								<li><a href="#homedetail" data-toggle="tab"> <h4>账户资料</h4></h4></a></li>
+								<li><a href="#homedetail" data-toggle="tab"> 账户信息</a></li>
 								
 							</ul>
 							<div id="myTabContent" class="tab-content">
@@ -134,7 +141,7 @@
 										<table class="table-hover">
 											<thead>
 												<tr>
-													<th colspan="3" class="text-center"><h3></h3>账户信息</th>
+													<th colspan="3" class="text-center"><h3>账户信息</h3></th>
 												</tr>
 											</thead>
 											<tr class="my-tr">
