@@ -35,4 +35,26 @@ public interface ShopTradeDaoCustom {
 
 	String queryJiantuiXiaofei(String phone);
 
+	
+	/**abc成员中c的收入
+	 * @param phone
+	 * @param type 1 直推  2 间推
+	 * @return
+	 */
+	String queryJiantuiShouru(String phone, int type);
+
+	/**abc中b的收入
+	 * @param phone
+	 * @param type 1 直推 2 间推
+	 * @return
+	 */
+	String queryZhituiShouru(String phone, int type);
+
+	/**abc中b的收入
+	 * @param phone
+	 * @param type 1 直推 2 间推
+	 * @return
+	 */
+	String queryGerenShouru(int userid, int type);
+
 }

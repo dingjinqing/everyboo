@@ -332,12 +332,28 @@ public class ShopUserController {
 			String xiaofei2 = tradeService.queryZhituiXiaofei(bean.getPhone());
 			String xiaofei3 = tradeService.queryJiantuiXiaofei(bean.getPhone());
 			
+			String shouru11 = tradeService.queryGerenShouru(bean.getId(),1);
+			String shouru12 = tradeService.queryZhituiShouru(bean.getPhone(),1);
+			String shouru13 = tradeService.queryJiantuiShouru(bean.getPhone(),1);
+			
+			String shouru21 = tradeService.queryGerenShouru(bean.getId(),2);
+			String shouru22 = tradeService.queryZhituiShouru(bean.getPhone(),2);
+			String shouru23 = tradeService.queryJiantuiShouru(bean.getPhone(),2);
+			
 			model.addAttribute("bean", bean);
 			model.addAttribute("zhitui", list);//直推信息
 			model.addAttribute("jiantui", list2);//间推信息
 			model.addAttribute("xiaofei1", xiaofei1);//个人消费
 			model.addAttribute("xiaofei2", xiaofei2);//直推消费
 			model.addAttribute("xiaofei3", xiaofei3);//间推消费
+			
+			model.addAttribute("shouru11", shouru11);//个人直推收入
+			model.addAttribute("shouru12", shouru12);//直推人员直推收入
+			model.addAttribute("shouru13", shouru13);//间推人员直推收入
+			
+			model.addAttribute("shouru21", shouru21);//个人间推收入
+			model.addAttribute("shouru22", shouru22);//直推人员间推收入
+			model.addAttribute("shouru23", shouru23);//间推人员间推收入
 			
 		}
 		return "shop/dialog/user_team";

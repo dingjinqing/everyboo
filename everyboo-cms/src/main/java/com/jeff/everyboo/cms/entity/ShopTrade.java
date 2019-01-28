@@ -41,6 +41,20 @@ public class ShopTrade implements java.io.Serializable {
 
 	public ShopTrade() {
 	}
+	
+	
+
+	public ShopTrade(Integer id, String tradeNo, int userId, int jtype, BigDecimal price, Date createDate) {
+		super();
+		this.id = id;
+		this.tradeNo = tradeNo;
+		this.userId = userId;
+		this.jtype = jtype;
+		this.price = price;
+		this.createDate = createDate;
+	}
+
+
 
 	public ShopTrade(Integer id, String tradeNo, int userId, int jtype, BigDecimal duihuan, BigDecimal price,
 			int status, int credits, String remark, Date createDate, String createBy, Date updateDate,
@@ -130,7 +144,7 @@ public class ShopTrade implements java.io.Serializable {
 		this.jtype = type;
 	}
 
-	@Column(name = "price", nullable = false)
+	@Column(name = "price")
 	public BigDecimal getPrice() {
 		return this.price;
 	}

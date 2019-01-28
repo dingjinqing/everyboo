@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jeff.everyboo.cms.dto.ShopTradeQueryDTO;
+import com.jeff.everyboo.cms.dto.ShopUserQueryDTO;
 import com.jeff.everyboo.cms.entity.ShopTrade;
 import com.jeff.everyboo.cms.entity.ShopTradeUser;
 import com.jeff.everyboo.cms.entity.ShopUser;
@@ -381,8 +382,15 @@ public class ShopTradeController {
 		if (StringUtils.isNotBlank(id)) {
 			ShopTrade bean = tradeService.find(Integer.parseInt(id));
 			ShopUser user = userService.find(bean.getUserId());
+			
 			model.addAttribute("bean", bean);
 			model.addAttribute("user", user);
+			
+		}else {
+			ShopUserQueryDTO shopUserQueryDTO = new ShopUserQueryDTO();
+			List<ShopUser> list = userService.queryShopUserList(shopUserQueryDTO );
+			model.addAttribute("roles", list);
+			model.addAttribute("bianhao", WebHelper.getDayNo());
 			
 		}
 		return "shop/dialog/out_edit";
@@ -406,7 +414,8 @@ public class ShopTradeController {
 				tradeService.update(bean);
 			} else {
 				bean.setCreateDate(new Date());
-				bean.setTradeNo(WebHelper.getDayNo());
+				bean.setUpdateDate(new Date());
+//				bean.setTradeNo(WebHelper.getDayNo());
 				tradeService.save(bean);
 			}
 			ajaxResult.setSuccess(true);

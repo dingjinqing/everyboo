@@ -6,9 +6,14 @@
 
 <script type="text/javascript">
 
-
+var parentChosen;
 //表单验证
 $(function(){
+	parentChosen = $(".chosen-select").chosen({
+		no_results_text: "未找到用户",
+		width : '100%'
+	});
+	
 	$('#editForm').validator({
 		fields : {
 			name : '角色名称:required;length[~50]'
@@ -44,245 +49,293 @@ $(function(){
 
 <body>
 
-	
+
 	<div id="addForm" class="mgt20">
 		<form action="${ctx }/shoptrade/save" id="editForm" method="post">
-		<input type="hidden" name="id" value="${bean.id }"/>
-		<input type="hidden" name="userId" value="${bean.userId }"/>
-		<div class="">
-			<div class="J_formTable l_form_table">
-				<table class="not_hightlight">
-					<tr>
-						<td class="l_title w150"><b class="cRed">*</b> 订单编号</td>
-                         <td>
-                             <div class="J_toolsBar fl">
-                                 <div class="t_text w200 ml10">
-                                     <label>
-                                     	<c:choose>
-                                     		<c:when test="${not empty bean }">
-                                     			<input type="text" name="tradeNo" data-rule="订单编号:required;" value="${bean.tradeNo }" readonly="readonly"/>
-                                     		</c:when>
-                                     		<c:otherwise>
-                                     			<input type="text" name="tradeNo" data-rule="订单编号:required;" value="" />
-                                     		</c:otherwise>
-                                     	</c:choose>
-                                     </label>
-                                 </div>
-                             </div>
-                         </td>
-                         <td class="l_title w150"><b class="cRed">*</b>价格</td>
-                         <td>
-                             <div class="J_toolsBar fl">
-                                 <div class="t_text w200 ml10">
-                                     <label>
-                                     	<c:choose>
-                                     		<c:when test="${not empty bean }">
-                                     			<input type="text" name="price" data-rule="价格:required;" value="${bean.price }" />
-                                     		</c:when>
-                                     		<c:otherwise>
-                                     			<input type="text" name="price" data-rule="价格:required;" value="" />
-                                     		</c:otherwise>
-                                     	</c:choose>
-                                     </label>
-                                 </div>
-                             </div>
-                         </td>
-                     </tr>
-                     
-                     <tr>
-						<td class="l_title w150"><b class="cRed">*</b>订单状态</td>
-                         <td>
-                             <div class="J_toolsBar fl">
-								     <label><input name="status" type="radio" value=1 <c:if test="${bean.status == null || bean.status == 1 }">checked="checked"</c:if> />待审核</label> 
-									 <label><input name="status" type="radio" value=2 <c:if test="${bean.status == 2 }">checked="checked"</c:if>/>审核通过</label> 
-									 <label><input name="status" type="radio" value=3 <c:if test="${bean.status == 3 }">checked="checked"</c:if>/>已完成</label> 
-                             </div>
-                         </td>
-                         <td class="l_title w150"><b class="cRed">*</b> 交易类型</td>
-                         <td>
-                             <div class="J_toolsBar fl">
-                                 <div class="t_text w200 ml10">
-                                     <label>
-                                     	<c:choose>
-                                     		<c:when test="${not empty bean }">
-                                     			<select name="jtype" data-rule="交易类型:required;" >
-                                     				<%-- <option value=1 <c:if test="${1 eq bean.jtype }">selected</c:if> >购买商品</option>
+			<input type="hidden" name="id" value="${bean.id }" /> 
+			<c:choose>
+				<c:when test="${not empty bean }">
+					<input type="hidden" name="credits" value="${bean.credits }" />
+					<input type="hidden" name="duihuan" value="${bean.duihuan }" /> 
+				</c:when>
+				<c:otherwise>
+					<input type="hidden" name="credits" value="0" />
+					<input type="hidden" name="duihuan" value="0" /> 
+				</c:otherwise>
+			</c:choose>
+			<div class="">
+				<div class="J_formTable l_form_table">
+					<table class="not_hightlight">
+						<tr>
+							<td class="l_title w150"><b class="cRed">*</b> 订单编号</td>
+							<td>
+								<div class="J_toolsBar fl">
+									<div class="t_text w200 ml10">
+										<label> <c:choose>
+												<c:when test="${not empty bean }">
+													<input type="text" name="tradeNo"
+														data-rule="订单编号:required;" value="${bean.tradeNo }"
+														readonly="readonly" />
+												</c:when>
+												<c:otherwise>
+													<input type="text" name="tradeNo"
+														data-rule="订单编号:required;" value="${bianhao }" />
+												</c:otherwise>
+											</c:choose>
+										</label>
+									</div>
+								</div>
+							</td>
+							<td class="l_title w150"><b class="cRed">*</b>价格</td>
+							<td>
+								<div class="J_toolsBar fl">
+									<div class="t_text w200 ml10">
+										<label> <c:choose>
+												<c:when test="${not empty bean }">
+													<input type="text" name="price" data-rule="价格:required;"
+														value="${bean.price }" />
+												</c:when>
+												<c:otherwise>
+													<input type="text" name="price" data-rule="价格:required;" />
+												</c:otherwise>
+											</c:choose>
+										</label>
+									</div>
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="l_title w150"><b class="cRed">*</b>订单状态</td>
+							<td>
+								<div class="J_toolsBar fl">
+									<label><input name="status" type="radio" value=1
+										<c:if test="${ bean.status == 1 }">checked="checked"</c:if> />待审核</label>
+									<label><input name="status" type="radio" value=2
+										<c:if test="${bean.status == 2 }">checked="checked"</c:if> />审核通过</label>
+									<label><input name="status" type="radio" value=3
+										<c:if test="${bean.status == null || bean.status == 3 }">checked="checked"</c:if> />已完成</label>
+								</div>
+							</td>
+							<td class="l_title w150"><b class="cRed">*</b> 交易类型</td>
+							<td>
+								<div class="J_toolsBar fl">
+									<div class="t_text w200 ml10">
+										<label> <c:choose>
+												<c:when test="${not empty bean }">
+													<select name="jtype" data-rule="交易类型:required;">
+														<%-- <option value=1 <c:if test="${1 eq bean.jtype }">selected</c:if> >购买商品</option>
                                      				<option value=2 <c:if test="${2 eq bean.jtype }">selected</c:if> >复购产品</option> --%>
-                                     				<option value=3 <c:if test="${3 eq bean.jtype }">selected</c:if> >直推</option>
-                                     				<option value=4 <c:if test="${4 eq bean.jtype }">selected</c:if> >间推</option>
-                                     				<option value=5 <c:if test="${5 eq bean.jtype }">selected</c:if> >加盟店奖励</option>
-                                     				<option value=6 <c:if test="${6 eq bean.jtype }">selected</c:if> >股权收益</option>
-                                     				<option value=7 <c:if test="${7 eq bean.jtype }">selected</c:if> >平台分红</option>
-                                     				<option value=8 <c:if test="${8 eq bean.jtype }">selected</c:if> >捐赠</option>
-                                     				<option value=9 <c:if test="${9 eq bean.jtype }">selected</c:if> >购买返点</option>
-                                     				<option value=10 <c:if test="${10 eq bean.jtype }">selected</c:if> >一级销售奖</option>
-                                     				<option value=11 <c:if test="${11 eq bean.jtype }">selected</c:if> >二级销售奖</option>
-                                     				<option value=12 <c:if test="${12 eq bean.jtype }">selected</c:if> >提现健康值</option>
-                                     				<%-- <option value=13 <c:if test="${13 eq bean.jtype }">selected</c:if> >项目合作</option> --%>
-                                     			</select>
-                                     		</c:when>
-                                     		<c:otherwise>
-                                     			<select name="jtype" data-rule="交易类型:required;" >
-                                     				<!-- <option value=1  >购买商品</option>
+														<option value=3
+															<c:if test="${3 eq bean.jtype }">selected</c:if>>一级销售奖(第一次)</option>
+														<%-- <option value=4
+															<c:if test="${4 eq bean.jtype }">selected</c:if>>间推</option> --%>
+														<option value=5
+															<c:if test="${5 eq bean.jtype }">selected</c:if>>加盟店奖励</option>
+														<option value=6
+															<c:if test="${6 eq bean.jtype }">selected</c:if>>股权收益</option>
+														<option value=7
+															<c:if test="${7 eq bean.jtype }">selected</c:if>>共享收益</option>
+														<option value=8
+															<c:if test="${8 eq bean.jtype }">selected</c:if>>捐赠</option>
+														<option value=9
+															<c:if test="${9 eq bean.jtype }">selected</c:if>>首次购买奖励</option>
+														<option value=10
+															<c:if test="${10 eq bean.jtype }">selected</c:if>>一级销售奖</option>
+														<option value=11
+															<c:if test="${11 eq bean.jtype }">selected</c:if>>二级销售奖</option>
+														<option value=12
+															<c:if test="${12 eq bean.jtype }">selected</c:if>>提现健康值</option>
+														<%-- <option value=13 <c:if test="${13 eq bean.jtype }">selected</c:if> >项目合作</option> --%>
+													</select>
+												</c:when>
+												<c:otherwise>
+													<select name="jtype" data-rule="交易类型:required;">
+														<!-- <option value=1  >购买商品</option>
 													<option value=2  >复购产品</option> -->
-													<option value=3  >直推</option>
-													<option value=4  >间推</option>
-													<option value=5  >加盟店奖励</option>
-													<option value=6  >股权收益</option>
-													<option value=7  >平台分红</option>
-													<option value=8  >捐赠</option>
-													<option value=9  >购买返点</option>
-													<option value=10 >一级销售奖</option>
-													<option value=11 >二级销售奖</option>
-													<option value=12 >提现健康值</option>
-													<!-- <option value=13 >项目合作</option> -->
-                                     			</select>
-                                     		</c:otherwise>
-                                     	</c:choose>
-                                     </label>
-                                 </div>
-                             </div>
-                         </td>
-                     </tr>
-                     
-                     <tr>
-						<td class="l_title w150">使用积分总数</td>
-                         <td>
-                             <div class="J_toolsBar fl">
-                                 <div class="t_text w200 ml10">
-                                     <label>
-                                     	<c:choose>
-                                     		<c:when test="${not empty bean }">
-                                     			<input type="text" name="credits" value="${bean.credits }" />
-                                     		</c:when>
-                                     		<c:otherwise>
-                                     			<input type="text" name="credits" value="" />
-                                     		</c:otherwise>
-                                     	</c:choose>
-                                     </label>
-                                 </div>
-                             </div>
-                         </td>
-                         <td class="l_title w150"><b class="cRed">*</b>订单时间</td>
-                         <td>
-                             <div class="J_toolsBar fl">
-                                 <div class="t_text w200 ml10">
-                                     <label>
-                                     	<c:choose>
-                                     		<c:when test="${not empty bean }">
-                                     			<input type="text" name="createDate"  value="${bean.createDate }" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" />
-                                     		</c:when>
-                                     		<c:otherwise>
-                                     			<input type="text" name="createDate"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})"/>
-                                     		</c:otherwise>
-                                     	</c:choose>
-                                     </label>
-                                 </div>
-                             </div>
-                         </td>
-                     </tr>
-                     
-                     
-                     <tr>
-						<td class="l_title w150">手机号</td>
-                         <td>
-                             <div class="J_toolsBar fl">
-                                 <div class="t_text w200 ml10">
-                                     <label>
-                                     	<c:choose>
-                                     		<c:when test="${not empty bean }">
-                                     			<input type="text"  value="${user.phone }"  readonly="readonly" />
-                                     		</c:when>
-                                     		<c:otherwise>
-                                     			<input type="text"  value="" />
-                                     		</c:otherwise>
-                                     	</c:choose>
-                                     </label>
-                                 </div>
-                             </div>
-                         </td>
-                         <td class="l_title w150">账户名</td>
-                         <td>
-                             <div class="J_toolsBar fl">
-                                 <div class="t_text w200 ml10">
-                                     <label>
-                                     	<c:choose>
-                                     		<c:when test="${not empty bean }">
-                                     			<input type="text"   value="${user.account }" readonly="readonly"/>
-                                     		</c:when>
-                                     		<c:otherwise>
-                                     			<input type="text"  value="" />
-                                     		</c:otherwise>
-                                     	</c:choose>
-                                     </label>
-                                 </div>
-                             </div>
-                         </td>
-                     </tr>
-                    
-                     <tr>
-						<td class="l_title w150">地址</td>
-                         <td>
-                             <div class="J_toolsBar fl">
-                                 <div class="t_text w200 ml10">
-                                     <label>
-                                     	<c:choose>
-                                     		<c:when test="${not empty bean }">
-                                     			<input type="text"  value="${user.address }"  readonly="readonly" />
-                                     		</c:when>
-                                     		<c:otherwise>
-                                     			<input type="text"  value="" />
-                                     		</c:otherwise>
-                                     	</c:choose>
-                                     </label>
-                                 </div>
-                             </div>
-                         </td>
-                         <td class="l_title w150">加盟店等级</td>
-                         <td>
-                             <div class="J_toolsBar fl">
-                                 <div class="t_text w200 ml10">
-                                     <label>
-                                     	<c:choose>
-                                     		<c:when test="${not empty bean }">
-                                     			<select  value="${user.vipLevel }" readonly="readonly" >
-<%--                                      				<option value="v0" <c:if test="${'v0' eq user.vipLevel }">selected</c:if>  >普通会员</option>
- --%>                                     				<option value="v1" <c:if test="${'v1' eq user.vipLevel }">selected</c:if> >无</option>
-                                     				<option value="v2" <c:if test="${'v2' eq user.vipLevel }">selected</c:if> >一级加盟店</option>
-                                     				<option value="v3" <c:if test="${'v3' eq user.vipLevel }">selected</c:if> >二级加盟店</option>
-                                     				<option value="v4" <c:if test="${'v4' eq user.vipLevel }">selected</c:if> >三级加盟店</option>
-                                     				<option value="v5" <c:if test="${'v5' eq user.vipLevel }">selected</c:if> >四级加盟店</option>
-                                     				<option value="v6" <c:if test="${'v6' eq user.vipLevel }">selected</c:if> >五级加盟店</option>
-                                     				<option value="v7" <c:if test="${'v7' eq user.vipLevel }">selected</c:if> >六级加盟店</option>
-                                     				<option value="v8" <c:if test="${'v8' eq user.vipLevel }">selected</c:if> >七级加盟店</option>
-                                     			</select>
-                                     		</c:when>
-                                     		<c:otherwise>
-                                     			<select  >
-                                     				<!-- <option value="v0">普通会员</option> -->
-                                     				<option value="v1" selected>无</option>
-                                     				<option value="v2">一级加盟店</option>
-                                     				<option value="v3">二级加盟店</option>
-                                     				<option value="v4">三级加盟店</option>
-                                     				<option value="v5">四级加盟店</option>
-                                     				<option value="v6">五级加盟店</option>
-                                     				<option value="v7">六级加盟店</option>
-                                     				<option value="v8">七级加盟店</option>
-                                     			</select>
-                                     		</c:otherwise>
-                                     	</c:choose>
-                                     </label>
-                                 </div>
-                             </div>
-                         </td>
-                     </tr>
-				</table>
+														<option value=3>一级销售奖(第一次)</option>
+														<!-- <option value=4>间推</option> -->
+														<option value=5>加盟店奖励</option>
+														<option value=6>股权收益</option>
+														<option value=7>共享收益</option>
+														<option value=8>捐赠</option>
+														<option value=9>首次购买奖励</option>
+														<option value=10>一级销售奖</option>
+														<option value=11>二级销售奖</option>
+														<option value=12>提现健康值</option>
+														<!-- <option value=13 >项目合作</option> -->
+													</select>
+												</c:otherwise>
+											</c:choose>
+										</label>
+									</div>
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="l_title w150">用户</td>
+							<td>
+								<div class="J_toolsBar fl">
+									<div class="t_label ml10" style="width: 220px;">
+										<c:choose>
+											<c:when test="${not empty bean }">
+												<input type="text" name="userId" value="${bean.userId }"
+													readonly="readonly" />
+											</c:when>
+											<c:otherwise>
+												<select data-placeholder="选择用户" class="chosen-select"
+													name="userId" data-rule="用户:required;">
+													<c:forEach items="${roles}" var="r">
+														<c:set var="selected" />
+														<c:forEach items="${roles }" var="ur">
+															<c:if test="${ur.id eq r.id }">
+																<c:set var="selected" value="selected=\"selected\"" />
+															</c:if>
+														</c:forEach>
+														<option value="${r.id }">${r.phone }</option>
+													</c:forEach>
+												</select>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+							</td>
+							<td class="l_title w150"><b class="cRed">*</b>订单时间</td>
+							<td>
+								<div class="J_toolsBar fl">
+									<div class="t_text w200 ml10">
+										<label> <c:choose>
+												<c:when test="${not empty bean }">
+													<input type="text" name="createDate"
+														value="${bean.createDate }"
+														onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" />
+												</c:when>
+												<c:otherwise>
+													<input type="text" name="createDate"
+														onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" />
+												</c:otherwise>
+											</c:choose>
+										</label>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<c:if test="${not empty user}">
+
+						</c:if>
+						<c:if test="${not empty user}">
+							<tr>
+								<td class="l_title w150">手机号</td>
+								<td>
+									<div class="J_toolsBar fl">
+										<div class="t_text w200 ml10">
+											<label> <c:choose>
+													<c:when test="${not empty bean }">
+														<input type="text" value="${user.phone }"
+															readonly="readonly" />
+													</c:when>
+													<c:otherwise>
+														<input type="text" value="" />
+													</c:otherwise>
+												</c:choose>
+											</label>
+										</div>
+									</div>
+								</td>
+								<td class="l_title w150">账户名</td>
+								<td>
+									<div class="J_toolsBar fl">
+										<div class="t_text w200 ml10">
+											<label> <c:choose>
+													<c:when test="${not empty bean }">
+														<input type="text" value="${user.account }"
+															readonly="readonly" />
+													</c:when>
+													<c:otherwise>
+														<input type="text" value="" />
+													</c:otherwise>
+												</c:choose>
+											</label>
+										</div>
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td class="l_title w150">地址</td>
+								<td>
+									<div class="J_toolsBar fl">
+										<div class="t_text w200 ml10">
+											<label> <c:choose>
+													<c:when test="${not empty bean }">
+														<input type="text" value="${user.address }"
+															readonly="readonly" />
+													</c:when>
+													<c:otherwise>
+														<input type="text" value="" />
+													</c:otherwise>
+												</c:choose>
+											</label>
+										</div>
+									</div>
+								</td>
+								<td class="l_title w150">加盟店等级</td>
+								<td>
+									<div class="J_toolsBar fl">
+										<div class="t_text w200 ml10">
+											<label> <c:choose>
+													<c:when test="${not empty bean }">
+														<select value="${user.vipLevel }" readonly="readonly">
+															<%--                                      				<option value="v0" <c:if test="${'v0' eq user.vipLevel }">selected</c:if>  >普通会员</option>
+ --%>
+															<option value="v1"
+																<c:if test="${'v1' eq user.vipLevel }">selected</c:if>>无</option>
+															<option value="v2"
+																<c:if test="${'v2' eq user.vipLevel }">selected</c:if>>一级加盟店</option>
+															<option value="v3"
+																<c:if test="${'v3' eq user.vipLevel }">selected</c:if>>二级加盟店</option>
+															<option value="v4"
+																<c:if test="${'v4' eq user.vipLevel }">selected</c:if>>三级加盟店</option>
+															<option value="v5"
+																<c:if test="${'v5' eq user.vipLevel }">selected</c:if>>四级加盟店</option>
+															<option value="v6"
+																<c:if test="${'v6' eq user.vipLevel }">selected</c:if>>五级加盟店</option>
+															<option value="v7"
+																<c:if test="${'v7' eq user.vipLevel }">selected</c:if>>六级加盟店</option>
+															<option value="v8"
+																<c:if test="${'v8' eq user.vipLevel }">selected</c:if>>七级加盟店</option>
+														</select>
+													</c:when>
+													<c:otherwise>
+														<select>
+															<!-- <option value="v0">普通会员</option> -->
+															<option value="v1" selected>无</option>
+															<option value="v2">一级加盟店</option>
+															<option value="v3">二级加盟店</option>
+															<option value="v4">三级加盟店</option>
+															<option value="v5">四级加盟店</option>
+															<option value="v6">五级加盟店</option>
+															<option value="v7">六级加盟店</option>
+															<option value="v8">七级加盟店</option>
+														</select>
+													</c:otherwise>
+												</c:choose>
+											</label>
+										</div>
+									</div>
+								</td>
+							</tr>
+
+						</c:if>
+					</table>
+				</div>
 			</div>
-		</div>
-		
-		<!-- 订单明细开始 -->
-		<c:if test="${(bean.jtype == 1) || (bean.jtype == 2)|| (bean.jtype == 13)}">
-		<div class="J_table mt20">
+
+			<!-- 订单明细开始 -->
+			<c:if
+				test="${(bean.jtype == 1) || (bean.jtype == 2)|| (bean.jtype == 13)}">
+				<div class="J_table mt20">
 					<div class="t_table">
 						<table>
 							<thead>
@@ -299,9 +352,7 @@ $(function(){
 									<c:when test="${bean.shopTradeDetails != null }">
 										<c:forEach items="${bean.shopTradeDetails }" var="u">
 											<tr>
-												<td>
-													<img src="${ctx }${u.proLogoImg }">
-												</td>
+												<td><img src="${ctx }${u.proLogoImg }"></td>
 												<td>
 													<div class="t_text tc">${u.proName }</div>
 												</td>
@@ -314,7 +365,7 @@ $(function(){
 												<td>
 													<div class="t_text tc">${u.credits }</div>
 												</td>
-												
+
 											</tr>
 										</c:forEach>
 									</c:when>
@@ -332,11 +383,11 @@ $(function(){
 							</tbody>
 						</table>
 					</div>
-					
+
 				</div>
-				</c:if>
-				<!-- 订单明细结束 -->
-				
+			</c:if>
+			<!-- 订单明细结束 -->
+
 		</form>
 	</div>
 

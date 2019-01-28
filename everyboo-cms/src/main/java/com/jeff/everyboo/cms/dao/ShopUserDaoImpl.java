@@ -94,7 +94,7 @@ public class ShopUserDaoImpl extends CustomBaseSqlDaoImpl implements ShopUserDao
 
     public List<Map<String, Object>> queryUser2List(String phone){
     	StringBuilder sql = new StringBuilder();
-    	sql.append("select account,nick_name as nickNmae,phone,level,vip_level as viplevel  from  shop_user where ref_phone=? ");
+    	sql.append("select id,account,nick_name as nickNmae,phone,level,vip_level as viplevel  from  shop_user where ref_phone=? ");
     	
     	List<Object> params = new ArrayList<>();
     	params.add(phone);
@@ -103,7 +103,7 @@ public class ShopUserDaoImpl extends CustomBaseSqlDaoImpl implements ShopUserDao
     
     public List<Map<String, Object>> queryUser3List(String phone){
     	StringBuilder sql = new StringBuilder();
-    	sql.append("SELECT account,nick_name as nickName,phone,level,vip_level as viplevel from shop_user where ref_phone in (select phone from  shop_user where ref_phone=? )");
+    	sql.append("SELECT id,account,nick_name as nickName,phone,level,vip_level as viplevel from shop_user where ref_phone in (select phone from  shop_user where ref_phone=? )");
     	List<Object> params = new ArrayList<>();
     	params.add(phone);
     	return this.querySqlObjects(sql.toString(), params);
@@ -115,7 +115,7 @@ public class ShopUserDaoImpl extends CustomBaseSqlDaoImpl implements ShopUserDao
      */
     public List<Map<String, Object>> queryUser4List(String phone){
     	StringBuilder sql = new StringBuilder();
-    	sql.append("select account,nick_name as nickNmae,phone,level,vip_level as viplevel,(SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) from shop_trade where user_id=t.id and type=1) as selfyeji   from  shop_user t where ref_phone=? ");
+    	sql.append("select id,account,nick_name as nickNmae,phone,level,vip_level as viplevel,(SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) from shop_trade where user_id=t.id and type=1) as selfyeji   from  shop_user t where ref_phone=? ");
     	
     	List<Object> params = new ArrayList<>();
     	params.add(phone);
@@ -128,7 +128,7 @@ public class ShopUserDaoImpl extends CustomBaseSqlDaoImpl implements ShopUserDao
      */
     public List<Map<String, Object>> queryUser5List(String phone){
     	StringBuilder sql = new StringBuilder();
-    	sql.append("SELECT account,nick_name as nickName,phone,level,vip_level as viplevel ,(SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) from shop_trade where user_id=t.id and type=1) as selfyeji  from shop_user t where ref_phone in (select phone from  shop_user where ref_phone=? )");
+    	sql.append("SELECT id,account,nick_name as nickName,phone,level,vip_level as viplevel ,t.ref_phone as refPhone ,(SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) from shop_trade where user_id=t.id and type=1) as selfyeji ,(SELECT IFNULL(SUM(ABS(t2.price)+ABS(t2.duihuan)+ABS(t2.credits)),0) from shop_trade t2 where t2.user_id in (SELECT t3.id from shop_user t3 where t3.ref_phone=t.phone)  and t2.type=1)  as zituiyeji ,(SELECT IFNULL(SUM(ABS(t5.price)+ABS(t5.duihuan)+ABS(t5.credits)),0) from shop_trade t5 LEFT JOIN shop_user t6 on t5.user_id =t6.id and t5.type=1 where  t6.ref_phone in (SELECT t4.phone from shop_user t4 where t4.ref_phone=t.phone)) as jiantuiyeji from shop_user t where ref_phone in (select phone from  shop_user where ref_phone=? )");
     	List<Object> params = new ArrayList<>();
     	params.add(phone);
     	return this.querySqlObjects(sql.toString(), params);

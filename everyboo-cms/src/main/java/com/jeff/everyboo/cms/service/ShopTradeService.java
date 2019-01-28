@@ -103,5 +103,32 @@ public class ShopTradeService extends CommonService<ShopTrade, Integer> {
 	public String queryJiantuiXiaofei(String phone) {
 		return shopTradeDao.queryJiantuiXiaofei(phone);
 	}
+	
+	/**abc成员中c的收入
+	 * @param phone
+	 * @param type 1 直推  2 间推
+	 * @return
+	 */
+	public String queryJiantuiShouru(String phone, int type) {
+		return shopTradeDao.queryJiantuiShouru(phone, type);
+	}
+
+	/**abc中b的收入
+	 * @param phone
+	 * @param type 1 直推 2 间推
+	 * @return
+	 */
+	public String queryZhituiShouru(String phone, int type) {
+		return shopTradeDao.queryZhituiShouru(phone, type);
+	}
+
+	/**abc中b的收入
+	 * @param phone
+	 * @param type 1 直推 2 间推
+	 * @return
+	 */
+	public String queryGerenShouru(int userid, int type) {
+		return shopTradeDao.queryGerenShouru(userid, type);
+	}
 
 }

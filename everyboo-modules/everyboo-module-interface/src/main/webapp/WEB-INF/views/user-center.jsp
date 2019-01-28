@@ -88,7 +88,7 @@
 							<div id="myTabContent" class="tab-content">
 								<div class="col-md-6 col-sm-12 tab-pane fade in active" id="homeinfo">
 									<div class="table-content table-responsive  my-table">
-										<table class="table-hover">
+										<table >
 											<thead>
 												<tr>
 													<th colspan="2" class="text-center">&nbsp;&nbsp;</th>
@@ -138,7 +138,7 @@
 								</div>
 								<div class="col-md-6 col-sm-12 tab-pane fade" id="homedetail">
 									<div class="table-content table-responsive my-table">
-										<table class="table-hover">
+										<table >
 											<thead>
 												<tr>
 													<th colspan="3" class="text-center">&nbsp;&nbsp;</th>
@@ -1026,6 +1026,7 @@
                                             view.errMsg = '余额提现提交成功'
                                             self.getUser()
                                             self.hideUserOpt()
+                                            view.withdrawOpt = false
                                         } else if (data.success === false) {
                                             view.userOpt = false
                                             view.errMsg = data.msg

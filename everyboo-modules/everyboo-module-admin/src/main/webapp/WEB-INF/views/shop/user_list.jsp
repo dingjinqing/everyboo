@@ -319,6 +319,7 @@
 				layer.open({
 					title : title,
 					type : 1,
+					maxmin: true,
 					area : [ '860px', '600px' ],
 					content : str,
 					/* btn : [ '确定', '取消' ], */

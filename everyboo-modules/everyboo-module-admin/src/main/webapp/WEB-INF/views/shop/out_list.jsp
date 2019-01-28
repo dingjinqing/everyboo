@@ -66,11 +66,11 @@
 							class="icon"></i>查询
 						</a>
 					</div>
-					<!-- <div class="t_button ml10">
+					<div class="t_button ml10">
 						<a class="abtn blue" href="javascript:myEdit();"> <i
 							class="icon"></i>新增
 						</a>
-					</div> -->
+					</div>
 					<div class="t_button ml10">
 	               		<a class="abtn maxblue" href="javascript:myExport();">
 	               			<i class="icon"></i>导出
