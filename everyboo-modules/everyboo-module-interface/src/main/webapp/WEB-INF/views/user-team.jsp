@@ -59,6 +59,8 @@
                                         <tr>
                                             <th>姓名</th>
                                             <th>手机号</th>
+                                            <!-- <th>消费金额</th> -->
+                                            <th>营业额</th>
                                             <th>会员等级</th>
                                             <th>加盟店等级</th>
                                             <!-- <th>昵称</th> -->
@@ -68,6 +70,10 @@
                                         <tr v-for="item in directTeam">
                                             <td v-text="item.account"></td>
                                             <td v-text="item.phone"></td>
+                                            <!-- <td v-text="item.selfyeji"></td> -->
+                                            <!-- <td v-text="item.zituiyeji"></td> -->
+                                            <td v-if="willShow">{{ item.zituiyeji }}</td>
+        									<td v-else><button @click="showyeji()">查看</button></td>
                                             <td v-text="item.level"></td>
                                             <td v-text="item.userLevel"></td>
                                             <!-- <td v-text="item.nickname"></td> -->
@@ -83,6 +89,8 @@
                                         <thead>
                                         <tr>
                                             <th>姓名</th>
+                                            <th>推荐人手机号</th>
+                                            <!-- <th>消费金额</th> -->
                                             <th>会员等级</th>
                                             <th>加盟店等级</th>
                                             <!-- <th>昵称</th> -->
@@ -91,6 +99,8 @@
                                         <tbody>
                                         <tr v-for="item in otherTeam">
                                             <td v-text="item.account"></td>
+                                            <td v-text="item.refPhone"></td>
+                                            <!-- <td v-text="item.selfyeji"></td> -->
                                             <td v-text="item.level"></td>
                                             <td v-text="item.userLevel"></td>
                                             <!-- <td v-text="item.nickname"></td> -->
@@ -138,7 +148,8 @@
                 el: '#content',
                 data: {
                     directTeam: [],
-                    otherTeam: []
+                    otherTeam: [],
+            		willShow:false
                 },
                 created: function() {
 
@@ -171,6 +182,7 @@
                                     view.directTeam.forEach(function (item, index) {
                                         item.userLevel = USER_LEVELS[item.viplevel]
                                         item.level = LEVELS[item.level]
+                                        item.zituiyeji = item.zituiyeji+item.jiantuiyeji+item.activeBill
                                     })
                                     view.otherTeam.forEach(function (item, index) {
                                         item.userLevel = USER_LEVELS[item.viplevel]
@@ -181,6 +193,13 @@
                                 }
                             }
                         )
+                    },
+                    showyeji:function(){
+                        if(this.willShow==true){
+                            this.willShow=false;
+                        }else{
+                            this.willShow=true
+                        }
                     },
                     meanMenu: function () {
                         this.$nextTick(function() {

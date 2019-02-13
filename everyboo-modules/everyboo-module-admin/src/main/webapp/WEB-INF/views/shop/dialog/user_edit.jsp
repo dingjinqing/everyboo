@@ -248,25 +248,7 @@
 									</div>
 								</div>
 							</td>
-							<%-- <td class="l_title w150"><b class="cRed">*</b>激活的健康值</td>
-							<td>
-								<div class="J_toolsBar fl">
-									<div class="t_text w200 ml10">
-										<label> <c:choose>
-												<c:when test="${not empty bean }">
-													<input type="text" name="shopUserExts.activeBill"
-														data-rule="转让获得的健康值:required;"
-														value="${bean.shopUserExts.activeBill }" />
-												</c:when>
-												<c:otherwise>
-													<input type="text" name="shopUserExts.activeBill"
-														data-rule="转让获得的健康值:required;" value="" />
-												</c:otherwise>
-											</c:choose>
-										</label>
-									</div>
-								</div>
-							</td> --%>
+							
 							<td class="l_title w150"><b class="cRed">*</b>销售收益</td>
 							<td>
 								<div class="J_toolsBar fl">
@@ -413,7 +395,7 @@
 						</tr>
 						<tr>
 							<td class="l_title w150"><b class="cRed">*</b> 会员等级</td>
-							<td colspan="3">
+							<td colspan="1">
 								<div class="J_toolsBar fl">
 									<div class="t_text w200 ml10">
 										<label> <c:choose>
@@ -436,6 +418,24 @@
 														<option value="t2">铂金会员</option>
 														<option value="t3">钻石会员</option>
 													</select>
+												</c:otherwise>
+											</c:choose>
+										</label>
+									</div>
+								</div>
+							</td>
+							<td class="l_title w150">营业额</td>
+							<td>
+								<div class="J_toolsBar fl">
+									<div class="t_text w200 ml10">
+										<label> <c:choose>
+												<c:when test="${not empty bean }">
+													<input type="text" name="shopUserExts.activeBill"
+														value="${bean.shopUserExts.activeBill }" />
+												</c:when>
+												<c:otherwise>
+													<input type="text" name="shopUserExts.activeBill"
+														value="" />
 												</c:otherwise>
 											</c:choose>
 										</label>

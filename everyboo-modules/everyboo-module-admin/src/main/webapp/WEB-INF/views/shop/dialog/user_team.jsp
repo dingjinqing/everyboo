@@ -146,7 +146,7 @@
 						<div class="J_toolsBar fl">
 							<div class="t_text w200 ml10">
 								<label> <input type="text" name="xiaofei2"
-									value="${xiaofei2+xiaofei3 }" />
+									value="${xiaofei2+xiaofei3+bean.shopUserExts.activeBill }" />
 								</label>
 							</div>
 						</div>
@@ -251,12 +251,13 @@
 				<table>
 					<thead>
 						<tr>
-							<td colspan="6"><span> 一级销售团队</span></td>
+							<td colspan="7"><span> 一级销售团队</span></td>
 						</tr>
 						<tr>
 							<td><span>姓名</span></td>
 							<td><span>手机号</span></td>
 							<td><span>消费金额</span></td>
+							<td><span>营业额</span></td>
 							<td><span>会员等级</span></td>
 							<td><span>加盟店等级</span></td>
 							<td><span>操作</span></td>
@@ -275,6 +276,9 @@
 										</td>
 										<td>
 											<div class="t_text tc">${u.selfyeji }</div>
+										</td>
+										<td>
+											<div class="t_text tc">${u.zituiyeji+u.jiantuiyeji+u.activeBill }</div>
 										</td>
 										<td>
 											<div class="t_text tc">
@@ -340,7 +344,7 @@
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td colspan="6">
+									<td colspan="7">
 										<div class="J_null mt40">
 											<img src="${ctx }/static/images/null.png">
 											<p>暂无相关数据</p>
@@ -361,14 +365,13 @@
 				<table>
 					<thead>
 						<tr>
-							<td colspan="9"><span>二级销售团队 </span></td>
+							<td colspan="8"><span>二级销售团队 </span></td>
 						</tr>
 						<tr>
 							<td><span>姓名</span></td>
 							<td><span>手机号</span></td>
 							<td><span>消费金额</span></td>
-							<td><span>直推金额</span></td>
-							<td><span>间推金额</span></td>
+							<td><span>营业额</span></td>
 							<td><span>会员等级</span></td>
 							<td><span>加盟店等级</span></td>
 							<td><span>推荐人手机号</span></td>
@@ -390,10 +393,7 @@
 											<div class="t_text tc">${u.selfyeji }</div>
 										</td>
 										<td>
-											<div class="t_text tc">${u.zituiyeji }</div>
-										</td>
-										<td>
-											<div class="t_text tc">${u.jiantuiyeji }</div>
+											<div class="t_text tc">${u.zituiyeji+u.jiantuiyeji+u.activeBill }</div>
 										</td>
 										<td>
 											<div class="t_text tc">
@@ -463,7 +463,7 @@
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td colspan="9">
+									<td colspan="8">
 										<div class="J_null mt40">
 											<img src="${ctx }/static/images/null.png">
 											<p>暂无相关数据</p>

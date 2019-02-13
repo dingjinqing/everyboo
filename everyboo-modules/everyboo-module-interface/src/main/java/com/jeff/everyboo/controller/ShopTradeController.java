@@ -343,15 +343,15 @@ public class ShopTradeController {
 					userService.update(ztUser);
 				} 
 //				如果未超出上限，继续分红，否则不分红
-				BigDecimal ztshangxian = new BigDecimal(rule.get(ztUser.getLevel()).toString());
-				BigDecimal zttuijian = new BigDecimal(tuijian.get(ztUser.getId().toString())==null?"0":tuijian.get(ztUser.getId().toString()));
-				BigDecimal ztfenhong = new BigDecimal(gongxiang.get(ztUser.getId().toString())==null?"0":gongxiang.get(ztUser.getId().toString()));
-				if (ztshangxian.compareTo(zttuijian)>0 && ztshangxian.compareTo(ztfenhong)>0) {
+//				BigDecimal ztshangxian = new BigDecimal(rule.get(ztUser.getLevel()).toString());
+//				BigDecimal zttuijian = new BigDecimal(tuijian.get(ztUser.getId().toString())==null?"0":tuijian.get(ztUser.getId().toString()));
+//				BigDecimal ztfenhong = new BigDecimal(gongxiang.get(ztUser.getId().toString())==null?"0":gongxiang.get(ztUser.getId().toString()));
+//				if (ztshangxian.compareTo(zttuijian)>0 && ztshangxian.compareTo(ztfenhong)>0) {
 					BigDecimal a2 = new BigDecimal(map.get("t1")).multiply(shopTrade.getPrice().add(new BigDecimal(shopTrade.getCredits())).abs());
 					this.saveTradeInfo(a2, ztUser, 10);
-				}else {
-					System.out.println(ztUser.getId()+"超出上限，不进行直推奖励");
-				}
+//				}else {
+//					System.out.println(ztUser.getId()+"超出上限，不进行直推奖励");
+//				}
 
 				// 如果介绍人电话不为空，介绍人获得间推收益
 				if (StringUtils.isNotEmpty(ztUser.getRefPhone())) {
@@ -362,15 +362,15 @@ public class ShopTradeController {
 					if (jtUser != null) {
 						// 邀请用户复购的直推返点 给用户本身账户余额增加
 //						如果未超出上限，继续分红，否则不分红
-						BigDecimal jtshangxian = new BigDecimal(rule.get(jtUser.getLevel()).toString());
-						BigDecimal jttuijian = new BigDecimal(tuijian.get(jtUser.getId().toString())==null?"0":tuijian.get(jtUser.getId().toString()));
-						BigDecimal jtfenhong = new BigDecimal(gongxiang.get(jtUser.getId().toString())==null?"0":gongxiang.get(jtUser.getId().toString()));
-						if (jtshangxian.compareTo(jttuijian)>0 && jtshangxian.compareTo(jtfenhong)>0) {
+//						BigDecimal jtshangxian = new BigDecimal(rule.get(jtUser.getLevel()).toString());
+//						BigDecimal jttuijian = new BigDecimal(tuijian.get(jtUser.getId().toString())==null?"0":tuijian.get(jtUser.getId().toString()));
+//						BigDecimal jtfenhong = new BigDecimal(gongxiang.get(jtUser.getId().toString())==null?"0":gongxiang.get(jtUser.getId().toString()));
+//						if (jtshangxian.compareTo(jttuijian)>0 && jtshangxian.compareTo(jtfenhong)>0) {
 							BigDecimal a3 = new BigDecimal(map.get("t2")).multiply(shopTrade.getPrice().add(new BigDecimal(shopTrade.getCredits())).abs());
 							this.saveTradeInfo(a3, jtUser, 11);
-						}else {
-							System.out.println(jtUser.getId()+"超出上限，不进行间推奖励");
-						}
+//						}else {
+//							System.out.println(jtUser.getId()+"超出上限，不进行间推奖励");
+//						}
 					}
 				}
 			}

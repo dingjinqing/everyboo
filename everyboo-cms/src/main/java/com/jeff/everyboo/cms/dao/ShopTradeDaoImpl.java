@@ -191,7 +191,7 @@ public class ShopTradeDaoImpl extends CustomBaseSqlDaoImpl implements ShopTradeD
 		// TODO Auto-generated method stub
 		StringBuilder sql = new StringBuilder();
 		if (type==1) {
-			sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade where user_id =?  and type in (3,10) ");
+			sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade where user_id =?  and type =10 ");
 		} else {
 			sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade where user_id =?  and type=11 ");
 		}
@@ -229,7 +229,7 @@ public class ShopTradeDaoImpl extends CustomBaseSqlDaoImpl implements ShopTradeD
 		// TODO Auto-generated method stub
 		StringBuilder sql = new StringBuilder();
 		if (type==1) {
-			sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade t where t.user_id in (SELECT t3.id from shop_user t3 where t3.ref_phone=?)  and t.type in (3,10) " );
+			sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade t where t.user_id in (SELECT t3.id from shop_user t3 where t3.ref_phone=?)  and t.type =10 " );
 		} else {
 			sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade t where t.user_id in (SELECT t3.id from shop_user t3 where t3.ref_phone=?)  and t.type =11 " );
 		}
@@ -266,7 +266,7 @@ public class ShopTradeDaoImpl extends CustomBaseSqlDaoImpl implements ShopTradeD
 		// TODO Auto-generated method stub
 		StringBuilder sql = new StringBuilder();
 		if (type==1) {
-			sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade t LEFT JOIN shop_user t3 on t.user_id =t3.id and t.type in (3,10) where  t3.ref_phone in (SELECT t4.phone from shop_user t4 where t4.ref_phone=?) " );
+			sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade t LEFT JOIN shop_user t3 on t.user_id =t3.id and t.type =10 where  t3.ref_phone in (SELECT t4.phone from shop_user t4 where t4.ref_phone=?) " );
 		}else {
 			sql.append("SELECT IFNULL(SUM(ABS(price)+ABS(duihuan)+ABS(credits)),0) as xiaofei from shop_trade t LEFT JOIN shop_user t3 on t.user_id =t3.id and t.type =11 where  t3.ref_phone in (SELECT t4.phone from shop_user t4 where t4.ref_phone=?) " );
 
