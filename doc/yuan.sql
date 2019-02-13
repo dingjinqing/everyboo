@@ -422,7 +422,7 @@ CREATE TABLE `shop_trade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `trade_no` varchar(32) NOT NULL COMMENT '订单编号',
   `user_id` int(11) NOT NULL COMMENT '交易用户id',
-  `type` tinyint(2) NOT NULL COMMENT '1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点12提现健康值13项目合作14提现余额15充值',
+  `type` tinyint(2) NOT NULL COMMENT '1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9赠送积分10直推赠送积分11间推赠送积分12提现健康值13项目合作14提现余额15充值',
   `price` decimal(8,2) NOT NULL COMMENT '从用户角度考虑，付款是-，收益是+',
   `status` tinyint(2) DEFAULT '3' COMMENT '1.订单提交（待发货） 2.后台发货（已发货） 3.确认收货  购买商品流程',
   `remark` varchar(512) DEFAULT NULL COMMENT '备注',

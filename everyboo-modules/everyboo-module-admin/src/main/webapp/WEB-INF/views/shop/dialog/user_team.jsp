@@ -224,7 +224,7 @@
 						<div class="J_toolsBar fl">
 							<div class="t_text w200 ml10">
 								<label> <input type="text" name="shouru11"
-									value="${shouru11+shouru12+shouru13 }" />
+									value="${shouru12+shouru13 }" />
 								</label>
 							</div>
 						</div>
@@ -234,7 +234,7 @@
 						<div class="J_toolsBar fl">
 							<div class="t_text w200 ml10">
 								<label> <input type="text" name="shouru21"
-									value="${shouru21+shouru22+shouru23 }" />
+									value="${shouru22+shouru23 }" />
 								</label>
 							</div>
 						</div>

@@ -127,7 +127,7 @@ $(function(){
 														<%-- <option value=1 <c:if test="${1 eq bean.jtype }">selected</c:if> >购买商品</option>
                                      				<option value=2 <c:if test="${2 eq bean.jtype }">selected</c:if> >复购产品</option> --%>
 														<option value=3
-															<c:if test="${3 eq bean.jtype }">selected</c:if>>一级销售奖(第一次)</option>
+															<c:if test="${3 eq bean.jtype }">selected</c:if>>赠送兑换积分</option>
 														<%-- <option value=4
 															<c:if test="${4 eq bean.jtype }">selected</c:if>>间推</option> --%>
 														<option value=5
@@ -139,7 +139,7 @@ $(function(){
 														<option value=8
 															<c:if test="${8 eq bean.jtype }">selected</c:if>>捐赠</option>
 														<option value=9
-															<c:if test="${9 eq bean.jtype }">selected</c:if>>首次购买奖励</option>
+															<c:if test="${9 eq bean.jtype }">selected</c:if>>赠送积分</option>
 														<option value=10
 															<c:if test="${10 eq bean.jtype }">selected</c:if>>一级销售奖</option>
 														<option value=11
@@ -153,13 +153,13 @@ $(function(){
 													<select name="jtype" data-rule="交易类型:required;">
 														<!-- <option value=1  >购买商品</option>
 													<option value=2  >复购产品</option> -->
-														<option value=3>一级销售奖(第一次)</option>
+														<option value=3>赠送兑换积分</option>
 														<!-- <option value=4>间推</option> -->
 														<option value=5>加盟店奖励</option>
 														<option value=6>股权收益</option>
 														<option value=7>共享收益</option>
 														<option value=8>捐赠</option>
-														<option value=9>首次购买奖励</option>
+														<option value=9>赠送积分</option>
 														<option value=10>一级销售奖</option>
 														<option value=11>二级销售奖</option>
 														<option value=12>提现健康值</option>

@@ -72,7 +72,7 @@
                                      <span>商品名称</span>
                                  </td>
                                  <td>
-                                     <span>购买返点</span>
+                                     <span>赠送积分</span>
                                  </td>
                                  <td>
                                      <span>一级销售奖</span>

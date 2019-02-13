@@ -73,7 +73,7 @@
                                             <!-- <td v-text="item.selfyeji"></td> -->
                                             <!-- <td v-text="item.zituiyeji"></td> -->
                                             <td v-if="willShow">{{ item.zituiyeji }}</td>
-        									<td v-else><button @click="showyeji()">查看</button></td>
+        									<td v-else><a style="color:rgb(87, 150, 211);font-size:16px;"  @click="showyeji()">查看</a></td>
                                             <td v-text="item.level"></td>
                                             <td v-text="item.userLevel"></td>
                                             <!-- <td v-text="item.nickname"></td> -->

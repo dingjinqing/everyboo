@@ -123,7 +123,7 @@ public class ShopTradeController {
 		if (StringUtils.isNotBlank(jtype)) {
 			jty = Integer.parseInt(jtype);
 		} else {
-			// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点12提现健康值13项目合作14提现余额15充值
+			// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9赠送积分10直推赠送积分11间推赠送积分12提现健康值13项目合作14提现余额15充值
 			Integer[] types = { 16, 17 };
 			List<Integer> list = Arrays.asList(types);
 			userQueryDTO.setTypes(list);
@@ -167,7 +167,7 @@ public class ShopTradeController {
 		if (StringUtils.isNotBlank(jtype)) {
 			jty = Integer.parseInt(jtype);
 		} else {
-			// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点12提现健康值13项目合作14提现余额15充值
+			// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9赠送积分10直推赠送积分11间推赠送积分12提现健康值13项目合作14提现余额15充值
 			Integer[] types = { 14, 15 };
 			List<Integer> list = Arrays.asList(types);
 			userQueryDTO.setTypes(list);
@@ -212,7 +212,7 @@ public class ShopTradeController {
 		if (StringUtils.isNotBlank(jtype)) {
 			jty = Integer.parseInt(jtype);
 		} else {
-			// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点12提现健康值13项目合作14提现余额15充值
+			// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9赠送积分10直推赠送积分11间推赠送积分12提现健康值13项目合作14提现余额15充值
 			Integer[] types = { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 			List<Integer> list = Arrays.asList(types);
 			userQueryDTO.setTypes(list);

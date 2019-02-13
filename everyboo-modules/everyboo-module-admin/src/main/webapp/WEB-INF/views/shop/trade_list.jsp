@@ -37,7 +37,7 @@
 							<%-- <option value=2
 								<c:if test="${2 eq queryDTO.jtype }">selected</c:if>>复购产品</option>
 							<option value=3
-								<c:if test="${3 eq queryDTO.jtype }">selected</c:if>>一级销售奖</option>
+								<c:if test="${3 eq queryDTO.jtype }">selected</c:if>>赠送兑换积分</option>
 							<option value=4
 								<c:if test="${4 eq queryDTO.jtype }">selected</c:if>>间推奖励</option>
 							<option value=5
@@ -49,7 +49,7 @@
 							<option value=8
 								<c:if test="${8 eq queryDTO.jtype }">selected</c:if>>捐赠</option>
 							<option value=9
-								<c:if test="${9 eq queryDTO.jtype }">selected</c:if>>购买返点</option>
+								<c:if test="${9 eq queryDTO.jtype }">selected</c:if>>赠送积分</option>
 							<option value=10
 								<c:if test="${10 eq queryDTO.jtype }">selected</c:if>>一级销售奖</option>
 							<option value=11
@@ -131,7 +131,7 @@
 		                                     			复购产品
 		                                     		</c:when>
 															<c:when test="${3 eq u.jtype}">
-		                                     			一级销售奖
+		                                     			赠送兑换积分
 		                                     		</c:when>
 															<c:when test="${4 eq u.jtype}">
 		                                     			间推奖励
@@ -149,7 +149,7 @@
 		                                     			捐赠余额
 		                                     		</c:when>
 															<c:when test="${9 eq u.jtype}">
-		                                     			购买返点
+		                                     			赠送积分
 		                                     		</c:when>
 															<c:when test="${10 eq u.jtype}">
 		                                     			一级销售奖

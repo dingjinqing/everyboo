@@ -115,7 +115,7 @@ $(function(){
                                      				<option value=6 <c:if test="${6 eq bean.jtype }">selected</c:if> >股权收益</option>
                                      				<option value=7 <c:if test="${7 eq bean.jtype }">selected</c:if> >平台分红</option>
                                      				<option value=8 <c:if test="${8 eq bean.jtype }">selected</c:if> >捐赠</option>
-                                     				<option value=9 <c:if test="${9 eq bean.jtype }">selected</c:if> >购买返点</option>
+                                     				<option value=9 <c:if test="${9 eq bean.jtype }">selected</c:if> >赠送积分</option>
                                      				<option value=10 <c:if test="${10 eq bean.jtype }">selected</c:if> >一级销售奖</option>
                                      				<option value=11 <c:if test="${11 eq bean.jtype }">selected</c:if> >二级销售奖</option>
                                      				<option value=12 <c:if test="${12 eq bean.jtype }">selected</c:if> >提现健康值</option> --%>
@@ -132,7 +132,7 @@ $(function(){
 													<option value=6  >股权收益</option>
 													<option value=7  >平台分红</option>
 													<option value=8  >捐赠</option>
-													<option value=9  >购买返点</option>
+													<option value=9  >赠送积分</option>
 													<option value=10 >一级销售奖</option>
 													<option value=11 >二级销售奖</option>
 													<option value=12 >提现健康值</option>

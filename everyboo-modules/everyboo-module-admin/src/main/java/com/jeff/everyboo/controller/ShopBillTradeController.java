@@ -251,7 +251,7 @@ public class ShopBillTradeController {
             	ztTrade.setPrice(jine);
             	ztTrade.setUserId(user.getId());
             	ztTrade.setTradeNo(WebHelper.getDayNo());
-            	ztTrade.setJtype(12);//1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点12提现健康值13项目合作
+            	ztTrade.setJtype(12);//1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9赠送积分10直推赠送积分11间推赠送积分12提现健康值13项目合作
             	ztTrade.setStatus(3);
             	ztTrade.setCredits(0);
             	ztTrade.setCreateDate(new Date());

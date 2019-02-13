@@ -186,7 +186,7 @@ public class ShopTradeController {
 			bean.setCreateDate(new Date());
 			/*
 			 * 购买商品走审核流程 1.购买会员大礼包2.复购产品 13项目合作14提现余额15充值
-			 * （3-12后台生成）3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点12提现健康值
+			 * （3-12后台生成）3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9赠送积分10直推赠送积分11间推赠送积分12提现健康值
 			 */
 			if (bean.getJtype() == 1 || bean.getJtype() == 2 || bean.getJtype() == 13 || bean.getJtype() == 14
 					|| bean.getJtype() == 15) {
@@ -409,7 +409,7 @@ public class ShopTradeController {
 		ztTrade.setPrice(ba);
 		ztTrade.setUserId(user.getId());
 		ztTrade.setTradeNo(WebHelper.getDayNo());
-		ztTrade.setJtype(type);// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9购买返点10直推购买返点11间推购买返点
+		ztTrade.setJtype(type);// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9赠送积分10直推赠送积分11间推赠送积分
 		ztTrade.setStatus(3);
 		ztTrade.setCredits(0);
 		ztTrade.setDuihuan(BigDecimal.ZERO);
