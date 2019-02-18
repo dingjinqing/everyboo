@@ -60,7 +60,10 @@
                                             <th>姓名</th>
                                             <th>手机号</th>
                                             <!-- <th>消费金额</th> -->
-                                            <th>营业额</th>
+                                            <th v-if="willShow">营业额</th>
+                                            <th v-else>
+                                            	<button style="color:rgb(87, 150, 211);font-size:16px;"  @click="showyeji()">营业额</button>
+                                            </th>
                                             <th>会员等级</th>
                                             <th>加盟店等级</th>
                                             <!-- <th>昵称</th> -->
@@ -73,7 +76,7 @@
                                             <!-- <td v-text="item.selfyeji"></td> -->
                                             <!-- <td v-text="item.zituiyeji"></td> -->
                                             <td v-if="willShow">{{ item.zituiyeji }}</td>
-        									<td v-else><a style="color:rgb(87, 150, 211);font-size:16px;"  @click="showyeji()">查看</a></td>
+        									<td v-else>隐藏</td>
                                             <td v-text="item.level"></td>
                                             <td v-text="item.userLevel"></td>
                                             <!-- <td v-text="item.nickname"></td> -->

@@ -259,7 +259,7 @@
 										v-model="transferPayPwd" placeholder="请输入交易密码" type="password">
 									<span v-html="errMsg" style="color: red; font-size: 14px;"></span>
 									<button v-if="!userOpt" class="login-btn" type="button"
-										@click="transfer">确定转让</button>
+										@click="transfer">确定赠送</button>
 									<button v-else class="login-btn" type="button"
 										disabled="disabled">正在确定……</button>
 								</form>
@@ -1118,9 +1118,10 @@
                                     dataType: "json",
                                     success: function (data) {
                                         if (data.success === true) {
-                                            view.errMsg = '余额转账成功'
+                                            view.errMsg = '余额赠送成功'
                                             self.getUser()
                                             self.hideUserOpt()
+                                            view.transferOpt = false
                                         } else if (data.success === false) {
                                             view.userOpt = false
                                             view.errMsg = data.msg
