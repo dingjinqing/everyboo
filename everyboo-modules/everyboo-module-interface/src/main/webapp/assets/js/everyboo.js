@@ -1,5 +1,4 @@
-//var BASE_URL = 'http://47.106.142.171:8080';
-//var BASE_URL = 'https://www.everyboo.cn';
+
 var BASE_URL = 'http://localhost:8080';
 var MODULE_WEB = '/everyboo-module-interface';
 var MODULE_ADMIN = '/everyboo-module-admin';
