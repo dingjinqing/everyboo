@@ -424,7 +424,7 @@
 									</div>
 								</div>
 							</td>
-							<td class="l_title w150">营业额</td>
+							<td class="l_title w150">补充营业额</td>
 							<td>
 								<div class="J_toolsBar fl">
 									<div class="t_text w200 ml10">
@@ -436,6 +436,25 @@
 												<c:otherwise>
 													<input type="text" name="shopUserExts.activeBill"
 														value="" />
+												</c:otherwise>
+											</c:choose>
+										</label>
+									</div>
+								</div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="l_title w150">短信接收手机</td>
+							<td colspan="3">
+								<div class="J_toolsBar fl">
+									<div class="t_text w200 ml10">
+										<label> <c:choose>
+												<c:when test="${not empty bean }">
+													<input type="text" name="recivePhone" value="${bean.recivePhone }" />
+												</c:when>
+												<c:otherwise>
+													<input type="text" name="recivePhone"/>
 												</c:otherwise>
 											</c:choose>
 										</label>

@@ -227,4 +227,13 @@ public class ShopTrade implements java.io.Serializable {
 		this.duihuan = duihuan;
 	}
 
+
+
+	@Override
+	public String toString() {
+		return "ShopTrade [id=" + id + ", tradeNo=" + tradeNo + ", userId=" + userId + ", jtype=" + jtype + ", duihuan="
+				+ duihuan + ", price=" + price + ", status=" + status + ", credits=" + credits + ", remark=" + remark
+				+ ", createDate=" + createDate + ", createBy=" + createBy + ", updateDate=" + updateDate + "]";
+	}
+	
 }

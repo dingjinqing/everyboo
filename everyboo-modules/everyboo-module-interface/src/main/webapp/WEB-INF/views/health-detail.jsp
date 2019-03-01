@@ -134,7 +134,7 @@
 <script src="<%=path%>/assets/js/main.js"></script>
 <script src="<%=path%>/assets/js/classie.js"></script>
 <script src="<%=path%>/assets/js/vue.min.js"></script>
-<script src="<%=path%>/assets/js/everyboo.js?v=1.1"></script>
+<script src="<%=path%>/assets/js/everyboo.js?v=1.2"></script>
 <script>
     var articleId = '${requestScope.id}'
     var view = new Vue({

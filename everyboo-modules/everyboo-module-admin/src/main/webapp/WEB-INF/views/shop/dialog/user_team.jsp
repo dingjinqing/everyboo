@@ -11,6 +11,15 @@
 
 
 	<div id="addForm" class="mgt20">
+		<form action="${ctx }/shopuser/updateUser" id="editForm" method="post">
+			<input type="hidden" name="id" value="${bean.id }" /> <input
+				type="hidden" name="password" value="${bean.password }" /> <input
+				type="hidden" name="createDate" value="${bean.createDate }" /> <input
+				type="hidden" name="jiaoyimima" value="${bean.jiaoyimima }" /> <input
+				type="hidden" name="shopUserExts.id"
+				value="${bean.shopUserExts.id }" /> <input type="hidden"
+				name="shopUserExts.createDate"
+				value="${bean.shopUserExts.createDate}" />
 		<div class="J_formTable l_form_table">
 			<table class="not_hightlight">
 				<tr>
@@ -119,16 +128,18 @@
 				</tr>
 
 				<tr>
-					<td class="l_title w150">地址</td>
+					<td class="l_title w150">补充营业额</td>
 					<td>
 						<div class="J_toolsBar fl">
 							<div class="t_text w200 ml10">
 								<label> <c:choose>
 										<c:when test="${not empty bean }">
-											<input type="text" name="address" value="${bean.address }" />
+											<input type="text" name="shopUserExts.activeBill"
+												value="${bean.shopUserExts.activeBill }" />
 										</c:when>
 										<c:otherwise>
-											<input type="text" name="address" value="" />
+											<input type="text" name="shopUserExts.activeBill"
+												value="" />
 										</c:otherwise>
 									</c:choose>
 								</label>
@@ -243,7 +254,7 @@
 			</table>
 		</div>
 
-
+		</form>
 		<!--  直推团队成员-->
 		<%-- <c:if test="${not empty zhitui}"> --%>
 		<div class="J_table mt20">
@@ -336,6 +347,7 @@
 										</td>
 										<td>
 											<div class="t_link">
+												<a href="javascript:myEdit('${u.id }');">编辑</a>
 												<a href="javascript:myShow('${u.id }');">团队</a>
 											</div>
 										</td>
@@ -454,6 +466,7 @@
 										</td>
 										<td>
 											<div class="t_link">
+												<a href="javascript:myEdit('${u.id }');">编辑</a>
 												<a href="javascript:myShow('${u.id }');">团队</a>
 											</div>
 										</td>
@@ -484,6 +497,62 @@
 
 	</div>
 	<script type="text/javascript">
+	//表单验证
+	$(function() {
+		$('#editForm').validator({
+			fields : {
+				name : '角色名称:required;length[~50]'
+			},
+			valid : function(form) {
+				var laodIdx = layer.load();
+
+				$('#editForm').ajaxSubmit({
+					data : {},
+					traditional : true,
+					success : function(result) {
+						layer.close(laodIdx);
+						if (result.success) {
+							layer.alert('保存成功', function() {
+								window.location.reload();
+							});
+						} else {
+							layer.alert(result.msg);
+						}
+					}
+				});
+			}
+		});
+
+	});
+	
+		function myEdit(id) {
+			var loadIdx = layer.load();
+			var title = '添加会员';
+			if (!id) {
+				id = '';
+			} else {
+				title = '修改会员';
+			}
+			layer.close(loadIdx-1);
+			$.post('${ctx}/shopuser/edit?id=' + id, {}, function(str) {
+				layer.close(loadIdx);
+				layer.open({
+					title : title,
+					type : 1,
+					area : [ '860px', '600px' ],
+					content : str,
+					btn : [ '确定', '取消' ],
+					yes : function(index, layero) {
+						/* $("#editForm").attr("action","${ctx}/shopuser/save"); */
+						$('#editForm').submit();
+					},
+					btn2 : function(index, layero) {
+						layer.close(index);
+					}
+				});
+			});
+		}
+	
 		function myShow(id) {
 			var loadIdx = layer.load();
 			var title = '团队显示';
@@ -492,8 +561,8 @@
 			} else {
 				title = '团队显示';
 			}
+			layer.close(loadIdx-1);
 			$.post('${ctx}/shopuser/show?id=' + id, {}, function(str) {
-
 				layer.close(loadIdx);
 				layer.open({
 					title : title,
@@ -501,11 +570,12 @@
 					maxmin: true,
 					area : [ '860px', '600px' ],
 					content : str,
-					/* btn : [ '确定', '取消' ], */
-					btn : [ '取消' ],
-					/* yes : function(index, layero) {
+					btn : [ '确定', '取消' ], 
+					/* btn : [ '取消' ], */
+					yes : function(index, layero) {
+						/* $("#editForm").attr("action","${ctx}/shopuser/updateUser"); */
 						$('#editForm').submit();
-					}, */
+					},
 					btn2 : function(index, layero) {
 						layer.close(index);
 					}

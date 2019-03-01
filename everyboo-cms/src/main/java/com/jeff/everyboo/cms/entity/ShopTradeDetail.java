@@ -144,4 +144,11 @@ public class ShopTradeDetail implements java.io.Serializable {
 		this.duihuan = duihuan;
 	}
 
+	@Override
+	public String toString() {
+		return "ShopTradeDetail [id=" + id + ", proId=" + proId + ", count=" + count + ", price=" + price + ", duihuan="
+				+ duihuan + ", credits=" + credits + ", proName=" + proName + ", proLogoImg=" + proLogoImg + "]";
+	}
+
+
 }

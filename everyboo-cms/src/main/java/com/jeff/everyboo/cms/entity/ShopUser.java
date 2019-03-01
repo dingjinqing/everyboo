@@ -1,5 +1,4 @@
 package com.jeff.everyboo.cms.entity;
-// Generated 2018-11-6 15:20:46 by Hibernate Tools 4.3.5.Final
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -41,6 +40,7 @@ public class ShopUser implements java.io.Serializable {
 	private int vipStatus;//会员状态
 	private ShopUserExt shopUserExts;
 	private String level;
+	private String recivePhone;
 
 
 	public ShopUser(Integer id, String account, String phone, String password, String refPhone, String vipLevel,
@@ -94,6 +94,30 @@ public class ShopUser implements java.io.Serializable {
 		this.vipStatus = vipStatus;
 		this.shopUserExts = shopUserExts;
 		this.level = level;
+	}
+	
+	public ShopUser(Integer id, String account, String phone, String password, String refPhone, String vipLevel,
+			String address, Date createDate, String createBy, Date updateDate, String updateBy, String nickName,
+			String jiaoyimima, int status, int vipStatus, ShopUserExt shopUserExts, String level, String recivePhone) {
+		super();
+		this.id = id;
+		this.account = account;
+		this.phone = phone;
+		this.password = password;
+		this.refPhone = refPhone;
+		this.vipLevel = vipLevel;
+		this.address = address;
+		this.createDate = createDate;
+		this.createBy = createBy;
+		this.updateDate = updateDate;
+		this.updateBy = updateBy;
+		this.nickName = nickName;
+		this.jiaoyimima = jiaoyimima;
+		this.status = status;
+		this.vipStatus = vipStatus;
+		this.shopUserExts = shopUserExts;
+		this.level = level;
+		this.recivePhone = recivePhone;
 	}
 
 	@Id
@@ -254,4 +278,22 @@ public class ShopUser implements java.io.Serializable {
 		this.level = level;
 	}
 
+	@Column(name = "recive_phone", length = 12)
+	public String getRecivePhone() {
+		return recivePhone;
+	}
+
+	public void setRecivePhone(String recivePhone) {
+		this.recivePhone = recivePhone;
+	}
+
+	@Override
+	public String toString() {
+		return "ShopUser [id=" + id + ", account=" + account + ", phone=" + phone + ", password=" + password
+				+ ", refPhone=" + refPhone + ", vipLevel=" + vipLevel + ", address=" + address + ", createDate="
+				+ createDate + ", createBy=" + createBy + ", updateDate=" + updateDate + ", updateBy=" + updateBy
+				+ ", nickName=" + nickName + ", jiaoyimima=" + jiaoyimima + ", status=" + status + ", vipStatus="
+				+ vipStatus + ", level=" + level + ", recivePhone=" + recivePhone + "]";
+	}
+	
 }

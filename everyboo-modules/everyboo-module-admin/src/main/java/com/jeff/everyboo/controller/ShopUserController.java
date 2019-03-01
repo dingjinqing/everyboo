@@ -56,7 +56,7 @@ public class ShopUserController {
 	private ShopTradeService tradeService;
 	@Autowired
 	private ShopSysParamService sysparamService;
-	
+
 	/**
 	 * 获取用户列表
 	 * 
@@ -103,34 +103,36 @@ public class ShopUserController {
 
 		return "shop/user_list";
 	}
+
 	/**
 	 * 分红
+	 * 
 	 * @param request
 	 * @param model
 	 * @return
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	@RequestMapping("/fenhong")
 	public String fenhong(HttpServletRequest request) throws ParseException {
-//		AjaxResult ajaxResult = new AjaxResult();
-//		ajaxResult.setSuccess(false);
-		
+		// AjaxResult ajaxResult = new AjaxResult();
+		// ajaxResult.setSuccess(false);
+
 		String account = request.getParameter("account");
 		String phone = request.getParameter("phone");
 		String status = request.getParameter("status");
 		String vipLevel = request.getParameter("vipLevel");
 		String level = request.getParameter("level");
-		
+
 		String shouyi = request.getParameter("shouyi");
 		String createDate = request.getParameter("createDate");
 		String fenhongtype = request.getParameter("fenhongtype");
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date cdDate = StringUtils.isEmpty(createDate)?new Date():simpleDateFormat.parse(createDate);
+		Date cdDate = StringUtils.isEmpty(createDate) ? new Date() : simpleDateFormat.parse(createDate);
 		int sta = 0;
 		if (StringUtils.isNotBlank(status)) {
 			sta = Integer.parseInt(status);
 		}
-		
+
 		ShopUserQueryDTO userQueryDTO = new ShopUserQueryDTO();
 		userQueryDTO.setAccount(account);
 		userQueryDTO.setPhone(phone);
@@ -140,34 +142,37 @@ public class ShopUserController {
 
 		List<ShopUser> list = userService.queryShopUserList(userQueryDTO);
 		List<ShopTrade> trades = new ArrayList<>();
-		
+
 		// 获取不同等级分红奖励上限
 		Map<String, String> rule = sysparamService.findByType(CommonConstants.SYS_AWARDS_LIMIT);
-//				获取目前分红金额
+		// 获取目前分红金额
 		Map<String, String> tuijian = tradeService.queryFenhongList();
 		Map<String, String> gongxiang = tradeService.queryGongxiangList();
-		if (list!=null && list.size()>0) {
+		if (list != null && list.size() > 0) {
 			for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-//				如果没超过收益上限，则增加收益，并插入收益明细表，收益上限暂时不处理
-				
+				// 如果没超过收益上限，则增加收益，并插入收益明细表，收益上限暂时不处理
+
 				ShopUser shopUser = (ShopUser) iterator.next();
-				
-//				如果未超出上限，继续分红，否则不分红
+
+				// 如果未超出上限，继续分红，否则不分红
 				BigDecimal ztshangxian = new BigDecimal(rule.get(shopUser.getLevel()).toString());
-				BigDecimal zttuijian = new BigDecimal(tuijian.get(shopUser.getId().toString())==null?"0":tuijian.get(shopUser.getId().toString()));
-				BigDecimal ztfenhong = new BigDecimal(gongxiang.get(shopUser.getId().toString())==null?"0":gongxiang.get(shopUser.getId().toString()));
-				if (ztshangxian.compareTo(zttuijian)>0 && ztshangxian.compareTo(ztfenhong)>0) {
-//				增加共享收益
-					shopUser.getShopUserExts().setTuiguang(shopUser.getShopUserExts().getTuiguang().add(new BigDecimal(shouyi)));
-					
+				BigDecimal zttuijian = new BigDecimal(tuijian.get(shopUser.getId().toString()) == null ? "0"
+						: tuijian.get(shopUser.getId().toString()));
+				BigDecimal ztfenhong = new BigDecimal(gongxiang.get(shopUser.getId().toString()) == null ? "0"
+						: gongxiang.get(shopUser.getId().toString()));
+				if (ztshangxian.compareTo(zttuijian) > 0 && ztshangxian.compareTo(ztfenhong) > 0) {
+					// 增加共享收益
+					shopUser.getShopUserExts()
+							.setTuiguang(shopUser.getShopUserExts().getTuiguang().add(new BigDecimal(shouyi)));
+
 					ShopTrade ztTrade = new ShopTrade();
 					ztTrade.setPrice(new BigDecimal(shouyi));
 					ztTrade.setUserId(shopUser.getId());
 					ztTrade.setTradeNo(WebHelper.getDayNo());
-					if ("2".equals(fenhongtype)) { //2 加盟店   1 平台分红
+					if ("2".equals(fenhongtype)) { // 2 加盟店 1 平台分红
 						ztTrade.setJtype(5);
-					}else {
-						
+					} else {
+
 						ztTrade.setJtype(7);// 1.购买会员大礼包2.复购产品3.直推4.间推5.管理奖6.股份收益7.平台分红8.捐赠9赠送积分10直推赠送积分11间推赠送积分
 					}
 					ztTrade.setStatus(3);
@@ -177,16 +182,16 @@ public class ShopUserController {
 					ztTrade.setUpdateDate(new Date());
 					ztTrade.setShopTradeDetails(null);
 					trades.add(ztTrade);
-				}else {
-					System.out.println(shopUser.getId()+"超出上限，不进行分红");
+				} else {
+					System.out.println(shopUser.getId() + "超出上限，不进行分红");
 				}
-				
+
 			}
 		}
-		
+
 		userService.save(list);
 		tradeService.save(trades);
-//		ajaxResult.setSuccess(true);
+		// ajaxResult.setSuccess(true);
 		return "redirect:list";
 	}
 
@@ -246,10 +251,10 @@ public class ShopUserController {
 				if (user.getVipStatus() == 2) {
 					vstatusName = "不参与";
 				}
-				
+
 				if (user.getLevel().equals("t2")) {
 					levelName = "铂金会员";
-				}else if (user.getLevel().equals("t3")) {
+				} else if (user.getLevel().equals("t3")) {
 					levelName = "钻石会员";
 				}
 
@@ -292,26 +297,27 @@ public class ShopUserController {
 		String id = request.getParameter("id");
 		if (StringUtils.isNotBlank(id)) {
 			ShopUser bean = userService.find(Integer.parseInt(id));
-//			List<Map<String, Object>> list = userService.queryUser2List(bean.getPhone());
-//			List<Map<String, Object>> list2 = userService.queryUser3List(bean.getPhone());
+			// List<Map<String, Object>> list = userService.queryUser2List(bean.getPhone());
+			// List<Map<String, Object>> list2 =
+			// userService.queryUser3List(bean.getPhone());
 			model.addAttribute("bean", bean);
-//			model.addAttribute("zhitui", list);//直推信息
-//			model.addAttribute("jiantui", list2);//间推信息
+			// model.addAttribute("zhitui", list);//直推信息
+			// model.addAttribute("jiantui", list2);//间推信息
 
 		}
 		return "shop/dialog/user_edit";
 	}
-	
+
 	@RequestMapping("/total")
-	public String pageShow(HttpServletRequest request, Model model,ShopUserQueryDTO shopUserQueryDTO) {
-		
+	public String pageShow(HttpServletRequest request, Model model, ShopUserQueryDTO shopUserQueryDTO) {
+
 		List<Map<String, Object>> list = userService.queryIncomeList(shopUserQueryDTO);
 		for (int i = 0; i < list.size(); i++) {
-			Map<String, Object>  map = list.get(i);
-			String type =  map.get("type").toString();
+			Map<String, Object> map = list.get(i);
+			String type = map.get("type").toString();
 			String typeName = TradeTypeEnum.getDescByCode(Integer.parseInt(type));
 			map.put("typeName", typeName);
-//			map.put
+			// map.put
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("queryDTO", shopUserQueryDTO);
@@ -319,10 +325,10 @@ public class ShopUserController {
 
 		return "shop/total_list";
 	}
-	
+
 	@RequestMapping("/show")
 	public String dialogSjow(HttpServletRequest request, Model model) {
-		
+
 		String id = request.getParameter("id");
 		if (StringUtils.isNotBlank(id)) {
 			ShopUser bean = userService.find(Integer.parseInt(id));
@@ -331,30 +337,30 @@ public class ShopUserController {
 			String xiaofei1 = tradeService.queryGerenXiaofei(bean.getId());
 			String xiaofei2 = tradeService.queryZhituiXiaofei(bean.getPhone());
 			String xiaofei3 = tradeService.queryJiantuiXiaofei(bean.getPhone());
-			
-			String shouru11 = tradeService.queryGerenShouru(bean.getId(),1);
-			String shouru12 = tradeService.queryZhituiShouru(bean.getPhone(),1);
-			String shouru13 = tradeService.queryJiantuiShouru(bean.getPhone(),1);
-			
-			String shouru21 = tradeService.queryGerenShouru(bean.getId(),2);
-			String shouru22 = tradeService.queryZhituiShouru(bean.getPhone(),2);
-			String shouru23 = tradeService.queryJiantuiShouru(bean.getPhone(),2);
-			
+
+			String shouru11 = tradeService.queryGerenShouru(bean.getId(), 1);
+			String shouru12 = tradeService.queryZhituiShouru(bean.getPhone(), 1);
+			String shouru13 = tradeService.queryJiantuiShouru(bean.getPhone(), 1);
+
+			String shouru21 = tradeService.queryGerenShouru(bean.getId(), 2);
+			String shouru22 = tradeService.queryZhituiShouru(bean.getPhone(), 2);
+			String shouru23 = tradeService.queryJiantuiShouru(bean.getPhone(), 2);
+
 			model.addAttribute("bean", bean);
-			model.addAttribute("zhitui", list);//直推信息
-			model.addAttribute("jiantui", list2);//间推信息
-			model.addAttribute("xiaofei1", xiaofei1);//个人消费
-			model.addAttribute("xiaofei2", xiaofei2);//直推消费
-			model.addAttribute("xiaofei3", xiaofei3);//间推消费
-			
-			model.addAttribute("shouru11", shouru11);//个人直推收入
-			model.addAttribute("shouru12", shouru12);//直推人员直推收入
-			model.addAttribute("shouru13", shouru13);//间推人员直推收入
-			
-			model.addAttribute("shouru21", shouru21);//个人间推收入
-			model.addAttribute("shouru22", shouru22);//直推人员间推收入
-			model.addAttribute("shouru23", shouru23);//间推人员间推收入
-			
+			model.addAttribute("zhitui", list);// 直推信息
+			model.addAttribute("jiantui", list2);// 间推信息
+			model.addAttribute("xiaofei1", xiaofei1);// 个人消费
+			model.addAttribute("xiaofei2", xiaofei2);// 直推消费
+			model.addAttribute("xiaofei3", xiaofei3);// 间推消费
+
+			model.addAttribute("shouru11", shouru11);// 个人直推收入
+			model.addAttribute("shouru12", shouru12);// 直推人员直推收入
+			model.addAttribute("shouru13", shouru13);// 间推人员直推收入
+
+			model.addAttribute("shouru21", shouru21);// 个人间推收入
+			model.addAttribute("shouru22", shouru22);// 直推人员间推收入
+			model.addAttribute("shouru23", shouru23);// 间推人员间推收入
+
 		}
 		return "shop/dialog/user_team";
 	}
@@ -385,32 +391,56 @@ public class ShopUserController {
 				user.setShopUserExts(null);
 				user = userService.save(user);
 				uExt.setShopUser(user);
-				if (uExt.getActiveBill()==null) {
+				if (uExt.getActiveBill() == null) {
 					uExt.setActiveBill(new BigDecimal(0));
 				}
-				if (uExt.getBalance()==null) {
+				if (uExt.getBalance() == null) {
 					uExt.setBalance(new BigDecimal(0));
 				}
-				if (uExt.getBill()==null) {
+				if (uExt.getBill() == null) {
 					uExt.setBill(new BigDecimal(0));
 				}
-				if (uExt.getCredits()==null) {
+				if (uExt.getCredits() == null) {
 					uExt.setCredits(new BigDecimal(0));
 				}
-				if (uExt.getTradeBill()==null) {
+				if (uExt.getTradeBill() == null) {
 					uExt.setTradeBill(new BigDecimal(0));
 				}
-				if (uExt.getDuihuan()==null) {
+				if (uExt.getDuihuan() == null) {
 					uExt.setDuihuan(new BigDecimal(0));
 				}
-				if (uExt.getXiaoshou()==null) {
+				if (uExt.getXiaoshou() == null) {
 					uExt.setXiaoshou(new BigDecimal(0));
 				}
-				if (uExt.getTuiguang()==null) {
+				if (uExt.getTuiguang() == null) {
 					uExt.setTuiguang(new BigDecimal(0));
 				}
 				userExtService.save(uExt);
 			}
+			ajaxResult.setSuccess(true);
+
+		} catch (Exception e) {
+			ajaxResult.setMsg(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return ajaxResult;
+	}
+
+	@RequestMapping("/updateUser")
+	@ResponseBody
+	public AjaxResult ajaxUpdate(HttpServletRequest request, ShopUser user) {
+		AjaxResult ajaxResult = new AjaxResult();
+		ajaxResult.setSuccess(false);
+
+		try {
+			ShopUser shopUser = userService.find(user.getId());
+			shopUser.setUpdateDate(new Date());
+			shopUser.setVipLevel(user.getVipLevel());
+			shopUser.getShopUserExts().setActiveBill(user.getShopUserExts().getActiveBill());// 修改营业额
+			shopUser.getShopUserExts().setUpdateDate(new Date());
+			shopUser.getShopUserExts().setShopUser(shopUser);
+			userService.update(shopUser);
 			ajaxResult.setSuccess(true);
 
 		} catch (Exception e) {

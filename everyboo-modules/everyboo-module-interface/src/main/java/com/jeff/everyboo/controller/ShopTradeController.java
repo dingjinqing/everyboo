@@ -262,8 +262,11 @@ public class ShopTradeController {
 			user.getShopUserExts().setCredits(credits.subtract(credits2));
 			user.getShopUserExts().setDuihuan(duihuan1.subtract(duihuan2));
 			userService.update(user);
+			System.out.println("时间："+new Date().toLocaleString()+"  "+trade.toString()+"  "+user.toString());
 //			下单直接调用返利逻辑
-			fangli(user,trade);
+			if (bean.getJtype() == 1) {
+				fangli(user,trade);
+			}
 			
 			ajaxResult.setSuccess(true);
 		} else {

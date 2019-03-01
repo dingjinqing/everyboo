@@ -553,6 +553,10 @@ public class ShopUserController {
 				jsonObject.put("password", verifyCode);
 				SendSmsResponse response;
 				try {
+//					如果短信接收手机不为空，则使用短信接收手机接收验证码
+					if (StringUtils.isNotEmpty(users.get(0).getRecivePhone())) {
+						phone = users.get(0).getRecivePhone();
+					}
 					response = SmsClient.sendSms(phone, jsonObject.toJSONString(), "SMS_154589811");
 					if (response.getCode() != null && response.getCode().equals("OK")) {
 						users.get(0).setPassword(Md5Util.generatePassword(verifyCode));
@@ -595,6 +599,10 @@ public class ShopUserController {
 				jsonObject.put("password", verifyCode);
 				SendSmsResponse response;
 				try {
+//					如果短信接收手机不为空，则使用短信接收手机接收验证码
+					if (StringUtils.isNotEmpty(users.get(0).getRecivePhone())) {
+						phone = users.get(0).getRecivePhone();
+					}
 					response = SmsClient.sendSms(phone, jsonObject.toJSONString(), "SMS_154589811");
 					if (response.getCode() != null && response.getCode().equals("OK")) {
 						users.get(0).setJiaoyimima(Md5Util.generatePassword(verifyCode));

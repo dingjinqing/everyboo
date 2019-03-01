@@ -287,7 +287,6 @@
 				title = '修改会员';
 			}
 			$.post('${ctx}/shopuser/edit?id=' + id, {}, function(str) {
-
 				layer.close(loadIdx);
 				layer.open({
 					title : title,
@@ -296,6 +295,7 @@
 					content : str,
 					btn : [ '确定', '取消' ],
 					yes : function(index, layero) {
+						$("#editForm").attr("action","${ctx}/shopuser/save");
 						$('#editForm').submit();
 					},
 					btn2 : function(index, layero) {
@@ -314,7 +314,6 @@
 				title = '团队显示';
 			}
 			$.post('${ctx}/shopuser/show?id=' + id, {}, function(str) {
-
 				layer.close(loadIdx);
 				layer.open({
 					title : title,
@@ -322,11 +321,12 @@
 					maxmin: true,
 					area : [ '860px', '600px' ],
 					content : str,
-					/* btn : [ '确定', '取消' ], */
-					btn : [ '取消' ],
-					/* yes : function(index, layero) {
+					btn : [ '确定', '取消' ],
+					/* btn : [ '取消' ], */
+					yes : function(index, layero) {
+						$("#editForm").attr("action","${ctx}/shopuser/save");
 						$('#editForm').submit();
-					}, */
+					},
 					btn2 : function(index, layero) {
 						layer.close(index);
 					}

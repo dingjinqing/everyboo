@@ -145,7 +145,7 @@
         <script src="<%=path%>/assets/js/main.js"></script>
         <script src="<%=path%>/assets/js/classie.js"></script>
         <script src="<%=path%>/assets/js/vue.min.js"></script>
-        <script src="<%=path%>/assets/js/everyboo.js?v=1.1"></script>
+        <script src="<%=path%>/assets/js/everyboo.js?v=1.2"></script>
         <script>
             var view = new Vue({
                 el: '#content',
@@ -185,7 +185,7 @@
                                     view.directTeam.forEach(function (item, index) {
                                         item.userLevel = USER_LEVELS[item.viplevel]
                                         item.level = LEVELS[item.level]
-                                        item.zituiyeji = item.zituiyeji+item.jiantuiyeji+item.activeBill
+                                        item.zituiyeji = item.zituiyeji+item.jiantuiyeji+item.activeBill+item.selfyeji
                                     })
                                     view.otherTeam.forEach(function (item, index) {
                                         item.userLevel = USER_LEVELS[item.viplevel]
