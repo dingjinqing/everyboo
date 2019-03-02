@@ -9,6 +9,7 @@ D:\work\everyboo\everyboo-common\src\main\java\com\jeff\everyboo\common\entity\I
 D:\work\everyboo\everyboo-common\src\main\java\com\jeff\everyboo\common\dto\CommonQueryDTO.java
 D:\work\everyboo\everyboo-common\src\main\java\com\jeff\everyboo\common\entity\BaseEntity.java
 D:\work\everyboo\everyboo-common\src\main\java\com\jeff\everyboo\common\util\GenCodeUtil.java
+D:\work\everyboo\everyboo-common\src\main\java\com\jeff\everyboo\common\util\CommonConstants.java
 D:\work\everyboo\everyboo-common\src\main\java\com\jeff\everyboo\common\util\CommonUtils.java
 D:\work\everyboo\everyboo-common\src\main\java\com\jeff\everyboo\common\util\DateConverter.java
 D:\work\everyboo\everyboo-common\src\main\java\com\jeff\everyboo\common\entity\MysqlSequenceIdEntity.java

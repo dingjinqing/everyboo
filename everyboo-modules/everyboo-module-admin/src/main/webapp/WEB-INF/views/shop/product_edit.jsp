@@ -461,7 +461,7 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="${ctx }/ueditor/editor_config.js"></script>
-	<script type="text/javascript" src="${ctx }/ueditor/editor_all.js"></script>
+	<script type="text/javascript" src="${ctx }/ueditor/ueditor.all.min.js"></script>
 	<script src="${ctx }/static/js/uploadify/jquery.uploadify.js"></script>
 	<script type="text/javascript">
 		UE.getEditor('detail', {

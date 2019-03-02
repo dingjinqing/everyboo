@@ -201,7 +201,7 @@
   </div>
  </div>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/editor_config.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/editor_all.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/uploadify/jquery.uploadify.js"></script>
 	<script type="text/javascript">
 		//表单验证

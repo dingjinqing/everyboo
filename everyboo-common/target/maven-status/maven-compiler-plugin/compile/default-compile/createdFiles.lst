@@ -14,6 +14,7 @@ com\jeff\everyboo\common\util\Md5Util.class
 com\jeff\everyboo\common\entity\MysqlLongIdEntity.class
 com\jeff\everyboo\common\dto\AjaxResult.class
 com\jeff\everyboo\common\entity\IdEntity.class
+com\jeff\everyboo\common\util\CommonConstants.class
 com\jeff\everyboo\common\util\DateConverter.class
 com\jeff\everyboo\common\entity\OracleLongEntity.class
 com\jeff\everyboo\common\util\TradeTypeEnum.class
