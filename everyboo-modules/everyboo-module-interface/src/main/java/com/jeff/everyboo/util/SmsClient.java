@@ -35,14 +35,14 @@ public class SmsClient {
 
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
     //艾瑞宝
-    static final String accessKeyId = "LTAIFOM2wUz1pwSD";
-    static final String accessKeySecret ="Am9qK65SpJ5tdzAPTsXmVrL3zUbgeb";
+    static final String accessKeyId = "";
+    static final String accessKeySecret ="";
     //康生缘
-//    static final String accessKeyId = "LTAIpPxhH3c16hvX";
-//    static final String accessKeySecret ="uGz3oklBZijXOQHqOIBdJgl6Lz980A";
+//    static final String accessKeyId = "";
+//    static final String accessKeySecret ="";
    //个人
-//    static final String accessKeyId = "LTAIbv778qFplEJ0";
-//    static final String accessKeySecret = "2z6XJ84npKFjmbRf7wboX17o9SN4fK";
+//    static final String accessKeyId = "";
+//    static final String accessKeySecret = "";
 
     public static SendSmsResponse sendSms(String phone,String templateParam,String smsName) throws ClientException {
 
